@@ -24,6 +24,8 @@
 		80CC39A22B443E49009E0818 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 80CC39A12B443E49009E0818 /* KakaoSDKAuth */; };
 		80CC39A42B443E49009E0818 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 80CC39A32B443E49009E0818 /* KakaoSDKCommon */; };
 		80CC39A62B443E49009E0818 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 80CC39A52B443E49009E0818 /* KakaoSDKUser */; };
+		80CC39A82B443FE0009E0818 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC39A72B443FE0009E0818 /* APIKey.swift */; };
+		80CC39AA2B4440C8009E0818 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC39A92B4440C8009E0818 /* Colors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +37,8 @@
 		80CC397A2B4430BD009E0818 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		80CC397D2B4430BD009E0818 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		80CC397F2B4430BD009E0818 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		80CC39A72B443FE0009E0818 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		80CC39A92B4440C8009E0818 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +93,7 @@
 				80CC397A2B4430BD009E0818 /* Assets.xcassets */,
 				80CC397C2B4430BD009E0818 /* LaunchScreen.storyboard */,
 				80CC397F2B4430BD009E0818 /* Info.plist */,
+				80CC39A72B443FE0009E0818 /* APIKey.swift */,
 			);
 			path = BranchTalk;
 			sourceTree = "<group>";
@@ -117,6 +122,7 @@
 		80CC39882B443661009E0818 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				80CC39A92B4440C8009E0818 /* Colors.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -216,7 +222,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				80CC39762B4430BA009E0818 /* ViewController.swift in Sources */,
+				80CC39AA2B4440C8009E0818 /* Colors.swift in Sources */,
 				80CC39722B4430BA009E0818 /* AppDelegate.swift in Sources */,
+				80CC39A82B443FE0009E0818 /* APIKey.swift in Sources */,
 				80CC39742B4430BA009E0818 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
