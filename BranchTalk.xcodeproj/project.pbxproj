@@ -13,6 +13,17 @@
 		80CC39792B4430BA009E0818 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80CC39772B4430BA009E0818 /* Main.storyboard */; };
 		80CC397B2B4430BD009E0818 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80CC397A2B4430BD009E0818 /* Assets.xcassets */; };
 		80CC397E2B4430BD009E0818 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80CC397C2B4430BD009E0818 /* LaunchScreen.storyboard */; };
+		80CC398B2B4437B4009E0818 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 80CC398A2B4437B4009E0818 /* RxDataSources */; };
+		80CC398E2B4437C1009E0818 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 80CC398D2B4437C1009E0818 /* SnapKit */; };
+		80CC39912B4437E2009E0818 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 80CC39902B4437E2009E0818 /* RxCocoa */; };
+		80CC39932B4437E2009E0818 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 80CC39922B4437E2009E0818 /* RxSwift */; };
+		80CC39962B443818009E0818 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 80CC39952B443818009E0818 /* IQKeyboardManagerSwift */; };
+		80CC39992B443828009E0818 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 80CC39982B443828009E0818 /* Kingfisher */; };
+		80CC399C2B4439A6009E0818 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 80CC399B2B4439A6009E0818 /* Toast */; };
+		80CC399F2B443C88009E0818 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 80CC399E2B443C88009E0818 /* Alamofire */; };
+		80CC39A22B443E49009E0818 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 80CC39A12B443E49009E0818 /* KakaoSDKAuth */; };
+		80CC39A42B443E49009E0818 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 80CC39A32B443E49009E0818 /* KakaoSDKCommon */; };
+		80CC39A62B443E49009E0818 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 80CC39A52B443E49009E0818 /* KakaoSDKUser */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +42,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80CC39992B443828009E0818 /* Kingfisher in Frameworks */,
+				80CC39A62B443E49009E0818 /* KakaoSDKUser in Frameworks */,
+				80CC399F2B443C88009E0818 /* Alamofire in Frameworks */,
+				80CC39962B443818009E0818 /* IQKeyboardManagerSwift in Frameworks */,
+				80CC39912B4437E2009E0818 /* RxCocoa in Frameworks */,
+				80CC398B2B4437B4009E0818 /* RxDataSources in Frameworks */,
+				80CC39932B4437E2009E0818 /* RxSwift in Frameworks */,
+				80CC399C2B4439A6009E0818 /* Toast in Frameworks */,
+				80CC398E2B4437C1009E0818 /* SnapKit in Frameworks */,
+				80CC39A42B443E49009E0818 /* KakaoSDKCommon in Frameworks */,
+				80CC39A22B443E49009E0818 /* KakaoSDKAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,6 +137,19 @@
 			dependencies = (
 			);
 			name = BranchTalk;
+			packageProductDependencies = (
+				80CC398A2B4437B4009E0818 /* RxDataSources */,
+				80CC398D2B4437C1009E0818 /* SnapKit */,
+				80CC39902B4437E2009E0818 /* RxCocoa */,
+				80CC39922B4437E2009E0818 /* RxSwift */,
+				80CC39952B443818009E0818 /* IQKeyboardManagerSwift */,
+				80CC39982B443828009E0818 /* Kingfisher */,
+				80CC399B2B4439A6009E0818 /* Toast */,
+				80CC399E2B443C88009E0818 /* Alamofire */,
+				80CC39A12B443E49009E0818 /* KakaoSDKAuth */,
+				80CC39A32B443E49009E0818 /* KakaoSDKCommon */,
+				80CC39A52B443E49009E0818 /* KakaoSDKUser */,
+			);
 			productName = BranchTalk;
 			productReference = 80CC396E2B4430BA009E0818 /* BranchTalk.app */;
 			productType = "com.apple.product-type.application";
@@ -143,6 +178,16 @@
 				Base,
 			);
 			mainGroup = 80CC39652B4430BA009E0818;
+			packageReferences = (
+				80CC39892B4437B4009E0818 /* XCRemoteSwiftPackageReference "RxDataSources" */,
+				80CC398C2B4437C1009E0818 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				80CC398F2B4437E2009E0818 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				80CC39942B443818009E0818 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				80CC39972B443828009E0818 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				80CC399A2B4439A6009E0818 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				80CC399D2B443C88009E0818 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				80CC39A02B443E49009E0818 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+			);
 			productRefGroup = 80CC396F2B4430BA009E0818 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -395,6 +440,131 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		80CC39892B4437B4009E0818 /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.2;
+			};
+		};
+		80CC398C2B4437C1009E0818 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.0;
+			};
+		};
+		80CC398F2B4437E2009E0818 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.6.0;
+			};
+		};
+		80CC39942B443818009E0818 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.5.16;
+			};
+		};
+		80CC39972B443828009E0818 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.10.1;
+			};
+		};
+		80CC399A2B4439A6009E0818 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
+		80CC399D2B443C88009E0818 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.8.1;
+			};
+		};
+		80CC39A02B443E49009E0818 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.20.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		80CC398A2B4437B4009E0818 /* RxDataSources */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80CC39892B4437B4009E0818 /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = RxDataSources;
+		};
+		80CC398D2B4437C1009E0818 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80CC398C2B4437C1009E0818 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		80CC39902B4437E2009E0818 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80CC398F2B4437E2009E0818 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		80CC39922B4437E2009E0818 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80CC398F2B4437E2009E0818 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		80CC39952B443818009E0818 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80CC39942B443818009E0818 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
+		80CC39982B443828009E0818 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80CC39972B443828009E0818 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		80CC399B2B4439A6009E0818 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80CC399A2B4439A6009E0818 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
+		};
+		80CC399E2B443C88009E0818 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80CC399D2B443C88009E0818 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		80CC39A12B443E49009E0818 /* KakaoSDKAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80CC39A02B443E49009E0818 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKAuth;
+		};
+		80CC39A32B443E49009E0818 /* KakaoSDKCommon */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80CC39A02B443E49009E0818 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKCommon;
+		};
+		80CC39A52B443E49009E0818 /* KakaoSDKUser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80CC39A02B443E49009E0818 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKUser;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 80CC39662B4430BA009E0818 /* Project object */;
 }
