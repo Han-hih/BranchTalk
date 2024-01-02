@@ -56,6 +56,10 @@
 		80CC39702B4430BA009E0818 /* BranchTalk */ = {
 			isa = PBXGroup;
 			children = (
+				80CC39882B443661009E0818 /* Util */,
+				80CC39872B4435E3009E0818 /* Protocol */,
+				80CC39862B443575009E0818 /* Network */,
+				80CC39852B44356D009E0818 /* View */,
 				80CC39712B4430BA009E0818 /* AppDelegate.swift */,
 				80CC39732B4430BA009E0818 /* SceneDelegate.swift */,
 				80CC39752B4430BA009E0818 /* ViewController.swift */,
@@ -65,6 +69,34 @@
 				80CC397F2B4430BD009E0818 /* Info.plist */,
 			);
 			path = BranchTalk;
+			sourceTree = "<group>";
+		};
+		80CC39852B44356D009E0818 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		80CC39862B443575009E0818 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		80CC39872B4435E3009E0818 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		80CC39882B443661009E0818 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
