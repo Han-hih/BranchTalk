@@ -5,9 +5,9 @@
 //  Created by 황인호 on 1/2/24.
 //
 
-import Foundation
+import UIKit
 
-enum Colors {
+enum CutsomColor {
     case BrandGreen
     case BrandError
     case BrandInactive
