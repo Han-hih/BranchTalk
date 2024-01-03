@@ -21,9 +21,10 @@ final class OnboardingViewController: UIViewController {
     
     private let imageView = UIImageView(image: UIImage(named: "onboarding"))
     
-    private let startButton = {
+    private lazy var startButton = {
         let bt = GreenCustonButton()
         bt.setTitle("시작하기", for: .normal)
+        bt.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
         return bt
     }()
     
@@ -32,7 +33,21 @@ final class OnboardingViewController: UIViewController {
         view.backgroundColor = .white
         setUI()
     }
-
+    
+    @objc func startButtonTapped() {
+        let vc = SocialLoginViewController()
+        
+        let customDetent = UISheetPresentationController.Detent.custom(identifier: .init("customDetent")) { _ in
+            return 290
+        }
+        
+        if let sheet = vc.sheetPresentationController {
+            sheet.detents = [customDetent]
+            sheet.prefersGrabberVisible = true
+        }
+        present(vc, animated: true)
+    }
+    
     private func setUI() {
         [label, imageView, startButton].forEach {
             view.addSubview($0)
