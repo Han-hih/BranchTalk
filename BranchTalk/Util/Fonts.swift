@@ -28,7 +28,7 @@ enum Font: String {
                 .font: font,
                 .paragraphStyle: paragraphStyle
             ]
-            return UIFont(descriptor: font.fontDescriptor, size: size).withSize(lineHeight)
+            return UIFont(descriptor: font.fontDescriptor, size: size)
         }
         return font
     }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum CutsomColor {
+enum Colors {
     case BrandGreen
     case BrandError
     case BrandInactive
