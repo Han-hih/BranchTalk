@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import KakaoSDKAuth
+import KakaoSDKUser
+import KakaoSDKCommon
 
 final class SocialLoginViewController: UIViewController {
     
@@ -55,8 +58,44 @@ final class SocialLoginViewController: UIViewController {
     }
     
     @objc func kakaoButtonTapped() {
-        print("카카오탭")
+        if (UserApi.isKakaoTalkLoginAvailable()) {
+            UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+                if let error = error {
+                    print(error)
+                }
+                else {
+                    print("loginWithKakaoTalk() success.")
+                    print("🙏" ,oauthToken?.accessToken)
+                    print("🔥", oauthToken?.refreshToken)
+                    self.setUserInfo()
+                }
+            }
+        } else {
+            UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
+                if let error = error {
+                    print(error)
+                }
+                else {
+                    print("loginWithKakaoAccount() success.")
+                    print(oauthToken ?? "")
+                    self.setUserInfo()
+                }
+            }
+        }
     }
+    
+    private func setUserInfo() {
+             UserApi.shared.me() {(user, error) in
+                 if let error = error {
+                     print(error)
+                 }
+                 else {
+                     print("me() success.")
+                     print(user?.hasSignedUp)
+                     print(user?.kakaoAccount)
+                     }
+                 }
+             }
     
     @objc func emailButtonTapped() {
         print("이메일로 계속하기")
@@ -108,6 +147,6 @@ extension SocialLoginViewController {
         let vc = RegisterViewController()
         let nav = UINavigationController(rootViewController: vc)
         
-        present(nav, animated: true) 
+        present(nav, animated: true)
     }
 }
