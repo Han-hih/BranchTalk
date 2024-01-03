@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		802DB5142B451903004A5C47 /* GreenCustonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802DB5132B451903004A5C47 /* GreenCustonButton.swift */; };
 		80CC39722B4430BA009E0818 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC39712B4430BA009E0818 /* AppDelegate.swift */; };
 		80CC39742B4430BA009E0818 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC39732B4430BA009E0818 /* SceneDelegate.swift */; };
 		80CC39762B4430BA009E0818 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC39752B4430BA009E0818 /* OnboardingViewController.swift */; };
@@ -25,12 +26,13 @@
 		80CC39A42B443E49009E0818 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 80CC39A32B443E49009E0818 /* KakaoSDKCommon */; };
 		80CC39A62B443E49009E0818 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 80CC39A52B443E49009E0818 /* KakaoSDKUser */; };
 		80CC39A82B443FE0009E0818 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC39A72B443FE0009E0818 /* APIKey.swift */; };
-		80CC39AA2B4440C8009E0818 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC39A92B4440C8009E0818 /* Colors.swift */; };
+		80CC39AA2B4440C8009E0818 /* CustomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC39A92B4440C8009E0818 /* CustomColor.swift */; };
 		80CC39AE2B4447B9009E0818 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC39AD2B4447B9009E0818 /* Fonts.swift */; };
 		80CC39B02B44584C009E0818 /* SF-Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 80CC39AF2B44584C009E0818 /* SF-Pro.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		802DB5132B451903004A5C47 /* GreenCustonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenCustonButton.swift; sourceTree = "<group>"; };
 		80CC396E2B4430BA009E0818 /* BranchTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BranchTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80CC39712B4430BA009E0818 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80CC39732B4430BA009E0818 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -40,7 +42,7 @@
 		80CC397D2B4430BD009E0818 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		80CC397F2B4430BD009E0818 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		80CC39A72B443FE0009E0818 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
-		80CC39A92B4440C8009E0818 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		80CC39A92B4440C8009E0818 /* CustomColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColor.swift; sourceTree = "<group>"; };
 		80CC39AD2B4447B9009E0818 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		80CC39AF2B44584C009E0818 /* SF-Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -75,6 +77,14 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
+		802DB5122B4518CD004A5C47 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				802DB5132B451903004A5C47 /* GreenCustonButton.swift */,
+			);
+			path = Custom;
+			sourceTree = "<group>";
+		};
 		80CC39652B4430BA009E0818 = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +104,7 @@
 		80CC39702B4430BA009E0818 /* BranchTalk */ = {
 			isa = PBXGroup;
 			children = (
+				802DB5122B4518CD004A5C47 /* Custom */,
 				80CC39882B443661009E0818 /* Util */,
 				80CC39872B4435E3009E0818 /* Protocol */,
 				80CC39862B443575009E0818 /* Network */,
@@ -134,7 +145,7 @@
 		80CC39882B443661009E0818 /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				80CC39A92B4440C8009E0818 /* Colors.swift */,
+				80CC39A92B4440C8009E0818 /* CustomColor.swift */,
 				80CC39AD2B4447B9009E0818 /* Fonts.swift */,
 				80CC39AF2B44584C009E0818 /* SF-Pro.ttf */,
 			);
@@ -237,9 +248,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				80CC39762B4430BA009E0818 /* OnboardingViewController.swift in Sources */,
-				80CC39AA2B4440C8009E0818 /* Colors.swift in Sources */,
+				80CC39AA2B4440C8009E0818 /* CustomColor.swift in Sources */,
 				80CC39722B4430BA009E0818 /* AppDelegate.swift in Sources */,
 				80CC39A82B443FE0009E0818 /* APIKey.swift in Sources */,
+				802DB5142B451903004A5C47 /* GreenCustonButton.swift in Sources */,
 				80CC39AE2B4447B9009E0818 /* Fonts.swift in Sources */,
 				80CC39742B4430BA009E0818 /* SceneDelegate.swift in Sources */,
 			);
