@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		802DB5142B451903004A5C47 /* GreenCustonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802DB5132B451903004A5C47 /* GreenCustonButton.swift */; };
+		8047E8472B4532740018254B /* SocialLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8047E8462B4532740018254B /* SocialLoginViewController.swift */; };
 		80CC39722B4430BA009E0818 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC39712B4430BA009E0818 /* AppDelegate.swift */; };
 		80CC39742B4430BA009E0818 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC39732B4430BA009E0818 /* SceneDelegate.swift */; };
 		80CC39762B4430BA009E0818 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC39752B4430BA009E0818 /* OnboardingViewController.swift */; };
@@ -33,6 +34,7 @@
 
 /* Begin PBXFileReference section */
 		802DB5132B451903004A5C47 /* GreenCustonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenCustonButton.swift; sourceTree = "<group>"; };
+		8047E8462B4532740018254B /* SocialLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginViewController.swift; sourceTree = "<group>"; };
 		80CC396E2B4430BA009E0818 /* BranchTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BranchTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80CC39712B4430BA009E0818 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80CC39732B4430BA009E0818 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -85,6 +87,14 @@
 			path = Custom;
 			sourceTree = "<group>";
 		};
+		8047E8452B4532340018254B /* SocialLogin */ = {
+			isa = PBXGroup;
+			children = (
+				8047E8462B4532740018254B /* SocialLoginViewController.swift */,
+			);
+			path = SocialLogin;
+			sourceTree = "<group>";
+		};
 		80CC39652B4430BA009E0818 = {
 			isa = PBXGroup;
 			children = (
@@ -123,6 +133,7 @@
 		80CC39852B44356D009E0818 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8047E8452B4532340018254B /* SocialLogin */,
 				802DB5112B45178F004A5C47 /* Onboarding */,
 			);
 			path = View;
@@ -252,6 +263,7 @@
 				80CC39722B4430BA009E0818 /* AppDelegate.swift in Sources */,
 				80CC39A82B443FE0009E0818 /* APIKey.swift in Sources */,
 				802DB5142B451903004A5C47 /* GreenCustonButton.swift in Sources */,
+				8047E8472B4532740018254B /* SocialLoginViewController.swift in Sources */,
 				80CC39AE2B4447B9009E0818 /* Fonts.swift in Sources */,
 				80CC39742B4430BA009E0818 /* SceneDelegate.swift in Sources */,
 			);
