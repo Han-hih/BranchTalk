@@ -43,6 +43,7 @@
 		8047E84B2B456AA50018254B /* CustomTitle2Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTitle2Label.swift; sourceTree = "<group>"; };
 		8047E84D2B456B940018254B /* CustomRegisterTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRegisterTextField.swift; sourceTree = "<group>"; };
 		8047E84F2B4573760018254B /* GrayCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayCustomButton.swift; sourceTree = "<group>"; };
+		8047E8542B4596640018254B /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		80CC396E2B4430BA009E0818 /* BranchTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BranchTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80CC39712B4430BA009E0818 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80CC39732B4430BA009E0818 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -144,6 +145,7 @@
 				80CC397A2B4430BD009E0818 /* Assets.xcassets */,
 				80CC397C2B4430BD009E0818 /* LaunchScreen.storyboard */,
 				80CC397F2B4430BD009E0818 /* Info.plist */,
+				8047E8542B4596640018254B /* Config.xcconfig */,
 				80CC39A72B443FE0009E0818 /* APIKey.swift */,
 			);
 			path = BranchTalk;
@@ -317,6 +319,7 @@
 /* Begin XCBuildConfiguration section */
 		80CC39802B4430BD009E0818 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8047E8542B4596640018254B /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -380,6 +383,7 @@
 		};
 		80CC39812B4430BD009E0818 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8047E8542B4596640018254B /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -436,6 +440,7 @@
 		};
 		80CC39832B4430BD009E0818 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8047E8542B4596640018254B /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -464,6 +469,7 @@
 		};
 		80CC39842B4430BD009E0818 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8047E8542B4596640018254B /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
