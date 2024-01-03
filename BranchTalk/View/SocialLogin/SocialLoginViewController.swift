@@ -105,5 +105,9 @@ extension SocialLoginViewController {
     
     @objc private func newRegiterLabelTapped(_ tapRecognizer: UITapGestureRecognizer) {
         print("새롭게 회원가입 탭")
+        let vc = RegisterViewController()
+        let nav = UINavigationController(rootViewController: vc)
+        
+        present(nav, animated: true) 
     }
 }
