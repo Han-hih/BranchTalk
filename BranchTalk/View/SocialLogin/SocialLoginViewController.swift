@@ -57,7 +57,7 @@ final class SocialLoginViewController: BaseViewController {
     @objc func kakaoButtonTapped() {
         viewModel.kakaoLoginRequest { result in
             let vc = StartWorkSpaceViewController()
-            vc.nickName = self.viewModel.nickname
+            vc.nickName = result.nickname
             let nav = UINavigationController(rootViewController: vc)
             nav.modalPresentationStyle = .fullScreen
             self.present(nav, animated: true)
