@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		800ED5062B45CD89001A7ECC /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800ED5052B45CD89001A7ECC /* NetworkManager.swift */; };
 		800ED5082B45CFE8001A7ECC /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800ED5072B45CFE8001A7ECC /* Router.swift */; };
+		800ED50B2B464ACE001A7ECC /* NetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800ED50A2B464ACE001A7ECC /* NetworkModel.swift */; };
 		802DB5142B451903004A5C47 /* GreenCustonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802DB5132B451903004A5C47 /* GreenCustonButton.swift */; };
 		8047E8472B4532740018254B /* SocialLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8047E8462B4532740018254B /* SocialLoginViewController.swift */; };
 		8047E84A2B4544020018254B /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8047E8492B4544020018254B /* RegisterViewController.swift */; };
@@ -42,6 +43,7 @@
 		800ED5022B45C67D001A7ECC /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		800ED5052B45CD89001A7ECC /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		800ED5072B45CFE8001A7ECC /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		800ED50A2B464ACE001A7ECC /* NetworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkModel.swift; sourceTree = "<group>"; };
 		802DB5132B451903004A5C47 /* GreenCustonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenCustonButton.swift; sourceTree = "<group>"; };
 		8047E8462B4532740018254B /* SocialLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginViewController.swift; sourceTree = "<group>"; };
 		8047E8492B4544020018254B /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -84,6 +86,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		800ED5092B464AC1001A7ECC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				800ED50A2B464ACE001A7ECC /* NetworkModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		802DB5112B45178F004A5C47 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -138,6 +148,7 @@
 		80CC39702B4430BA009E0818 /* BranchTalk */ = {
 			isa = PBXGroup;
 			children = (
+				800ED5092B464AC1001A7ECC /* Model */,
 				802DB5122B4518CD004A5C47 /* Custom */,
 				80CC39882B443661009E0818 /* Util */,
 				80CC39872B4435E3009E0818 /* Protocol */,
@@ -289,6 +300,7 @@
 				8047E84A2B4544020018254B /* RegisterViewController.swift in Sources */,
 				80CC39762B4430BA009E0818 /* OnboardingViewController.swift in Sources */,
 				80CC39AA2B4440C8009E0818 /* CustomColor.swift in Sources */,
+				800ED50B2B464ACE001A7ECC /* NetworkModel.swift in Sources */,
 				80CC39722B4430BA009E0818 /* AppDelegate.swift in Sources */,
 				80CC39A82B443FE0009E0818 /* APIKey.swift in Sources */,
 				8047E84E2B456B940018254B /* CustomRegisterTextField.swift in Sources */,
@@ -327,6 +339,7 @@
 /* Begin XCBuildConfiguration section */
 		80CC39802B4430BD009E0818 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 800ED5022B45C67D001A7ECC /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -390,6 +403,7 @@
 		};
 		80CC39812B4430BD009E0818 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 800ED5022B45C67D001A7ECC /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -446,6 +460,7 @@
 		};
 		80CC39832B4430BD009E0818 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 800ED5022B45C67D001A7ECC /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -474,6 +489,7 @@
 		};
 		80CC39842B4430BD009E0818 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 800ED5022B45C67D001A7ECC /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
