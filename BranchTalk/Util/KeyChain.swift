@@ -49,7 +49,7 @@ final class KeyChain {
         
     }
     
-    class func delete(_ service: String = serviceID, key: String) {
+    func delete(_ service: String = serviceID, key: String) {
         let query: NSDictionary = [
             kSecClass: kSecClassGenericPassword,
             kSecAttrService: service,

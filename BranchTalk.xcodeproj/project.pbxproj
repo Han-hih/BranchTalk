@@ -19,6 +19,7 @@
 		80802A972B468B4E008F1723 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802A962B468B4E008F1723 /* BaseViewController.swift */; };
 		80802A992B4692AE008F1723 /* SocialLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802A982B4692AE008F1723 /* SocialLoginViewModel.swift */; };
 		80802A9D2B46CDAC008F1723 /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802A9C2B46CDAC008F1723 /* KeyChain.swift */; };
+		80802AA02B46E09E008F1723 /* HomeEmptyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802A9F2B46E09E008F1723 /* HomeEmptyViewController.swift */; };
 		80CC39722B4430BA009E0818 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC39712B4430BA009E0818 /* AppDelegate.swift */; };
 		80CC39742B4430BA009E0818 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC39732B4430BA009E0818 /* SceneDelegate.swift */; };
 		80CC39762B4430BA009E0818 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC39752B4430BA009E0818 /* OnboardingViewController.swift */; };
@@ -56,6 +57,7 @@
 		80802A962B468B4E008F1723 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		80802A982B4692AE008F1723 /* SocialLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginViewModel.swift; sourceTree = "<group>"; };
 		80802A9C2B46CDAC008F1723 /* KeyChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChain.swift; sourceTree = "<group>"; };
+		80802A9F2B46E09E008F1723 /* HomeEmptyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEmptyViewController.swift; sourceTree = "<group>"; };
 		80CC396E2B4430BA009E0818 /* BranchTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BranchTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80CC39712B4430BA009E0818 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80CC39732B4430BA009E0818 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 		800ED50C2B467292001A7ECC /* WorkSpace */ = {
 			isa = PBXGroup;
 			children = (
+				80802A9E2B46E01C008F1723 /* Main */,
 				800ED50D2B46734B001A7ECC /* StartWorkSpaceViewController.swift */,
 			);
 			path = WorkSpace;
@@ -149,6 +152,14 @@
 				80802A962B468B4E008F1723 /* BaseViewController.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		80802A9E2B46E01C008F1723 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				80802A9F2B46E09E008F1723 /* HomeEmptyViewController.swift */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 		80CC39652B4430BA009E0818 = {
@@ -324,6 +335,7 @@
 			files = (
 				8047E84A2B4544020018254B /* RegisterViewController.swift in Sources */,
 				800ED5102B468041001A7ECC /* CustomLabel.swift in Sources */,
+				80802AA02B46E09E008F1723 /* HomeEmptyViewController.swift in Sources */,
 				80CC39762B4430BA009E0818 /* OnboardingViewController.swift in Sources */,
 				80CC39AA2B4440C8009E0818 /* CustomColor.swift in Sources */,
 				80802A992B4692AE008F1723 /* SocialLoginViewModel.swift in Sources */,
