@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class StartWorkSpaceViewController: UIViewController {
+final class StartWorkSpaceViewController: BaseViewController {
     
     var nickName: String? = nil
     
@@ -38,12 +38,10 @@ final class StartWorkSpaceViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Colors.BackgroundPrimary.CutsomColor
-        setNav()
-        setUI()
     }
     
     
-    private func setNav() {
+    override func setNav() {
         let backButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .done, target: self, action: #selector(backButtonTapped))
         backButtonItem.tintColor = Colors.BrandBlack.CutsomColor
         self.navigationItem.leftBarButtonItem = backButtonItem
@@ -60,7 +58,7 @@ final class StartWorkSpaceViewController: UIViewController {
         print("뒤로가기 눌림")
     }
     
-    private func setUI() {
+    override func setUI() {
         [topLabel, middleLabel, imageView, makeSpaceButton].forEach {
             view.addSubview($0)
         }

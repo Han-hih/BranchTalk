@@ -10,7 +10,7 @@ import KakaoSDKAuth
 import KakaoSDKUser
 import KakaoSDKCommon
 
-final class SocialLoginViewController: UIViewController {
+final class SocialLoginViewController: BaseViewController {
     
     private lazy var appleLoginButton = {
         let bt = UIButton()
@@ -48,8 +48,6 @@ final class SocialLoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        setUI()
         setupGestureRecognizer()
     }
     
@@ -98,7 +96,7 @@ final class SocialLoginViewController: UIViewController {
         print("이메일로 계속하기")
     }
     
-    private func setUI() {
+    override func setUI() {
         [appleLoginButton, kakaoLoginButton, emailLoginButton, newRegiterLabel].forEach {
             view.addSubview($0)
         }
