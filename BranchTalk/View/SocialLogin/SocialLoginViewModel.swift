@@ -29,9 +29,11 @@ class SocialLoginViewModel {
                         api: Router.kakaoLogin(access: access, refresh: refresh)) { result in
                             switch result {
                             case .success(let response):
-                                self.userdefault.setValue(response.userID, forKey: "userID")
-                                KeyChain.shared.create(key: "access", token: response.token.accessToken)
-                                KeyChain.shared.create(key: "refresh", token: response.token.refreshToken)
+                                self.keyChainSetting(
+                                    id: response.userID,
+                                    access: response.token.accessToken,
+                                    refresh: response.token.refreshToken
+                                )
                                 completion(response)
                             case .failure(let error):
                                 print("🧐", error)
@@ -45,13 +47,20 @@ class SocialLoginViewModel {
                     print(error)
                 }
                 else {
-                    print("loginWithKakaoAccount() success.")
+                    guard let access = oauthToken?.accessToken else { return }
+                    guard let refresh = oauthToken?.refreshToken else { return }
+                    
                     NetworkManager.shared.request(
                         type: KakaoResult.self,
-                        api: Router.kakaoLogin(access: oauthToken?.accessToken ?? "", refresh: oauthToken?.refreshToken ?? "")) { result in
+                        api: Router.kakaoLogin(access: access, refresh: refresh)) { result in
                             switch result {
                             case .success(let response):
                                 print("🤩", response)
+                                self.keyChainSetting(
+                                    id: response.userID,
+                                    access: response.token.accessToken,
+                                    refresh: response.token.refreshToken
+                                )
                                 completion(response)
                             case .failure(let error):
                                 print("🧐", error)
@@ -61,4 +70,10 @@ class SocialLoginViewModel {
             }
         }
     }
+    private func keyChainSetting(id: Int, access: String, refresh: String) {
+        self.userdefault.setValue(id, forKey: "userID")
+        KeyChain.shared.create(key: "access", token: access)
+        KeyChain.shared.create(key: "refresh", token: refresh)
+    }
+    
 }
