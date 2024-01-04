@@ -26,7 +26,7 @@ final class RegisterViewController: BaseViewController {
     }
     
     @objc func backButtonTapped() {
-        print("뒤로가기 버튼 탭")
+        dismiss(animated: true)
     }
     
     override func setUI() {
