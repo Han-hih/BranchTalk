@@ -21,6 +21,7 @@ final class NetworkManager {
     ) {
         AF.request(api)
             .responseDecodable(of: T.self) { response in
+                print("🩵", String(data: response.data!, encoding: .utf8))
                 switch response.result {
                 case .success(let data):
                     completion(.success(data))
