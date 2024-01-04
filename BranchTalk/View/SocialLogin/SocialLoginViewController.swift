@@ -78,31 +78,13 @@ final class SocialLoginViewController: UIViewController {
                 else {
                     print("loginWithKakaoAccount() success.")
                     print(oauthToken ?? "")
-                    self.setUserInfo()
                 }
             }
         }
     }
     
-    private func setUserInfo() {
-             UserApi.shared.me() {(user, error) in
-                 if let error = error {
-                     print(error)
-                 }
-                 else {
-                     print("me() success.")
-                     print(user?.hasSignedUp)
-                     print(user?.kakaoAccount)
-                     }
-                 }
-             }
-    
     @objc func emailButtonTapped() {
         print("이메일로 계속하기")
-    }
-    
-    @objc func newButtonTapped() {
-        print("새롭게 회원가입")
     }
     
     private func setUI() {
@@ -143,7 +125,6 @@ extension SocialLoginViewController {
     }
     
     @objc private func newRegiterLabelTapped(_ tapRecognizer: UITapGestureRecognizer) {
-        print("새롭게 회원가입 탭")
         let vc = RegisterViewController()
         let nav = UINavigationController(rootViewController: vc)
         
