@@ -11,13 +11,13 @@
 		800ED5082B45CFE8001A7ECC /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800ED5072B45CFE8001A7ECC /* Router.swift */; };
 		800ED50B2B464ACE001A7ECC /* NetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800ED50A2B464ACE001A7ECC /* NetworkModel.swift */; };
 		800ED50E2B46734B001A7ECC /* StartWorkSpaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800ED50D2B46734B001A7ECC /* StartWorkSpaceViewController.swift */; };
-		800ED5102B468041001A7ECC /* CustomTitle1Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800ED50F2B468041001A7ECC /* CustomTitle1Label.swift */; };
-		802DB5142B451903004A5C47 /* GreenCustonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802DB5132B451903004A5C47 /* GreenCustonButton.swift */; };
+		800ED5102B468041001A7ECC /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800ED50F2B468041001A7ECC /* CustomLabel.swift */; };
+		802DB5142B451903004A5C47 /* CustonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802DB5132B451903004A5C47 /* CustonButton.swift */; };
 		8047E8472B4532740018254B /* SocialLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8047E8462B4532740018254B /* SocialLoginViewController.swift */; };
 		8047E84A2B4544020018254B /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8047E8492B4544020018254B /* RegisterViewController.swift */; };
-		8047E84C2B456AA50018254B /* CustomTitle2Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8047E84B2B456AA50018254B /* CustomTitle2Label.swift */; };
 		8047E84E2B456B940018254B /* CustomRegisterTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8047E84D2B456B940018254B /* CustomRegisterTextField.swift */; };
-		8047E8502B4573760018254B /* GrayCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8047E84F2B4573760018254B /* GrayCustomButton.swift */; };
+		80802A972B468B4E008F1723 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802A962B468B4E008F1723 /* BaseViewController.swift */; };
+		80802A992B4692AE008F1723 /* SocialLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802A982B4692AE008F1723 /* SocialLoginViewModel.swift */; };
 		80CC39722B4430BA009E0818 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC39712B4430BA009E0818 /* AppDelegate.swift */; };
 		80CC39742B4430BA009E0818 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC39732B4430BA009E0818 /* SceneDelegate.swift */; };
 		80CC39762B4430BA009E0818 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC39752B4430BA009E0818 /* OnboardingViewController.swift */; };
@@ -47,13 +47,13 @@
 		800ED5072B45CFE8001A7ECC /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		800ED50A2B464ACE001A7ECC /* NetworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkModel.swift; sourceTree = "<group>"; };
 		800ED50D2B46734B001A7ECC /* StartWorkSpaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartWorkSpaceViewController.swift; sourceTree = "<group>"; };
-		800ED50F2B468041001A7ECC /* CustomTitle1Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTitle1Label.swift; sourceTree = "<group>"; };
-		802DB5132B451903004A5C47 /* GreenCustonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenCustonButton.swift; sourceTree = "<group>"; };
+		800ED50F2B468041001A7ECC /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
+		802DB5132B451903004A5C47 /* CustonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustonButton.swift; sourceTree = "<group>"; };
 		8047E8462B4532740018254B /* SocialLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginViewController.swift; sourceTree = "<group>"; };
 		8047E8492B4544020018254B /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
-		8047E84B2B456AA50018254B /* CustomTitle2Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTitle2Label.swift; sourceTree = "<group>"; };
 		8047E84D2B456B940018254B /* CustomRegisterTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRegisterTextField.swift; sourceTree = "<group>"; };
-		8047E84F2B4573760018254B /* GrayCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayCustomButton.swift; sourceTree = "<group>"; };
+		80802A962B468B4E008F1723 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		80802A982B4692AE008F1723 /* SocialLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginViewModel.swift; sourceTree = "<group>"; };
 		80CC396E2B4430BA009E0818 /* BranchTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BranchTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80CC39712B4430BA009E0818 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80CC39732B4430BA009E0818 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -117,11 +117,9 @@
 		802DB5122B4518CD004A5C47 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
-				802DB5132B451903004A5C47 /* GreenCustonButton.swift */,
-				8047E84F2B4573760018254B /* GrayCustomButton.swift */,
-				8047E84B2B456AA50018254B /* CustomTitle2Label.swift */,
+				802DB5132B451903004A5C47 /* CustonButton.swift */,
 				8047E84D2B456B940018254B /* CustomRegisterTextField.swift */,
-				800ED50F2B468041001A7ECC /* CustomTitle1Label.swift */,
+				800ED50F2B468041001A7ECC /* CustomLabel.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -130,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				8047E8462B4532740018254B /* SocialLoginViewController.swift */,
+				80802A982B4692AE008F1723 /* SocialLoginViewModel.swift */,
 			);
 			path = SocialLogin;
 			sourceTree = "<group>";
@@ -140,6 +139,14 @@
 				8047E8492B4544020018254B /* RegisterViewController.swift */,
 			);
 			path = Register;
+			sourceTree = "<group>";
+		};
+		80802A952B468B44008F1723 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				80802A962B468B4E008F1723 /* BaseViewController.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 		80CC39652B4430BA009E0818 = {
@@ -161,6 +168,7 @@
 		80CC39702B4430BA009E0818 /* BranchTalk */ = {
 			isa = PBXGroup;
 			children = (
+				80802A952B468B44008F1723 /* Base */,
 				800ED5092B464AC1001A7ECC /* Model */,
 				802DB5122B4518CD004A5C47 /* Custom */,
 				80CC39882B443661009E0818 /* Util */,
@@ -312,19 +320,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				8047E84A2B4544020018254B /* RegisterViewController.swift in Sources */,
-				800ED5102B468041001A7ECC /* CustomTitle1Label.swift in Sources */,
+				800ED5102B468041001A7ECC /* CustomLabel.swift in Sources */,
 				80CC39762B4430BA009E0818 /* OnboardingViewController.swift in Sources */,
 				80CC39AA2B4440C8009E0818 /* CustomColor.swift in Sources */,
+				80802A992B4692AE008F1723 /* SocialLoginViewModel.swift in Sources */,
 				800ED50B2B464ACE001A7ECC /* NetworkModel.swift in Sources */,
+				80802A972B468B4E008F1723 /* BaseViewController.swift in Sources */,
 				80CC39722B4430BA009E0818 /* AppDelegate.swift in Sources */,
 				80CC39A82B443FE0009E0818 /* APIKey.swift in Sources */,
 				8047E84E2B456B940018254B /* CustomRegisterTextField.swift in Sources */,
-				802DB5142B451903004A5C47 /* GreenCustonButton.swift in Sources */,
-				8047E8502B4573760018254B /* GrayCustomButton.swift in Sources */,
+				802DB5142B451903004A5C47 /* CustonButton.swift in Sources */,
 				8047E8472B4532740018254B /* SocialLoginViewController.swift in Sources */,
 				800ED5062B45CD89001A7ECC /* NetworkManager.swift in Sources */,
 				800ED5082B45CFE8001A7ECC /* Router.swift in Sources */,
-				8047E84C2B456AA50018254B /* CustomTitle2Label.swift in Sources */,
 				800ED50E2B46734B001A7ECC /* StartWorkSpaceViewController.swift in Sources */,
 				80CC39AE2B4447B9009E0818 /* Fonts.swift in Sources */,
 				80CC39742B4430BA009E0818 /* SceneDelegate.swift in Sources */,

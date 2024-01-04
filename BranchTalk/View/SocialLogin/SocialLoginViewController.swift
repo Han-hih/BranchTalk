@@ -6,11 +6,8 @@
 //
 
 import UIKit
-import KakaoSDKAuth
-import KakaoSDKUser
-import KakaoSDKCommon
 
-final class SocialLoginViewController: UIViewController {
+final class SocialLoginViewController: BaseViewController {
     
     private lazy var appleLoginButton = {
         let bt = UIButton()
@@ -46,10 +43,10 @@ final class SocialLoginViewController: UIViewController {
         return lb
     }()
     
+    private let viewModel = SocialLoginViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        setUI()
         setupGestureRecognizer()
     }
     
@@ -58,39 +55,12 @@ final class SocialLoginViewController: UIViewController {
     }
     
     @objc func kakaoButtonTapped() {
-        if (UserApi.isKakaoTalkLoginAvailable()) {
-            UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
-                if let error = error {
-                    print(error)
-                }
-                else {
-                    NetworkManager.shared.request(
-                        type: KakaoResult.self,
-                        api: Router.kakaoLogin(access: oauthToken?.accessToken ?? "", refresh: oauthToken?.refreshToken ?? "")) { result in
-                            switch result {
-                            case .success(let response):
-                                print("🤩", response)
-                                let vc = StartWorkSpaceViewController()
-                                vc.nickName = response.nickname
-                                let nav = UINavigationController(rootViewController: vc)
-                                nav.modalPresentationStyle = .fullScreen
-                                self.present(nav, animated: true)
-                            case .failure(let error):
-                                print("🧐", error)
-                            }
-                        }
-                }
-            }
-        } else {
-            UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
-                if let error = error {
-                    print(error)
-                }
-                else {
-                    print("loginWithKakaoAccount() success.")
-                    print(oauthToken ?? "")
-                }
-            }
+        viewModel.kakaoLoginRequest { result in
+            let vc = StartWorkSpaceViewController()
+            vc.nickName = result.nickname
+            let nav = UINavigationController(rootViewController: vc)
+            nav.modalPresentationStyle = .fullScreen
+            self.present(nav, animated: true)
         }
     }
     
@@ -98,7 +68,7 @@ final class SocialLoginViewController: UIViewController {
         print("이메일로 계속하기")
     }
     
-    private func setUI() {
+    override func setUI() {
         [appleLoginButton, kakaoLoginButton, emailLoginButton, newRegiterLabel].forEach {
             view.addSubview($0)
         }

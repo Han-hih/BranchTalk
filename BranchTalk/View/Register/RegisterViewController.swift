@@ -7,16 +7,15 @@
 
 import UIKit
 
-final class RegisterViewController: UIViewController {
+final class RegisterViewController: BaseViewController {
   
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Colors.BackgroundPrimary.CutsomColor
-        setNavigation()
-        setUI()
+        
     }
     
-    private func setNavigation() {
+    override func setNav() {
         let backButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .done, target: self, action: #selector(backButtonTapped))
         backButtonItem.tintColor = Colors.BrandBlack.CutsomColor
         self.navigationItem.leftBarButtonItem = backButtonItem
@@ -30,7 +29,7 @@ final class RegisterViewController: UIViewController {
         print("뒤로가기 버튼 탭")
     }
     
-    private func setUI() {
+    override func setUI() {
         [emailCheckButton, emailLabel, emailTextField, nicknameLabel, nickTextField, callLabel, callTextField, pwLabel, pwTextField, checkPWLabel, checkPWTextField, registerButton].forEach {
             view.addSubview($0)
         }

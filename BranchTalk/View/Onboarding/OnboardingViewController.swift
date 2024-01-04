@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class OnboardingViewController: UIViewController {
+final class OnboardingViewController: BaseViewController {
     
     private let label = {
         let label = UILabel()
@@ -30,8 +30,7 @@ final class OnboardingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        setUI()
+        
     }
     
     @objc func startButtonTapped() {
@@ -48,7 +47,7 @@ final class OnboardingViewController: UIViewController {
         present(vc, animated: true)
     }
     
-    private func setUI() {
+    override func setUI() {
         [label, imageView, startButton].forEach {
             view.addSubview($0)
         }
@@ -70,8 +69,6 @@ final class OnboardingViewController: UIViewController {
             make.height.equalTo(44)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
-        
-        
     }
 }
 
