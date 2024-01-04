@@ -36,7 +36,7 @@ class CustomTitle2Label: UILabel {
     private func setLabel() {
         font = Font.title2Bold()
         textColor = Colors.BrandBlack.CutsomColor
-        textAlignment = .center
+        
     }
     
     required init?(coder: NSCoder) {
