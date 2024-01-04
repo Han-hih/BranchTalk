@@ -64,10 +64,21 @@ final class SocialLoginViewController: UIViewController {
                     print(error)
                 }
                 else {
-                    print("loginWithKakaoTalk() success.")
-                    print("🙏" ,oauthToken?.accessToken)
-                    print("🔥", oauthToken?.refreshToken)
-                    self.setUserInfo()
+                    NetworkManager.shared.request(
+                        type: KakaoResult.self,
+                        api: Router.kakaoLogin(access: oauthToken?.accessToken ?? "", refresh: oauthToken?.refreshToken ?? "")) { result in
+                            switch result {
+                            case .success(let response):
+                                print("🤩", response)
+                                let vc = StartWorkSpaceViewController()
+                                vc.nickName = response.nickname
+                                let nav = UINavigationController(rootViewController: vc)
+                                nav.modalPresentationStyle = .fullScreen
+                                self.present(nav, animated: true)
+                            case .failure(let error):
+                                print("🧐", error)
+                            }
+                        }
                 }
             }
         } else {
