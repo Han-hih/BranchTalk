@@ -37,7 +37,7 @@ final class OnboardingViewController: BaseViewController {
         let vc = SocialLoginViewController()
         
         let customDetent = UISheetPresentationController.Detent.custom(identifier: .init("customDetent")) { _ in
-            return 290
+            return 250
         }
         
         if let sheet = vc.sheetPresentationController {
@@ -67,7 +67,7 @@ final class OnboardingViewController: BaseViewController {
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().inset(24)
             make.height.equalTo(44)
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(view).inset(45)
         }
     }
 }
