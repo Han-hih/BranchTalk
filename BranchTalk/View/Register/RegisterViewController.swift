@@ -7,12 +7,20 @@
 
 import UIKit
 
+import IQKeyboardManagerSwift
+
 final class RegisterViewController: BaseViewController {
   
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Colors.BackgroundPrimary.CutsomColor
+        activeIQkeyboard()
         
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        IQKeyboardManager.shared.enable = false
     }
     
     override func setNav() {
@@ -33,6 +41,12 @@ final class RegisterViewController: BaseViewController {
         [emailCheckButton, emailLabel, emailTextField, nicknameLabel, nickTextField, callLabel, callTextField, pwLabel, pwTextField, checkPWLabel, checkPWTextField, registerButton].forEach {
             view.addSubview($0)
         }
+        
+        emailTextField.delegate = self
+        nickTextField.delegate = self
+        callTextField.delegate = self
+        pwTextField.delegate = self
+        checkPWTextField.delegate = self
         
         emailLabel.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(24)
@@ -187,4 +201,30 @@ final class RegisterViewController: BaseViewController {
         bt.setTitle("가입하기", for: .normal)
         return bt
     }()
+    
+    private func activeIQkeyboard() {
+        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.enableAutoToolbar = false
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
+    }
+}
+
+extension RegisterViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+        case emailTextField : 
+            return self.nickTextField.becomeFirstResponder()
+        case nickTextField:
+            return self.callTextField.becomeFirstResponder()
+        case callTextField:
+            return self.pwTextField.becomeFirstResponder()
+        case pwTextField:
+            return checkPWTextField.becomeFirstResponder()
+        case checkPWTextField:
+            return checkPWTextField.resignFirstResponder()
+        default:
+            return true
+        }
+        
+    }
 }
