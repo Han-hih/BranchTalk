@@ -64,10 +64,21 @@ final class SocialLoginViewController: UIViewController {
                     print(error)
                 }
                 else {
-                    print("loginWithKakaoTalk() success.")
-                    print("🙏" ,oauthToken?.accessToken)
-                    print("🔥", oauthToken?.refreshToken)
-                    self.setUserInfo()
+                    NetworkManager.shared.request(
+                        type: KakaoResult.self,
+                        api: Router.kakaoLogin(access: oauthToken?.accessToken ?? "", refresh: oauthToken?.refreshToken ?? "")) { result in
+                            switch result {
+                            case .success(let response):
+                                print("🤩", response)
+                                let vc = StartWorkSpaceViewController()
+                                vc.nickName = response.nickname
+                                let nav = UINavigationController(rootViewController: vc)
+                                nav.modalPresentationStyle = .fullScreen
+                                self.present(nav, animated: true)
+                            case .failure(let error):
+                                print("🧐", error)
+                            }
+                        }
                 }
             }
         } else {
@@ -78,31 +89,13 @@ final class SocialLoginViewController: UIViewController {
                 else {
                     print("loginWithKakaoAccount() success.")
                     print(oauthToken ?? "")
-                    self.setUserInfo()
                 }
             }
         }
     }
     
-    private func setUserInfo() {
-             UserApi.shared.me() {(user, error) in
-                 if let error = error {
-                     print(error)
-                 }
-                 else {
-                     print("me() success.")
-                     print(user?.hasSignedUp)
-                     print(user?.kakaoAccount)
-                     }
-                 }
-             }
-    
     @objc func emailButtonTapped() {
         print("이메일로 계속하기")
-    }
-    
-    @objc func newButtonTapped() {
-        print("새롭게 회원가입")
     }
     
     private func setUI() {
@@ -143,7 +136,6 @@ extension SocialLoginViewController {
     }
     
     @objc private func newRegiterLabelTapped(_ tapRecognizer: UITapGestureRecognizer) {
-        print("새롭게 회원가입 탭")
         let vc = RegisterViewController()
         let nav = UINavigationController(rootViewController: vc)
         
