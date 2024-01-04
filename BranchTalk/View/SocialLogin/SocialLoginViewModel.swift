@@ -12,6 +12,8 @@ import KakaoSDKCommon
 
 class SocialLoginViewModel {
     
+    let userdefault = UserDefaults()
+    
     func kakaoLoginRequest(completion: @escaping (KakaoResult) -> Void) {
         if (UserApi.isKakaoTalkLoginAvailable()) {
             UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
@@ -27,7 +29,9 @@ class SocialLoginViewModel {
                         api: Router.kakaoLogin(access: access, refresh: refresh)) { result in
                             switch result {
                             case .success(let response):
-                                print("🤩", response)
+                                self.userdefault.setValue(response.userID, forKey: "userID")
+                                KeyChain.shared.create(key: "access", token: response.token.accessToken)
+                                KeyChain.shared.create(key: "refresh", token: response.token.refreshToken)
                                 completion(response)
                             case .failure(let error):
                                 print("🧐", error)
