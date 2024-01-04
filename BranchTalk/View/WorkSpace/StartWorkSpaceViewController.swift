@@ -48,17 +48,23 @@ final class StartWorkSpaceViewController: BaseViewController {
         navigationItem.title = "시작하기"
         
         let navigationBarAppearance = UINavigationBarAppearance()
-            navigationBarAppearance.configureWithOpaqueBackground()
-            navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.font: Font.navTitle()]
+        navigationBarAppearance.configureWithOpaqueBackground()
+        navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.font: Font.navTitle()]
         navigationBarAppearance.backgroundColor = Colors.BackgroundSecondary.CutsomColor
-            UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
+        UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
     }
     
     @objc func backButtonTapped() {
-        print("뒤로가기 눌림")
+        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        let sceneDelegate = windowScene?.delegate as? SceneDelegate
+        let vc = HomeEmptyViewController()
+        let nav = UINavigationController(rootViewController: vc)
+        sceneDelegate?.window?.rootViewController = nav
+        sceneDelegate?.window?.makeKeyAndVisible()
     }
     
     override func setUI() {
+        super.setUI()
         [topLabel, middleLabel, imageView, makeSpaceButton].forEach {
             view.addSubview($0)
         }
