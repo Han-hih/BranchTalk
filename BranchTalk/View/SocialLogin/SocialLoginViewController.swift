@@ -6,9 +6,6 @@
 //
 
 import UIKit
-import KakaoSDKAuth
-import KakaoSDKUser
-import KakaoSDKCommon
 
 final class SocialLoginViewController: BaseViewController {
     
@@ -46,6 +43,8 @@ final class SocialLoginViewController: BaseViewController {
         return lb
     }()
     
+    private let viewModel = SocialLoginViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupGestureRecognizer()
@@ -56,39 +55,12 @@ final class SocialLoginViewController: BaseViewController {
     }
     
     @objc func kakaoButtonTapped() {
-        if (UserApi.isKakaoTalkLoginAvailable()) {
-            UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
-                if let error = error {
-                    print(error)
-                }
-                else {
-                    NetworkManager.shared.request(
-                        type: KakaoResult.self,
-                        api: Router.kakaoLogin(access: oauthToken?.accessToken ?? "", refresh: oauthToken?.refreshToken ?? "")) { result in
-                            switch result {
-                            case .success(let response):
-                                print("🤩", response)
-                                let vc = StartWorkSpaceViewController()
-                                vc.nickName = response.nickname
-                                let nav = UINavigationController(rootViewController: vc)
-                                nav.modalPresentationStyle = .fullScreen
-                                self.present(nav, animated: true)
-                            case .failure(let error):
-                                print("🧐", error)
-                            }
-                        }
-                }
-            }
-        } else {
-            UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
-                if let error = error {
-                    print(error)
-                }
-                else {
-                    print("loginWithKakaoAccount() success.")
-                    print(oauthToken ?? "")
-                }
-            }
+        viewModel.kakaoLoginRequest { result in
+            let vc = StartWorkSpaceViewController()
+            vc.nickName = self.viewModel.nickname
+            let nav = UINavigationController(rootViewController: vc)
+            nav.modalPresentationStyle = .fullScreen
+            self.present(nav, animated: true)
         }
     }
     
