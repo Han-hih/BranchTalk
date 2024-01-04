@@ -40,14 +40,23 @@ enum Router: URLRequestConvertible {
         }
     }
     
+    private var parameters: Parameters {
+        switch self {
+        case .kakaoLogin(let access, let refresh):
+            return ["oauthToken": access,
+                    "deviceToken": refresh]
+        }
+    }
+    
     func asURLRequest() throws -> URLRequest {
         let url = baseURL.appendingPathComponent(path)
-        
+
         var request = URLRequest(url: url)
         request.method = method
         request.headers = header
         
-        print(request)
+        let jsonData = try? JSONSerialization.data(withJSONObject: parameters)
+        request.httpBody = jsonData
         
         return request
     }
