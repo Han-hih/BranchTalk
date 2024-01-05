@@ -8,9 +8,10 @@
 import UIKit
 
 import IQKeyboardManagerSwift
+import Toast
 
 final class RegisterViewController: BaseViewController {
-  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Colors.BackgroundPrimary.CutsomColor
@@ -29,7 +30,6 @@ final class RegisterViewController: BaseViewController {
         self.navigationItem.leftBarButtonItem = backButtonItem
         navigationItem.title = "회원가입"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: Font.navTitle()]
-       
         self.navigationController?.navigationBar.backgroundColor = Colors.BackgroundSecondary.CutsomColor
     }
     
@@ -59,7 +59,7 @@ final class RegisterViewController: BaseViewController {
             make.width.equalTo(view.snp.width).multipliedBy(0.6)
             make.height.equalTo(44)
         }
-
+        
         emailCheckButton.snp.makeConstraints { make in
             make.top.equalTo(emailTextField.snp.top)
             make.leading.equalTo(emailTextField.snp.trailing).offset(12)
@@ -139,19 +139,20 @@ final class RegisterViewController: BaseViewController {
     private let emailLabel = {
         let lb = CustomTitle2Label()
         lb.text = "이메일"
-       return lb
+        return lb
     }()
     
     private let emailTextField = {
         let tf = CustomRegisterTextField()
         tf.placeholder = "이메일을 입력하세요"
+        tf.keyboardType = UIKeyboardType.emailAddress
         return tf
     }()
     
     private let nicknameLabel = {
         let lb = CustomTitle2Label()
         lb.text = "닉네임"
-       return lb
+        return lb
     }()
     
     private let nickTextField = {
@@ -163,36 +164,39 @@ final class RegisterViewController: BaseViewController {
     private let callLabel = {
         let lb = CustomTitle2Label()
         lb.text = "연락처"
-       return lb
+        return lb
     }()
     
     private let callTextField = {
         let tf = CustomRegisterTextField()
         tf.placeholder = "전화번호를 입력하세요"
+        tf.keyboardType = .numberPad
         return tf
     }()
     
     private let pwLabel = {
         let lb = CustomTitle2Label()
         lb.text = "비밀번호"
-       return lb
+        return lb
     }()
     
     private let pwTextField = {
         let tf = CustomRegisterTextField()
         tf.placeholder = "비밀번호를 입력하세요"
+        tf.isSecureTextEntry = true
         return tf
     }()
     
     private let checkPWLabel = {
         let lb = CustomTitle2Label()
         lb.text = "비밀번호 확인"
-       return lb
+        return lb
     }()
     
     private let checkPWTextField = {
         let tf = CustomRegisterTextField()
         tf.placeholder = "비밀번호를 한 번 더 입력하세요"
+        tf.isSecureTextEntry = true
         return tf
     }()
     
@@ -212,7 +216,7 @@ final class RegisterViewController: BaseViewController {
 extension RegisterViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         switch textField {
-        case emailTextField : 
+        case emailTextField :
             return self.nickTextField.becomeFirstResponder()
         case nickTextField:
             return self.callTextField.becomeFirstResponder()
@@ -225,6 +229,43 @@ extension RegisterViewController: UITextFieldDelegate {
         default:
             return true
         }
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
+        guard var currentText = callTextField.text else { return false }
+        
+        if string.isEmpty {
+            if currentText.last == "-" {
+                currentText.removeLast()
+            }
+            else {
+                currentText.removeLast()
+            }
+        }
+        
+        if currentText.count > 2 {
+            let index = currentText.index(currentText.startIndex, offsetBy: 2)
+            let character = currentText[index]
+            if character == "0" {
+                if currentText.count == 3 || currentText.count == 8 {
+                    currentText.append("-")
+                }
+                if currentText.count > 12 {
+                    return false
+                }
+            } else if character == "1" {
+                if currentText.count == 3 || currentText.count == 7 {
+                    currentText.append("-")
+                }
+                if currentText.count > 11 {
+                    return false
+                }
+            }
+        }
+        textField.text = currentText
+        
+        return true
     }
 }
+
