@@ -262,7 +262,16 @@ extension RegisterViewController: UITextFieldDelegate {
                     return false
                 }
             }
+            else {
+                if currentText.count == 3 || currentText.count == 8 {
+                    currentText.append("-")
+                }
+                if currentText.count > 12 {
+                    return false
+                }
+            }
         }
+        
         textField.text = currentText
         
         return true
