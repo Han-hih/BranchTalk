@@ -25,7 +25,8 @@ final class RegisterViewController: BaseViewController {
         super.Bind()
         let input = RegisterViewModel.Input(
             emailHasOneLetter: emailTextField.rx.controlEvent(.editingChanged).withLatestFrom(emailTextField.rx.text.orEmpty.asObservable()),
-            emailDuplicateTap: emailCheckButton.rx.tap.asObservable()
+            emailDuplicateTap: emailCheckButton.rx.tap.asObservable(), 
+            nickValid: nickTextField.rx.controlEvent(.editingChanged).withLatestFrom(nickTextField.rx.text.orEmpty.asObservable())
         )
         
         let output = viewModel.transform(input: input)

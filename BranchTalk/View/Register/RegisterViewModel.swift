@@ -16,7 +16,7 @@ final class RegisterViewModel: ViewModelType {
     struct Input {
         let emailHasOneLetter: Observable<String>
         let emailDuplicateTap: Observable<Void>
-        //        let nickValid: Observable<String>
+        let nickValid: Observable<String>
         //        let passwordValid: Observable<String>
         //        let checkDuplicatePassword: Observable<String>
         
@@ -42,6 +42,8 @@ final class RegisterViewModel: ViewModelType {
         let emailValid = input.emailHasOneLetter.filter { ValidationCheck().isValidEmail($0) == true }
         let emailValidcheck = input.emailHasOneLetter.map {
             ValidationCheck().isValidEmail($0) }
+        
+        let nickValid = BehaviorRelay<Bool>(value: false)
         
         // 이메일이 한글자이상 있으면 버튼 활성화
         input.emailHasOneLetter
@@ -86,6 +88,13 @@ final class RegisterViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
+        input.nickValid
+            .map { $0.count >= 1 && $0.count <= 30 }
+            .bind(with: self) { owner, value in
+                print(value)
+                nickValid.accept(value)
+            }
+            .disposed(by: disposeBag)
         
         return Output(emailValid: emailDuplicateActive, emailDuplicateTap: checkEmailValidate)
     }
