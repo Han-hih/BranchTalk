@@ -28,21 +28,20 @@ final class RegisterViewController: BaseViewController {
             emailDuplicateTap: emailCheckButton.rx.tap.asObservable()
         )
         
-                let output = viewModel.transform(input: input)
+        let output = viewModel.transform(input: input)
         
-                output.emailValid
-                    .asDriver()
-                    .drive(with: self, onNext: { owner, bool in
-                        owner.emailCheckButton.rx.backgroundColor.onNext(bool ? Colors.BrandGreen.CutsomColor : Colors.BrandInactive.CutsomColor)
-                        owner.emailCheckButton.rx.isEnabled.onNext(bool)
-                    })
-                    .disposed(by: disposeBag)
+        output.emailValid
+            .asDriver()
+            .drive(with: self, onNext: { owner, bool in
+                owner.emailCheckButton.rx.backgroundColor.onNext(bool ? Colors.BrandGreen.CutsomColor : Colors.BrandInactive.CutsomColor)
+                owner.emailCheckButton.rx.isEnabled.onNext(bool)
+            })
+            .disposed(by: disposeBag)
         
         output.emailDuplicateTap
             .asDriver()
             .drive(with: self) { owner, value in
-                print("중복아님")
-                self.showToast(message: value ? "사용 가능한 이메일입니다." : "이메일 형식이 올바르지 않습니다.")
+                owner.showToast(message: value ? "사용 가능한 이메일입니다." : "이메일 형식이 올바르지 않습니다.")
             }
             .disposed(by: disposeBag)
     }
@@ -314,11 +313,11 @@ extension RegisterViewController: UITextFieldDelegate {
         toastLabel.clipsToBounds = true
         self.view.addSubview(toastLabel)
         UIView.animate(withDuration: 2.0, delay: 0.1, options: .curveEaseIn, animations: {
-             toastLabel.alpha = 0.0
+            toastLabel.alpha = 0.0
         }, completion: {(isCompleted) in
             toastLabel.removeFromSuperview()
         })
     }
-
+    
 }
 
