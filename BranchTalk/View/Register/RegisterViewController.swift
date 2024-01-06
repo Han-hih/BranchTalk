@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import RxCocoa
 
 import IQKeyboardManagerSwift
-import Toast
 
 final class RegisterViewController: BaseViewController {
+    
+    private let viewModel = RegisterViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +20,33 @@ final class RegisterViewController: BaseViewController {
         activeIQkeyboard()
         
     }
+    
+    override func Bind() {
+        super.Bind()
+        let input = RegisterViewModel.Input(
+            emailHasOneLetter: emailTextField.rx.controlEvent(.editingChanged).withLatestFrom(emailTextField.rx.text.orEmpty.asObservable()),
+            emailDuplicateTap: emailCheckButton.rx.tap.asObservable()
+        )
+        
+                let output = viewModel.transform(input: input)
+        
+                output.emailValid
+                    .asDriver()
+                    .drive(with: self, onNext: { owner, bool in
+                        owner.emailCheckButton.rx.backgroundColor.onNext(bool ? Colors.BrandGreen.CutsomColor : Colors.BrandInactive.CutsomColor)
+                        owner.emailCheckButton.rx.isEnabled.onNext(bool)
+                    })
+                    .disposed(by: disposeBag)
+        
+        output.emailDuplicateTap
+            .asDriver()
+            .drive(with: self) { owner, value in
+                print("중복아님")
+                self.showToast(message: value ? "사용 가능한 이메일입니다." : "이메일 형식이 올바르지 않습니다.")
+            }
+            .disposed(by: disposeBag)
+    }
+    
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -123,7 +152,7 @@ final class RegisterViewController: BaseViewController {
         }
         
         registerButton.snp.makeConstraints { make in
-            make.top.equalTo(checkPWTextField.snp.bottom).offset(24)
+            make.bottom.equalTo(view.snp.bottomMargin).inset(24)
             make.horizontalEdges.equalToSuperview().inset(24)
             make.height.equalTo(44)
         }
@@ -231,11 +260,10 @@ extension RegisterViewController: UITextFieldDelegate {
         }
     }
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    func callTextChanged(text: String) -> String {
         
-        guard var currentText = callTextField.text else { return false }
-        
-        if string.isEmpty {
+        guard var currentText = callTextField.text else { return "" }
+        if text.isEmpty {
             if currentText.last == "-" {
                 currentText.removeLast()
             }
@@ -252,14 +280,14 @@ extension RegisterViewController: UITextFieldDelegate {
                     currentText.append("-")
                 }
                 if currentText.count > 12 {
-                    return false
+                    return currentText
                 }
             } else if character == "1" {
                 if currentText.count == 3 || currentText.count == 7 {
                     currentText.append("-")
                 }
                 if currentText.count > 11 {
-                    return false
+                    return currentText
                 }
             }
             else {
@@ -267,14 +295,30 @@ extension RegisterViewController: UITextFieldDelegate {
                     currentText.append("-")
                 }
                 if currentText.count > 12 {
-                    return false
+                    return currentText
                 }
             }
         }
-        
-        textField.text = currentText
-        
-        return true
+        return currentText
     }
+    
+    func showToast(message : String) {
+        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.midX - 75, y: self.registerButton.frame.origin.y - 40, width: 175, height: 36))
+        toastLabel.backgroundColor = Colors.BrandGreen.CutsomColor
+        toastLabel.textColor = UIColor.white
+        toastLabel.font = Font.body()
+        toastLabel.textAlignment = .center
+        toastLabel.text = message
+        toastLabel.alpha = 1.0
+        toastLabel.layer.cornerRadius = 8
+        toastLabel.clipsToBounds = true
+        self.view.addSubview(toastLabel)
+        UIView.animate(withDuration: 2.0, delay: 0.1, options: .curveEaseIn, animations: {
+             toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toastLabel.removeFromSuperview()
+        })
+    }
+
 }
 
