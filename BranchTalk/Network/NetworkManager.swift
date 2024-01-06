@@ -7,7 +7,7 @@
 
 import Foundation
 import Alamofire
-
+import RxSwift
 final class NetworkManager {
     
     static let shared = NetworkManager()
@@ -29,5 +29,21 @@ final class NetworkManager {
                     completion(.failure(error))
                 }
             }
+    }
+    // 이메일 중복확인 함수
+    func requestEmailDuplicate(api: Router) -> Single<Result<Any, Error>> {
+        return Single.create { single in
+            let request = AF.request(api).response { response in
+                switch response.result {
+                case .success(let data):
+                    single(.success(.success(data)))
+                case .failure(let error):
+                    single(.success(.failure(error)))
+                }
+            }
+            return Disposables.create {
+                request.cancel()
+            }
+        }
     }
 }

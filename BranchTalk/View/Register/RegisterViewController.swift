@@ -6,13 +6,50 @@
 //
 
 import UIKit
+import RxCocoa
+
+import IQKeyboardManagerSwift
 
 final class RegisterViewController: BaseViewController {
-  
+    
+    private let viewModel = RegisterViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Colors.BackgroundPrimary.CutsomColor
+        activeIQkeyboard()
         
+    }
+    
+    override func Bind() {
+        super.Bind()
+        let input = RegisterViewModel.Input(
+            emailHasOneLetter: emailTextField.rx.controlEvent(.editingChanged).withLatestFrom(emailTextField.rx.text.orEmpty.asObservable()),
+            emailDuplicateTap: emailCheckButton.rx.tap.asObservable()
+        )
+        
+        let output = viewModel.transform(input: input)
+        
+        output.emailValid
+            .asDriver()
+            .drive(with: self, onNext: { owner, bool in
+                owner.emailCheckButton.rx.backgroundColor.onNext(bool ? Colors.BrandGreen.CutsomColor : Colors.BrandInactive.CutsomColor)
+                owner.emailCheckButton.rx.isEnabled.onNext(bool)
+            })
+            .disposed(by: disposeBag)
+        
+        output.emailDuplicateTap
+            .asDriver()
+            .drive(with: self) { owner, value in
+                owner.showToast(message: value ? "사용 가능한 이메일입니다." : "이메일 형식이 올바르지 않습니다.")
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        IQKeyboardManager.shared.enable = false
     }
     
     override func setNav() {
@@ -21,7 +58,6 @@ final class RegisterViewController: BaseViewController {
         self.navigationItem.leftBarButtonItem = backButtonItem
         navigationItem.title = "회원가입"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: Font.navTitle()]
-       
         self.navigationController?.navigationBar.backgroundColor = Colors.BackgroundSecondary.CutsomColor
     }
     
@@ -34,6 +70,12 @@ final class RegisterViewController: BaseViewController {
             view.addSubview($0)
         }
         
+        emailTextField.delegate = self
+        nickTextField.delegate = self
+        callTextField.delegate = self
+        pwTextField.delegate = self
+        checkPWTextField.delegate = self
+        
         emailLabel.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(24)
             make.horizontalEdges.equalToSuperview().inset(24)
@@ -45,7 +87,7 @@ final class RegisterViewController: BaseViewController {
             make.width.equalTo(view.snp.width).multipliedBy(0.6)
             make.height.equalTo(44)
         }
-
+        
         emailCheckButton.snp.makeConstraints { make in
             make.top.equalTo(emailTextField.snp.top)
             make.leading.equalTo(emailTextField.snp.trailing).offset(12)
@@ -109,7 +151,7 @@ final class RegisterViewController: BaseViewController {
         }
         
         registerButton.snp.makeConstraints { make in
-            make.top.equalTo(checkPWTextField.snp.bottom).offset(24)
+            make.bottom.equalTo(view.snp.bottomMargin).inset(24)
             make.horizontalEdges.equalToSuperview().inset(24)
             make.height.equalTo(44)
         }
@@ -125,19 +167,20 @@ final class RegisterViewController: BaseViewController {
     private let emailLabel = {
         let lb = CustomTitle2Label()
         lb.text = "이메일"
-       return lb
+        return lb
     }()
     
     private let emailTextField = {
         let tf = CustomRegisterTextField()
         tf.placeholder = "이메일을 입력하세요"
+        tf.keyboardType = UIKeyboardType.emailAddress
         return tf
     }()
     
     private let nicknameLabel = {
         let lb = CustomTitle2Label()
         lb.text = "닉네임"
-       return lb
+        return lb
     }()
     
     private let nickTextField = {
@@ -149,36 +192,39 @@ final class RegisterViewController: BaseViewController {
     private let callLabel = {
         let lb = CustomTitle2Label()
         lb.text = "연락처"
-       return lb
+        return lb
     }()
     
     private let callTextField = {
         let tf = CustomRegisterTextField()
         tf.placeholder = "전화번호를 입력하세요"
+        tf.keyboardType = .numberPad
         return tf
     }()
     
     private let pwLabel = {
         let lb = CustomTitle2Label()
         lb.text = "비밀번호"
-       return lb
+        return lb
     }()
     
     private let pwTextField = {
         let tf = CustomRegisterTextField()
         tf.placeholder = "비밀번호를 입력하세요"
+        tf.isSecureTextEntry = true
         return tf
     }()
     
     private let checkPWLabel = {
         let lb = CustomTitle2Label()
         lb.text = "비밀번호 확인"
-       return lb
+        return lb
     }()
     
     private let checkPWTextField = {
         let tf = CustomRegisterTextField()
         tf.placeholder = "비밀번호를 한 번 더 입력하세요"
+        tf.isSecureTextEntry = true
         return tf
     }()
     
@@ -187,4 +233,91 @@ final class RegisterViewController: BaseViewController {
         bt.setTitle("가입하기", for: .normal)
         return bt
     }()
+    
+    private func activeIQkeyboard() {
+        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.enableAutoToolbar = false
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
+    }
 }
+
+extension RegisterViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+        case emailTextField :
+            return self.nickTextField.becomeFirstResponder()
+        case nickTextField:
+            return self.callTextField.becomeFirstResponder()
+        case callTextField:
+            return self.pwTextField.becomeFirstResponder()
+        case pwTextField:
+            return checkPWTextField.becomeFirstResponder()
+        case checkPWTextField:
+            return checkPWTextField.resignFirstResponder()
+        default:
+            return true
+        }
+    }
+    
+    func callTextChanged(text: String) -> String {
+        
+        guard var currentText = callTextField.text else { return "" }
+        if text.isEmpty {
+            if currentText.last == "-" {
+                currentText.removeLast()
+            }
+            else {
+                currentText.removeLast()
+            }
+        }
+        
+        if currentText.count > 2 {
+            let index = currentText.index(currentText.startIndex, offsetBy: 2)
+            let character = currentText[index]
+            if character == "0" {
+                if currentText.count == 3 || currentText.count == 8 {
+                    currentText.append("-")
+                }
+                if currentText.count > 12 {
+                    return currentText
+                }
+            } else if character == "1" {
+                if currentText.count == 3 || currentText.count == 7 {
+                    currentText.append("-")
+                }
+                if currentText.count > 11 {
+                    return currentText
+                }
+            }
+            else {
+                if currentText.count == 3 || currentText.count == 8 {
+                    currentText.append("-")
+                }
+                if currentText.count > 12 {
+                    return currentText
+                }
+            }
+        }
+        return currentText
+    }
+    
+    func showToast(message : String) {
+        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.midX - 75, y: self.registerButton.frame.origin.y - 40, width: 175, height: 36))
+        toastLabel.backgroundColor = Colors.BrandGreen.CutsomColor
+        toastLabel.textColor = UIColor.white
+        toastLabel.font = Font.body()
+        toastLabel.textAlignment = .center
+        toastLabel.text = message
+        toastLabel.alpha = 1.0
+        toastLabel.layer.cornerRadius = 8
+        toastLabel.clipsToBounds = true
+        self.view.addSubview(toastLabel)
+        UIView.animate(withDuration: 2.0, delay: 0.1, options: .curveEaseIn, animations: {
+            toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toastLabel.removeFromSuperview()
+        })
+    }
+    
+}
+
