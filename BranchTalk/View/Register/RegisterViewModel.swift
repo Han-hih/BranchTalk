@@ -20,13 +20,15 @@ final class RegisterViewModel: ViewModelType {
         let phoneValid: Observable<String>
         let passwordValid: Observable<String>
         let checkPasswordValid: Observable<String>
-        
-        //        let registerTap: Observable<Void>
+//        let registerActivate: Observable<Void>
+        let registerTap: Observable<Void>
     }
     
     struct Output {
         let emailValid: BehaviorRelay<Bool>
         let emailDuplicateTap: BehaviorRelay<Bool>
+        let registerActivate: Observable<Bool>
+        let registerTap: Observable<Void>
         //        let errorText: PublishRelay<String>
         //        let nickValid: BehaviorRelay<Bool>
         //        let passwordValid: BehaviorRelay<Bool>
@@ -51,6 +53,8 @@ final class RegisterViewModel: ViewModelType {
         
         let passwordSubject = BehaviorSubject<String>(value: "")
         let checkPasswordSubject = BehaviorSubject<String>(value: "")
+        
+        let registerActivate = BehaviorRelay<Bool>(value: false)
         
         // 이메일이 한글자이상 있으면 버튼 활성화
         input.emailHasOneLetter
@@ -127,11 +131,30 @@ final class RegisterViewModel: ViewModelType {
         }
         .disposed(by: disposeBag)
             
-           
+        //버튼 활성화 로직
+        let joinvalid = Observable.combineLatest(
+            input.emailHasOneLetter,
+            input.nickValid,
+            input.phoneValid,
+            input.passwordValid,
+            input.checkPasswordValid
+        ) { (email, nick, phone, pw, chpw) in
+            if !email.isEmpty && !nick.isEmpty && !phone.isEmpty && !pw.isEmpty && !chpw.isEmpty {
+                return true
+            } else {
+                return false
+            }
+        }
+        
+            
+//        input.registerTap
+    
+            
+        
             
             
             
         
-        return Output(emailValid: emailDuplicateActive, emailDuplicateTap: checkEmailValidate)
+        return Output(emailValid: emailDuplicateActive, emailDuplicateTap: checkEmailValidate, registerActivate: joinvalid, registerTap: input.registerTap)
     }
 }

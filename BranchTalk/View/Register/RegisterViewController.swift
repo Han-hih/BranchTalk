@@ -29,7 +29,8 @@ final class RegisterViewController: BaseViewController {
             nickValid: nickTextField.rx.controlEvent(.editingChanged).withLatestFrom(nickTextField.rx.text.orEmpty.asObservable()),
             phoneValid: phoneTextField.rx.text.orEmpty.asObservable(),
             passwordValid: pwTextField.rx.text.orEmpty.asObservable(),
-            checkPasswordValid: checkPWTextField.rx.text.orEmpty.asObservable()
+            checkPasswordValid: checkPWTextField.rx.text.orEmpty.asObservable(),
+            registerTap: registerButton.rx.tap.asObservable()
         )
         
         let output = viewModel.transform(input: input)
@@ -47,6 +48,13 @@ final class RegisterViewController: BaseViewController {
             .drive(with: self) { owner, value in
                 owner.showToast(message: value ? "사용 가능한 이메일입니다." : "이메일 형식이 올바르지 않습니다.")
             }
+            .disposed(by: disposeBag)
+        
+        output.registerActivate
+            .subscribe(with: self, onNext: { owner, bool in
+                owner.registerButton.rx.backgroundColor.onNext(bool ? Colors.BrandGreen.CutsomColor : Colors.BrandInactive.CutsomColor)
+                owner.registerButton.rx.isEnabled.onNext(bool)
+            })
             .disposed(by: disposeBag)
     }
     
@@ -232,7 +240,7 @@ final class RegisterViewController: BaseViewController {
         return tf
     }()
     
-    private lazy var registerButton = {
+    private let registerButton = {
         let bt = GrayCustomButton()
         bt.setTitle("가입하기", for: .normal)
         return bt
