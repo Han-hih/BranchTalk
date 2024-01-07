@@ -17,7 +17,7 @@ final class ValidationCheck {
     
     // 핸드폰 번호 정규성 체크(전화번호 유효성 검증 : 01 로 시작하는 10~11자리 숫자)
     func validatePhoneNumber(_ input: String) -> Bool {
-        let phoneRegax = "^^01[0-1, 7][0-9]{7,8}$"
+        let phoneRegax = "^01([0-1])-?([0-9]{3,4})-?([0-9]{4})$"
         let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegax)
         return phoneTest.evaluate(with: input)
     }
