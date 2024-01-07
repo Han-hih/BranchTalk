@@ -14,7 +14,7 @@ class SocialLoginViewModel {
     
     let userdefault = UserDefaults()
     
-    func kakaoLoginRequest(completion: @escaping (KakaoResult) -> Void) {
+    func kakaoLoginRequest(completion: @escaping (LoginResult) -> Void) {
         if (UserApi.isKakaoTalkLoginAvailable()) {
             UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
                 if let error = error {
@@ -25,7 +25,7 @@ class SocialLoginViewModel {
                     guard let refresh = oauthToken?.refreshToken else { return }
                     
                     NetworkManager.shared.request(
-                        type: KakaoResult.self,
+                        type: LoginResult.self,
                         api: Router.kakaoLogin(access: access, refresh: refresh)) { result in
                             switch result {
                             case .success(let response):
@@ -51,7 +51,7 @@ class SocialLoginViewModel {
                     guard let refresh = oauthToken?.refreshToken else { return }
                     
                     NetworkManager.shared.request(
-                        type: KakaoResult.self,
+                        type: LoginResult.self,
                         api: Router.kakaoLogin(access: access, refresh: refresh)) { result in
                             switch result {
                             case .success(let response):
