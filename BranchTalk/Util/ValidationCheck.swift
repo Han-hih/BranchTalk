@@ -24,7 +24,7 @@ final class ValidationCheck {
     
     // 비밀번호 정규성 체크(하나 이상의 대문자, 소문자, 숫자, 특수 문자)
     func validatePassword(_ input: String) -> Bool {
-        let passwordRegex = "^(?=.[A-Z])(?=.[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+=-]).{8,}" // 8자리 ~
+        let passwordRegex = "[A-Za-z0-9!_@$%^&+=]{8,}" // 8자리 ~
         let passwordTest = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
         return passwordTest.evaluate(with: input)
     }
