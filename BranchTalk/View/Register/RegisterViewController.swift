@@ -25,7 +25,7 @@ final class RegisterViewController: BaseViewController {
         super.Bind()
         let input = RegisterViewModel.Input(
             emailHasOneLetter: emailTextField.rx.controlEvent(.editingChanged).withLatestFrom(emailTextField.rx.text.orEmpty.asObservable()),
-            emailDuplicateTap: emailCheckButton.rx.tap.asObservable(), 
+            emailDuplicateTap: emailCheckButton.rx.tap.asObservable(),
             nickValid: nickTextField.rx.controlEvent(.editingChanged).withLatestFrom(nickTextField.rx.text.orEmpty.asObservable())
         )
         
@@ -260,34 +260,40 @@ extension RegisterViewController: UITextFieldDelegate {
         }
     }
     
-    func callTextChanged(text: String) -> String {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        guard var currentText = callTextField.text else { return "" }
-        if text.isEmpty {
+        guard textField == callTextField else { return true }
+        
+        guard var currentText = textField.text else { return false }
+        
+        if string.isEmpty { // 입력값이 없을 때
             if currentText.last == "-" {
                 currentText.removeLast()
             }
-            else {
+            else if !currentText.isEmpty {
                 currentText.removeLast()
+                textField.text = currentText
+                return false
             }
         }
         
         if currentText.count > 2 {
             let index = currentText.index(currentText.startIndex, offsetBy: 2)
             let character = currentText[index]
+            
             if character == "0" {
                 if currentText.count == 3 || currentText.count == 8 {
                     currentText.append("-")
                 }
                 if currentText.count > 12 {
-                    return currentText
+                    return false
                 }
             } else if character == "1" {
                 if currentText.count == 3 || currentText.count == 7 {
                     currentText.append("-")
                 }
                 if currentText.count > 11 {
-                    return currentText
+                    return false
                 }
             }
             else {
@@ -295,12 +301,14 @@ extension RegisterViewController: UITextFieldDelegate {
                     currentText.append("-")
                 }
                 if currentText.count > 12 {
-                    return currentText
+                    return false
                 }
             }
         }
-        return currentText
+        textField.text = currentText
+        return true
     }
+    
     
     func showToast(message : String) {
         let toastLabel = UILabel(frame: CGRect(x: self.view.frame.midX - 75, y: self.registerButton.frame.origin.y - 40, width: 175, height: 36))
