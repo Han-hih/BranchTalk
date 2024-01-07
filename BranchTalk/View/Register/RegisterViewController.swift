@@ -25,7 +25,11 @@ final class RegisterViewController: BaseViewController {
         super.Bind()
         let input = RegisterViewModel.Input(
             emailHasOneLetter: emailTextField.rx.controlEvent(.editingChanged).withLatestFrom(emailTextField.rx.text.orEmpty.asObservable()),
-            emailDuplicateTap: emailCheckButton.rx.tap.asObservable()
+            emailDuplicateTap: emailCheckButton.rx.tap.asObservable(),
+            nickValid: nickTextField.rx.controlEvent(.editingChanged).withLatestFrom(nickTextField.rx.text.orEmpty.asObservable()),
+            phoneValid: phoneTextField.rx.text.orEmpty.asObservable(),
+            passwordValid: pwTextField.rx.text.orEmpty.asObservable(),
+            checkPasswordValid: checkPWTextField.rx.text.orEmpty.asObservable()
         )
         
         let output = viewModel.transform(input: input)
@@ -66,13 +70,13 @@ final class RegisterViewController: BaseViewController {
     }
     
     override func setUI() {
-        [emailCheckButton, emailLabel, emailTextField, nicknameLabel, nickTextField, callLabel, callTextField, pwLabel, pwTextField, checkPWLabel, checkPWTextField, registerButton].forEach {
+        [emailCheckButton, emailLabel, emailTextField, nicknameLabel, nickTextField, callLabel, phoneTextField, pwLabel, pwTextField, checkPWLabel, checkPWTextField, registerButton].forEach {
             view.addSubview($0)
         }
         
         emailTextField.delegate = self
         nickTextField.delegate = self
-        callTextField.delegate = self
+        phoneTextField.delegate = self
         pwTextField.delegate = self
         checkPWTextField.delegate = self
         
@@ -111,7 +115,7 @@ final class RegisterViewController: BaseViewController {
             make.horizontalEdges.equalToSuperview().inset(24)
         }
         
-        callTextField.snp.makeConstraints { make in
+        phoneTextField.snp.makeConstraints { make in
             make.top.equalTo(callLabel.snp.bottom).offset(8)
             make.horizontalEdges.equalToSuperview().inset(24)
             make.height.equalTo(44)
@@ -122,14 +126,14 @@ final class RegisterViewController: BaseViewController {
             make.horizontalEdges.equalToSuperview().inset(24)
         }
         
-        callTextField.snp.makeConstraints { make in
+        phoneTextField.snp.makeConstraints { make in
             make.top.equalTo(callLabel.snp.bottom).offset(8)
             make.horizontalEdges.equalToSuperview().inset(24)
             make.height.equalTo(44)
         }
         
         pwLabel.snp.makeConstraints { make in
-            make.top.equalTo(callTextField.snp.bottom).offset(24)
+            make.top.equalTo(phoneTextField.snp.bottom).offset(24)
             make.horizontalEdges.equalToSuperview().inset(24)
         }
         
@@ -195,7 +199,7 @@ final class RegisterViewController: BaseViewController {
         return lb
     }()
     
-    private let callTextField = {
+    private let phoneTextField = {
         let tf = CustomRegisterTextField()
         tf.placeholder = "전화번호를 입력하세요"
         tf.keyboardType = .numberPad
@@ -247,8 +251,8 @@ extension RegisterViewController: UITextFieldDelegate {
         case emailTextField :
             return self.nickTextField.becomeFirstResponder()
         case nickTextField:
-            return self.callTextField.becomeFirstResponder()
-        case callTextField:
+            return self.phoneTextField.becomeFirstResponder()
+        case phoneTextField:
             return self.pwTextField.becomeFirstResponder()
         case pwTextField:
             return checkPWTextField.becomeFirstResponder()
@@ -259,34 +263,40 @@ extension RegisterViewController: UITextFieldDelegate {
         }
     }
     
-    func callTextChanged(text: String) -> String {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        guard var currentText = callTextField.text else { return "" }
-        if text.isEmpty {
+        guard textField == phoneTextField else { return true }
+        
+        guard var currentText = textField.text else { return false }
+        
+        if string.isEmpty { // 입력값이 없을 때
             if currentText.last == "-" {
                 currentText.removeLast()
             }
-            else {
+            else if !currentText.isEmpty {
                 currentText.removeLast()
+                textField.text = currentText
+                return false
             }
         }
         
         if currentText.count > 2 {
             let index = currentText.index(currentText.startIndex, offsetBy: 2)
             let character = currentText[index]
+            
             if character == "0" {
                 if currentText.count == 3 || currentText.count == 8 {
                     currentText.append("-")
                 }
                 if currentText.count > 12 {
-                    return currentText
+                    return false
                 }
             } else if character == "1" {
                 if currentText.count == 3 || currentText.count == 7 {
                     currentText.append("-")
                 }
                 if currentText.count > 11 {
-                    return currentText
+                    return false
                 }
             }
             else {
@@ -294,12 +304,14 @@ extension RegisterViewController: UITextFieldDelegate {
                     currentText.append("-")
                 }
                 if currentText.count > 12 {
-                    return currentText
+                    return false
                 }
             }
         }
-        return currentText
+        textField.text = currentText
+        return true
     }
+    
     
     func showToast(message : String) {
         let toastLabel = UILabel(frame: CGRect(x: self.view.frame.midX - 75, y: self.registerButton.frame.origin.y - 40, width: 175, height: 36))
