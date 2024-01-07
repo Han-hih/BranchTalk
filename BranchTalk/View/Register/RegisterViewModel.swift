@@ -17,8 +17,9 @@ final class RegisterViewModel: ViewModelType {
         let emailHasOneLetter: Observable<String>
         let emailDuplicateTap: Observable<Void>
         let nickValid: Observable<String>
-        //        let passwordValid: Observable<String>
-        //        let checkDuplicatePassword: Observable<String>
+        let phoneValid: Observable<String>
+        let passwordValid: Observable<String>
+        let checkPasswordValid: Observable<String>
         
         //        let registerTap: Observable<Void>
     }
@@ -44,6 +45,12 @@ final class RegisterViewModel: ViewModelType {
             ValidationCheck().isValidEmail($0) }
         
         let nickValid = BehaviorRelay<Bool>(value: false)
+        let phoneValid = BehaviorRelay<Bool>(value: false)
+        let passwordValid = BehaviorRelay<Bool>(value: false)
+        let checkPasswordValid = BehaviorRelay<Bool>(value: false)
+        
+        let passwordSubject = BehaviorSubject<String>(value: "")
+        let checkPasswordSubject = BehaviorSubject<String>(value: "")
         
         // 이메일이 한글자이상 있으면 버튼 활성화
         input.emailHasOneLetter
@@ -90,11 +97,40 @@ final class RegisterViewModel: ViewModelType {
         
         input.nickValid
             .map { $0.count >= 1 && $0.count <= 30 }
-            .bind(with: self) { owner, value in
-                print(value)
-                nickValid.accept(value)
+            .bind(with: self) { owner, bool in
+                nickValid.accept(bool)
             }
             .disposed(by: disposeBag)
+        
+        input.phoneValid
+            .map { ValidationCheck().validatePhoneNumber($0) }
+            .bind(with: self) { owner, bool in
+                phoneValid.accept(bool)
+            }
+            .disposed(by: disposeBag)
+        
+        input.passwordValid
+            .map { ValidationCheck().validatePassword($0) }
+            .bind(with: self) { owner, bool in
+                passwordValid.accept(bool)
+                print(passwordValid.value)
+            }
+            .disposed(by: disposeBag)
+        
+        // 비밀번호 확인 로직
+        Observable.combineLatest(
+            input.passwordValid,
+            input.checkPasswordValid
+        )
+        .bind(with: self) { owner, value in
+            checkPasswordValid.accept((value.0 == value.1) ? true : false)
+        }
+        .disposed(by: disposeBag)
+            
+           
+            
+            
+            
         
         return Output(emailValid: emailDuplicateActive, emailDuplicateTap: checkEmailValidate)
     }
