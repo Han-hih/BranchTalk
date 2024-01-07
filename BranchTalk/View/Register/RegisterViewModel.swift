@@ -20,7 +20,6 @@ final class RegisterViewModel: ViewModelType {
         let phoneValid: Observable<String>
         let passwordValid: Observable<String>
         let checkPasswordValid: Observable<String>
-//        let registerActivate: Observable<Void>
         let registerTap: Observable<Void>
     }
     
@@ -29,12 +28,13 @@ final class RegisterViewModel: ViewModelType {
         let emailDuplicateTap: BehaviorRelay<Bool>
         let registerActivate: Observable<Bool>
         let registerTap: Observable<Void>
-        //        let errorText: PublishRelay<String>
-        //        let nickValid: BehaviorRelay<Bool>
-        //        let passwordValid: BehaviorRelay<Bool>
-        //        let checkDuplicatePassword: BehaviorRelay<Bool>
-        //        let emailDuplicate: PublishRelay<Void>
-        //        let registerTap: BehaviorRelay<Bool>
+        let falseValue: PublishRelay<[Bool]>
+        
+        let emailToast: PublishRelay<Bool>
+        let nickToast: PublishRelay<Bool>
+        let phoneToast: PublishRelay<Bool>
+        let pwToast: PublishRelay<Bool>
+        let chpwToast: PublishRelay<Bool>
     }
     
     let emailVerification = BehaviorRelay<Bool>(value: false)
@@ -50,11 +50,15 @@ final class RegisterViewModel: ViewModelType {
         let phoneValid = BehaviorRelay<Bool>(value: false)
         let passwordValid = BehaviorRelay<Bool>(value: false)
         let checkPasswordValid = BehaviorRelay<Bool>(value: false)
+
+        let emailToast = PublishRelay<Bool>()
+        let nickToast = PublishRelay<Bool>()
+        let phoneToast = PublishRelay<Bool>()
+        let pwToast = PublishRelay<Bool>()
+        let chpwToast = PublishRelay<Bool>()
         
-        let passwordSubject = BehaviorSubject<String>(value: "")
-        let checkPasswordSubject = BehaviorSubject<String>(value: "")
         
-        let registerActivate = BehaviorRelay<Bool>(value: false)
+        let registerTap = PublishRelay<[Bool]>()
         
         // 이메일이 한글자이상 있으면 버튼 활성화
         input.emailHasOneLetter
@@ -109,6 +113,7 @@ final class RegisterViewModel: ViewModelType {
         input.phoneValid
             .map { ValidationCheck().validatePhoneNumber($0) }
             .bind(with: self) { owner, bool in
+                print(bool)
                 phoneValid.accept(bool)
             }
             .disposed(by: disposeBag)
@@ -127,7 +132,9 @@ final class RegisterViewModel: ViewModelType {
             input.checkPasswordValid
         )
         .bind(with: self) { owner, value in
-            checkPasswordValid.accept((value.0 == value.1) ? true : false)
+            if !value.0.isEmpty && !value.1.isEmpty  && passwordValid.value == true {
+                checkPasswordValid.accept((value.0 == value.1) ? true : false)
+            }
         }
         .disposed(by: disposeBag)
             
@@ -135,26 +142,64 @@ final class RegisterViewModel: ViewModelType {
         let joinvalid = Observable.combineLatest(
             input.emailHasOneLetter,
             input.nickValid,
-            input.phoneValid,
             input.passwordValid,
             input.checkPasswordValid
-        ) { (email, nick, phone, pw, chpw) in
-            if !email.isEmpty && !nick.isEmpty && !phone.isEmpty && !pw.isEmpty && !chpw.isEmpty {
+        ) { (email, nick, pw, chpw) in
+            if !email.isEmpty && !nick.isEmpty && !pw.isEmpty && !chpw.isEmpty {
                 return true
             } else {
                 return false
             }
         }
         
+        input.registerTap
+            .debounce(.seconds(1), scheduler: MainScheduler.instance)
+            .withLatestFrom(
+                Observable.combineLatest(
+                    emailVerification,
+                    nickValid,
+                    phoneValid,
+                    passwordValid,
+                    checkPasswordValid
+                )
+            )
+            .bind(with: self) { owner, value in
+                let falseArray = [value.0, value.1, value.2, value.3, value.4]
+                registerTap.accept(falseArray)
+                
+                if value.0 == false {
+                    emailToast.accept(true)
+                }
+                
+                if value.1 == false {
+                    nickToast.accept(true)
+                }
+                
+                if value.2 == false {
+                    phoneToast.accept(true)
+                }
+                
+                if value.3 == false {
+                    pwToast.accept(true)
+                }
+                
+                if value.4 == false {
+                    chpwToast.accept(true)
+                }
+            }
+            .disposed(by: disposeBag)
             
-//        input.registerTap
-    
-            
-        
-            
-            
-            
-        
-        return Output(emailValid: emailDuplicateActive, emailDuplicateTap: checkEmailValidate, registerActivate: joinvalid, registerTap: input.registerTap)
+        return Output(
+            emailValid: emailDuplicateActive,
+            emailDuplicateTap: checkEmailValidate,
+            registerActivate: joinvalid,
+            registerTap: input.registerTap,
+            falseValue: registerTap,
+            emailToast: emailToast,
+            nickToast: nickToast,
+            phoneToast: phoneToast,
+            pwToast: pwToast,
+            chpwToast: chpwToast
+        )
     }
 }
