@@ -30,6 +30,7 @@ final class StartWorkSpaceViewController: BaseViewController {
     private lazy var makeSpaceButton = {
         let bt = GreenCustonButton()
         bt.setTitle("워크스페이스 생성", for: .normal)
+        bt.addTarget(self, action: #selector(makeSpaceTap), for: .touchUpInside)
         return bt
     }()
     
@@ -40,6 +41,11 @@ final class StartWorkSpaceViewController: BaseViewController {
         view.backgroundColor = Colors.BackgroundPrimary.CutsomColor
     }
     
+    @objc func makeSpaceTap() {
+        let vc = CreateWorkSpaceViewController()
+        let nav = UINavigationController(rootViewController: vc)
+        present(nav, animated: true)
+    }
     
     override func setNav() {
         let backButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .done, target: self, action: #selector(backButtonTapped))
