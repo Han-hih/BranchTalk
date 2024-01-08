@@ -25,6 +25,7 @@ final class HomeEmptyViewController: BaseViewController {
     private lazy var makeSpaceButton = {
         let bt = GreenCustonButton()
         bt.setTitle("워크스페이스 생성", for: .normal)
+        bt.addTarget(self, action: #selector(makeWorkSpaceTapped), for: .touchUpInside)
         return bt
     }()
     
@@ -52,6 +53,12 @@ final class HomeEmptyViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    }
+    
+    @objc func makeWorkSpaceTapped() {
+        let vc = CreateWorkSpaceViewController()
+        let nav = UINavigationController(rootViewController: vc)
+        present(nav, animated: true)
     }
     
     override func setUI() {
