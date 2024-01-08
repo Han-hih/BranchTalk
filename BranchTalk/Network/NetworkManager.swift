@@ -46,4 +46,22 @@ final class NetworkManager {
             }
         }
     }
+    
+    func requestSingle<T: Decodable>(
+           type: T.Type,
+           api: Router
+       ) -> Single<Result<T, Error>> {
+           return Single.create { [weak self] single in
+               self?.request(type: T.self, api: api, completion: { result in
+                   switch result {
+                   case .success(let success):
+                       single(.success(.success(success)))
+                   case .failure(let error):
+                       single(.success(.failure(error)))
+                   }
+               })
+               return Disposables.create()
+           }
+       }
 }
+
