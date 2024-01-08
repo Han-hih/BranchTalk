@@ -12,6 +12,8 @@
 		800ED50B2B464ACE001A7ECC /* NetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800ED50A2B464ACE001A7ECC /* NetworkModel.swift */; };
 		800ED50E2B46734B001A7ECC /* StartWorkSpaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800ED50D2B46734B001A7ECC /* StartWorkSpaceViewController.swift */; };
 		800ED5102B468041001A7ECC /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800ED50F2B468041001A7ECC /* CustomLabel.swift */; };
+		802837C92B4BDE20004CB167 /* CreateWorkSpaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802837C82B4BDE20004CB167 /* CreateWorkSpaceViewController.swift */; };
+		802837CB2B4BDE32004CB167 /* CreateWorkSpaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802837CA2B4BDE32004CB167 /* CreateWorkSpaceViewModel.swift */; };
 		802DB5142B451903004A5C47 /* CustonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802DB5132B451903004A5C47 /* CustonButton.swift */; };
 		8047E8472B4532740018254B /* SocialLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8047E8462B4532740018254B /* SocialLoginViewController.swift */; };
 		8047E84A2B4544020018254B /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8047E8492B4544020018254B /* RegisterViewController.swift */; };
@@ -53,6 +55,8 @@
 		800ED50A2B464ACE001A7ECC /* NetworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkModel.swift; sourceTree = "<group>"; };
 		800ED50D2B46734B001A7ECC /* StartWorkSpaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartWorkSpaceViewController.swift; sourceTree = "<group>"; };
 		800ED50F2B468041001A7ECC /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
+		802837C82B4BDE20004CB167 /* CreateWorkSpaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkSpaceViewController.swift; sourceTree = "<group>"; };
+		802837CA2B4BDE32004CB167 /* CreateWorkSpaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkSpaceViewModel.swift; sourceTree = "<group>"; };
 		802DB5132B451903004A5C47 /* CustonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustonButton.swift; sourceTree = "<group>"; };
 		8047E8462B4532740018254B /* SocialLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginViewController.swift; sourceTree = "<group>"; };
 		8047E8492B4544020018254B /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -111,10 +115,20 @@
 		800ED50C2B467292001A7ECC /* WorkSpace */ = {
 			isa = PBXGroup;
 			children = (
+				802837C72B4BDE05004CB167 /* CreateWorkSpace */,
 				80802A9E2B46E01C008F1723 /* Main */,
 				800ED50D2B46734B001A7ECC /* StartWorkSpaceViewController.swift */,
 			);
 			path = WorkSpace;
+			sourceTree = "<group>";
+		};
+		802837C72B4BDE05004CB167 /* CreateWorkSpace */ = {
+			isa = PBXGroup;
+			children = (
+				802837C82B4BDE20004CB167 /* CreateWorkSpaceViewController.swift */,
+				802837CA2B4BDE32004CB167 /* CreateWorkSpaceViewModel.swift */,
+			);
+			path = CreateWorkSpace;
 			sourceTree = "<group>";
 		};
 		802DB5112B45178F004A5C47 /* Onboarding */ = {
@@ -350,8 +364,10 @@
 				80802A992B4692AE008F1723 /* SocialLoginViewModel.swift in Sources */,
 				800ED50B2B464ACE001A7ECC /* NetworkModel.swift in Sources */,
 				80802A972B468B4E008F1723 /* BaseViewController.swift in Sources */,
+				802837CB2B4BDE32004CB167 /* CreateWorkSpaceViewModel.swift in Sources */,
 				80CC39722B4430BA009E0818 /* AppDelegate.swift in Sources */,
 				80CC39A82B443FE0009E0818 /* APIKey.swift in Sources */,
+				802837C92B4BDE20004CB167 /* CreateWorkSpaceViewController.swift in Sources */,
 				80802A9D2B46CDAC008F1723 /* KeyChain.swift in Sources */,
 				80802AA52B471013008F1723 /* RegisterViewModel.swift in Sources */,
 				8047E84E2B456B940018254B /* CustomRegisterTextField.swift in Sources */,
