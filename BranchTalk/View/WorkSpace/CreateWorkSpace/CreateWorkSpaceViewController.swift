@@ -92,7 +92,7 @@ final class CreateWorkSpaceViewController: BaseViewController {
             make.height.equalTo(44)
         }
         completButton.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(12)
+            make.top.equalTo(view.keyboardLayoutGuide).offset(-50)
             make.height.equalTo(44)
             make.horizontalEdges.equalToSuperview().inset(24)
         }
