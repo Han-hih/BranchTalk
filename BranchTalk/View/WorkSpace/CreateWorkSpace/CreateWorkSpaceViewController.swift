@@ -62,6 +62,9 @@ final class CreateWorkSpaceViewController: BaseViewController {
             view.addSubview($0)
         }
         
+        nameTextField.delegate = self
+        descriptionTextField.delegate = self
+        
         imageView.snp.makeConstraints { make in
             make.size.equalTo(70)
             make.top.equalTo(view.safeAreaLayoutGuide).offset(24)
@@ -114,4 +117,15 @@ final class CreateWorkSpaceViewController: BaseViewController {
     }
 }
 
-
+extension CreateWorkSpaceViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+        case nameTextField :
+            return self.descriptionTextField.becomeFirstResponder()
+        case descriptionTextField:
+            return descriptionTextField.resignFirstResponder()
+        default:
+            return true
+        }
+    }
+}
