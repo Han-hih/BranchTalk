@@ -50,7 +50,7 @@ final class RegisterViewModel: ViewModelType {
         let phoneValid = BehaviorRelay<Bool>(value: false)
         let passwordValid = BehaviorRelay<Bool>(value: false)
         let checkPasswordValid = BehaviorRelay<Bool>(value: false)
-
+        
         let emailToast = PublishRelay<Bool>()
         let nickToast = PublishRelay<Bool>()
         let phoneToast = PublishRelay<Bool>()
@@ -137,7 +137,7 @@ final class RegisterViewModel: ViewModelType {
             }
         }
         .disposed(by: disposeBag)
-            
+        
         //버튼 활성화 로직
         let joinvalid = Observable.combineLatest(
             input.emailHasOneLetter,
@@ -165,30 +165,56 @@ final class RegisterViewModel: ViewModelType {
             )
             .bind(with: self) { owner, value in
                 let falseArray = [value.0, value.1, value.2, value.3, value.4]
-                registerTap.accept(falseArray)
+                    
+                    registerTap.accept(falseArray)
+                    
+                    if value.0 == false {
+                        emailToast.accept(true)
+                    }
+                    
+                    if value.1 == false {
+                        nickToast.accept(true)
+                    }
+                    
+                    if value.2 == false {
+                        phoneToast.accept(true)
+                    }
+                    
+                    if value.3 == false {
+                        pwToast.accept(true)
+                    }
+                    
+                    if value.4 == false {
+                        chpwToast.accept(true)
+                    }
                 
-                if value.0 == false {
-                    emailToast.accept(true)
                 }
-                
-                if value.1 == false {
-                    nickToast.accept(true)
+                .disposed(by: disposeBag)
+        
+        input.registerTap
+            .debounce(.seconds(1), scheduler: MainScheduler.instance)
+            .withLatestFrom(
+                Observable.combineLatest(
+                    input.emailHasOneLetter,
+                    input.nickValid,
+                    input.phoneValid,
+                    input.passwordValid,
+                    input.checkPasswordValid
+                )
+            )
+            .flatMapLatest { email, nick, phone, pw, chpw in
+                NetworkManager.shared.requestSingle(type: LoginResult.self, api: Router.register(email: email, password: pw, nickname: nick, phone: phone, deviceToken: ""))
                 }
-                
-                if value.2 == false {
-                    phoneToast.accept(true)
+            .subscribe(with: self, onNext: { owner, result in
+                switch result {
+                case .success(let response):
+                    KeyChain.shared.keyChainSetting(id: response.userID, access: response.token.accessToken, refresh: response.token.refreshToken)
+                case .failure(let error):
+                    print(error)
                 }
-                
-                if value.3 == false {
-                    pwToast.accept(true)
-                }
-                
-                if value.4 == false {
-                    chpwToast.accept(true)
-                }
-            }
+            })
             .disposed(by: disposeBag)
-            
+        
         return Output(
             emailValid: emailDuplicateActive,
             emailDuplicateTap: checkEmailValidate,

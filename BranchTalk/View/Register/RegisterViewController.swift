@@ -106,6 +106,15 @@ final class RegisterViewController: BaseViewController {
                 owner.showToast(message: "작성하신 비밀번호가 일치하지 않습니다.")
             }
             .disposed(by: disposeBag)
+        
+        output.registerTap
+            .bind(with: self) { owner, _ in
+                let vc = StartWorkSpaceViewController()
+                let nav = UINavigationController(rootViewController: vc)
+                nav.modalPresentationStyle = .fullScreen
+                self.present(nav, animated: true)
+            }
+            .disposed(by: disposeBag)
     }
     
         
