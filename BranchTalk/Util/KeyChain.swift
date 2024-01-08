@@ -14,6 +14,8 @@ final class KeyChain {
     
     static let serviceID = Bundle.main.bundleIdentifier ?? ""
     
+    private let userdefault = UserDefaults.standard
+    
     func create(_ service: String = serviceID, key: String, token: String) {
         let query: NSDictionary = [
             kSecClass: kSecClassGenericPassword,
@@ -57,6 +59,12 @@ final class KeyChain {
         ]
         let status = SecItemDelete(query)
         assert(status == noErr, "failed to delete the value, status code = \(status)")
+    }
+    
+     func keyChainSetting(id: Int, access: String, refresh: String) {
+        self.userdefault.setValue(id, forKey: "userID")
+        KeyChain.shared.create(key: "access", token: access)
+        KeyChain.shared.create(key: "refresh", token: refresh)
     }
     
 }
