@@ -12,6 +12,7 @@ enum Router: URLRequestConvertible {
     
     case kakaoLogin(access: String, refresh: String)
     case emailValidate(email: String)
+    case register(email: String, password: String, nickname: String, phone: String?, deviceToken: String?)
     
     private var baseURL: URL {
         guard let url = URL(string: APIKey.baseURL) else { fatalError() }
@@ -20,7 +21,7 @@ enum Router: URLRequestConvertible {
     
     private var method: HTTPMethod {
         switch self {
-        case .kakaoLogin, .emailValidate:
+        case .kakaoLogin, .emailValidate, .register:
                return .post
         }
     }
@@ -31,12 +32,14 @@ enum Router: URLRequestConvertible {
             return "/v1/users/login/kakao"
         case .emailValidate:
             return "/v1/users/validation/email"
+        case .register:
+            return "/v1/users/join"
         }
     }
     
     private var header: HTTPHeaders {
         switch self {
-        case .kakaoLogin, .emailValidate:
+        case .kakaoLogin, .emailValidate, .register:
             return ["Content-Type": "application/json",
                     "SesacKey": "\(APIKey.apiKey)"]
         }
@@ -49,6 +52,8 @@ enum Router: URLRequestConvertible {
                     "deviceToken": refresh]
         case .emailValidate(email: let email):
             return ["email": email]
+        case .register(email: let email, password: let password, nickname: let nickname, phone: let phone, deviceToken: let token):
+            return ["email": email, "password": password, "nickname": nickname, "phone": phone ?? "", "deviceToken": token ?? ""]
         }
     }
     

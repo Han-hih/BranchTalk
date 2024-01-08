@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct KakaoResult: Decodable {
+struct LoginResult: Decodable {
     let userID: Int
     let email, nickname, vendor, createdAt: String
     let profileImage, phone: String?

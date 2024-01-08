@@ -29,7 +29,8 @@ final class RegisterViewController: BaseViewController {
             nickValid: nickTextField.rx.controlEvent(.editingChanged).withLatestFrom(nickTextField.rx.text.orEmpty.asObservable()),
             phoneValid: phoneTextField.rx.text.orEmpty.asObservable(),
             passwordValid: pwTextField.rx.text.orEmpty.asObservable(),
-            checkPasswordValid: checkPWTextField.rx.text.orEmpty.asObservable()
+            checkPasswordValid: checkPWTextField.rx.text.orEmpty.asObservable(),
+            registerTap: registerButton.rx.tap.asObservable()
         )
         
         let output = viewModel.transform(input: input)
@@ -48,8 +49,75 @@ final class RegisterViewController: BaseViewController {
                 owner.showToast(message: value ? "사용 가능한 이메일입니다." : "이메일 형식이 올바르지 않습니다.")
             }
             .disposed(by: disposeBag)
+        
+        output.registerActivate
+            .subscribe(with: self, onNext: { owner, bool in
+                owner.registerButton.rx.backgroundColor.onNext(bool ? Colors.BrandGreen.CutsomColor : Colors.BrandInactive.CutsomColor)
+                owner.registerButton.rx.isEnabled.onNext(bool)
+            })
+            .disposed(by: disposeBag)
+        
+        output.falseValue
+            .bind(with: self) { owner, values in
+                let registerValueLabel = [owner.emailLabel, owner.nicknameLabel, owner.callLabel, owner.pwLabel, owner.checkPWLabel]
+                
+                for i in 0..<values.count {
+                    registerValueLabel[i].textColor = values[i] ? Colors.BrandBlack.CutsomColor : Colors.BrandError.CutsomColor
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        output.emailToast
+            .bind(with: self) { owner, value in
+                if value {
+                    owner.emailTextField.becomeFirstResponder()
+                    owner.showToast(message: "이메일 중복 확인을 진행해주세요.")
+                } else {
+                    owner.emailTextField.becomeFirstResponder()
+                    owner.showToast(message: "이미 가입된 회원입니다. 로그인을 진행해주세요.")
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        output.nickToast
+            .bind(with: self) { owner, value in
+                owner.nickTextField.becomeFirstResponder()
+                owner.showToast(message: "닉네임은 1글자 이상 30글자 이내로 부탁드려요.")
+            }
+            .disposed(by: disposeBag)
+        
+        output.phoneToast
+            .bind(with: self) { owner, value in
+                owner.phoneTextField.becomeFirstResponder()
+                owner.showToast(message: "잘못된 전화번호 형식입니다.")
+            }
+            .disposed(by: disposeBag)
+        
+        output.pwToast
+            .bind(with: self) { owner, value in
+                owner.pwTextField.becomeFirstResponder()
+                owner.showToast(message: "비밀번호는 최소 8자 이상, 하나 이상의 대소문자/숫자/특수 문자를 설정해주세요.")
+            }
+            .disposed(by: disposeBag)
+        
+        output.chpwToast
+            .bind(with: self) { owner, value in
+                owner.checkPWTextField.becomeFirstResponder()
+                owner.showToast(message: "작성하신 비밀번호가 일치하지 않습니다.")
+            }
+            .disposed(by: disposeBag)
+        
+        output.registerTap
+            .bind(with: self) { owner, _ in
+                let vc = StartWorkSpaceViewController()
+                let nav = UINavigationController(rootViewController: vc)
+                nav.modalPresentationStyle = .fullScreen
+                self.present(nav, animated: true)
+            }
+            .disposed(by: disposeBag)
     }
     
+        
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -232,7 +300,7 @@ final class RegisterViewController: BaseViewController {
         return tf
     }()
     
-    private lazy var registerButton = {
+    private let registerButton = {
         let bt = GrayCustomButton()
         bt.setTitle("가입하기", for: .normal)
         return bt
