@@ -51,11 +51,28 @@ final class CreateWorkSpaceViewController: BaseViewController {
         return bt
     }()
     
+    private let viewModel = CreateWorkSpaceViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Colors.BackgroundPrimary.CutsomColor
     }
 
+    override func Bind() {
+        super.Bind()
+        let input = CreateWorkSpaceViewModel.Input(nameTextFieldInput: nameTextField.rx.controlEvent(.editingChanged).withLatestFrom(nameTextField.rx.text.orEmpty.asObservable()))
+        
+        let output = viewModel.transform(input: input)
+        
+        output.nameTextFieldInput
+            .bind(with: self) { owner, value in
+                owner.completButton.isEnabled = value
+                owner.completButton.backgroundColor = value ? Colors.BrandGreen.CutsomColor : Colors.BrandInactive.CutsomColor
+            }
+            .disposed(by: disposeBag)
+            
+    }
+    
     override func setUI() {
         super.setUI()
         [imageView, wordingImageView, cameraImageView, nameLabel, nameTextField, descriptionLabel, descriptionTextField, completButton].forEach {
