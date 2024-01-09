@@ -25,6 +25,7 @@
 		80802AA52B471013008F1723 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802AA42B471013008F1723 /* RegisterViewModel.swift */; };
 		80802AA72B471059008F1723 /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802AA62B471059008F1723 /* ViewModelType.swift */; };
 		80802AA92B471748008F1723 /* ValidationCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802AA82B471748008F1723 /* ValidationCheck.swift */; };
+		809CF0112B4C441200F7BC68 /* CommonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809CF0102B4C441200F7BC68 /* CommonError.swift */; };
 		80CC39722B4430BA009E0818 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC39712B4430BA009E0818 /* AppDelegate.swift */; };
 		80CC39742B4430BA009E0818 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC39732B4430BA009E0818 /* SceneDelegate.swift */; };
 		80CC39762B4430BA009E0818 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC39752B4430BA009E0818 /* OnboardingViewController.swift */; };
@@ -68,6 +69,7 @@
 		80802AA42B471013008F1723 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		80802AA62B471059008F1723 /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 		80802AA82B471748008F1723 /* ValidationCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationCheck.swift; sourceTree = "<group>"; };
+		809CF0102B4C441200F7BC68 /* CommonError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonError.swift; sourceTree = "<group>"; };
 		80CC396E2B4430BA009E0818 /* BranchTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BranchTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80CC39712B4430BA009E0818 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80CC39732B4430BA009E0818 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				80CC39A72B443FE0009E0818 /* APIKey.swift */,
 				800ED5052B45CD89001A7ECC /* NetworkManager.swift */,
 				800ED5072B45CFE8001A7ECC /* Router.swift */,
+				809CF0102B4C441200F7BC68 /* CommonError.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 				80802AA02B46E09E008F1723 /* HomeEmptyViewController.swift in Sources */,
 				80CC39762B4430BA009E0818 /* OnboardingViewController.swift in Sources */,
 				80CC39AA2B4440C8009E0818 /* CustomColor.swift in Sources */,
+				809CF0112B4C441200F7BC68 /* CommonError.swift in Sources */,
 				80802A992B4692AE008F1723 /* SocialLoginViewModel.swift in Sources */,
 				800ED50B2B464ACE001A7ECC /* NetworkModel.swift in Sources */,
 				80802A972B468B4E008F1723 /* BaseViewController.swift in Sources */,
