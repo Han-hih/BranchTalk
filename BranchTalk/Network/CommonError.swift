@@ -24,6 +24,8 @@ enum CommonError: String, ErrorProtocol {
     case unknownRouterRoutes = "E97"
     case severError = "E99"
     
+    case unknownError = "E000"
+    
     var message: String {
         switch self {
         case .tokenAuthenticationFailed:
@@ -43,8 +45,13 @@ enum CommonError: String, ErrorProtocol {
             return "알 수 없는 라우터 경로"
         case .severError:
             return "서버에러"
+            
+        case .unknownError:
+            return "알 수 없는 에러"
         }
     }
-    
-    
+}
+
+struct CommonErrorReason: Decodable {
+    let errorCode: String
 }
