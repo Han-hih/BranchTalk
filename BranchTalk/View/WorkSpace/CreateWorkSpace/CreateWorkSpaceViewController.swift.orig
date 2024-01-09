@@ -11,7 +11,6 @@ import PhotosUI
 final class CreateWorkSpaceViewController: BaseViewController {
     
     private let imageView = {
-        let view = UIView()
         let view = UIImageView()
         view.backgroundColor = Colors.BrandGreen.CutsomColor
         view.clipsToBounds = true
@@ -21,7 +20,14 @@ final class CreateWorkSpaceViewController: BaseViewController {
     
     private let wordingImageView = UIImageView(image: UIImage(named: "workspace"))
     
-    private let cameraImageView = UIImageView(image: UIImage(named: "Camera"))
+    private lazy var cameraButton = {
+        let bt = UIButton()
+        bt.setImage(UIImage(named: "Camera"), for: .normal)
+        bt.clipsToBounds = true
+        bt.layer.cornerRadius = 12
+        bt.addTarget(self, action: #selector(photoButtonTapped), for: .touchUpInside)
+        return bt
+    }()
     
     private let nameLabel = {
         let lb = CustomTitle2Label()
@@ -61,7 +67,6 @@ final class CreateWorkSpaceViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = Colors.BackgroundPrimary.CutsomColor
     }
-
     
     override func Bind() {
         super.Bind()
@@ -80,7 +85,6 @@ final class CreateWorkSpaceViewController: BaseViewController {
     
     override func setUI() {
         super.setUI()
-        [imageView, wordingImageView, cameraImageView, nameLabel, nameTextField, descriptionLabel, descriptionTextField, completButton].forEach {
         [imageView, wordingImageView, cameraButton, nameLabel, nameTextField, descriptionLabel, descriptionTextField, completButton].forEach {
             view.addSubview($0)
         }
@@ -96,7 +100,6 @@ final class CreateWorkSpaceViewController: BaseViewController {
         wordingImageView.snp.makeConstraints { make in
             make.center.equalTo(imageView)
         }
-        cameraImageView.snp.makeConstraints { make in
         cameraButton.snp.makeConstraints { make in
             make.bottom.trailing.equalTo(imageView).offset(5)
         }

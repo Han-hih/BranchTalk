@@ -25,7 +25,6 @@ final class RegisterViewController: BaseViewController {
         super.Bind()
         let input = RegisterViewModel.Input(
             emailHasOneLetter: emailTextField.rx.controlEvent(.editingChanged).withLatestFrom(emailTextField.rx.text.orEmpty.asObservable()),
-            emailDuplicateTap: emailCheckButton.rx.tap.asObservable(), nonValidEmailDuplicateTap: emailCheckButton.rx.tap.asObservable(),
             nickValid: nickTextField.rx.controlEvent(.editingChanged).withLatestFrom(nickTextField.rx.text.orEmpty.asObservable()),
             phoneValid: phoneTextField.rx.text.orEmpty.asObservable(),
             passwordValid: pwTextField.rx.text.orEmpty.asObservable(),
@@ -46,22 +45,6 @@ final class RegisterViewController: BaseViewController {
         output.emailDuplicateTap
             .asDriver()
             .drive(with: self) { owner, value in
-                print(value)
-                if value == "중복" {
-                    owner.showToast(message: "중복 된 이메일 입니다.")
-                }
-                if value == "사용가능" {
-                    owner.showToast(message: "사용 가능한 이메일입니다.")
-                }
-            }
-            .disposed(by: disposeBag)
-        
-        output.nonValidEmailDuplicateTap
-            .asDriver()
-            .drive(with: self) { owner, bool in
-                if bool == false {
-                    owner.showToast(message: "이메일 형식이 올바르지 않습니다.")
-                }
             }
             .disposed(by: disposeBag)
         
