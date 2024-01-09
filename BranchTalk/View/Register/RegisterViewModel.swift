@@ -16,6 +16,7 @@ final class RegisterViewModel: ViewModelType {
     struct Input {
         let emailHasOneLetter: Observable<String>
         let emailDuplicateTap: Observable<Void>
+        let nonValidEmailDuplicateTap: Observable<Void>
         let nickValid: Observable<String>
         let phoneValid: Observable<String>
         let passwordValid: Observable<String>
@@ -25,7 +26,9 @@ final class RegisterViewModel: ViewModelType {
     
     struct Output {
         let emailValid: BehaviorRelay<Bool>
-        let emailDuplicateTap: BehaviorRelay<Bool>
+        let emailDuplicateTap: BehaviorRelay<String>
+        let nonValidEmailDuplicateTap: BehaviorRelay<Bool>
+        let emailVerification: BehaviorRelay<Bool>
         let registerActivate: Observable<Bool>
         let registerTap: Observable<Void>
         let falseValue: PublishRelay<[Bool]>
@@ -41,10 +44,11 @@ final class RegisterViewModel: ViewModelType {
     
     func transform(input: Input) -> Output {
         let emailDuplicateActive = BehaviorRelay<Bool>(value: false)
-        let checkEmailValidate = BehaviorRelay<Bool>(value: false)
+        let checkEmailValidate = BehaviorRelay<String>(value: "")
         let emailValid = input.emailHasOneLetter.filter { ValidationCheck().isValidEmail($0) == true }
         let emailValidcheck = input.emailHasOneLetter.map {
             ValidationCheck().isValidEmail($0) }
+        let nonValidEmailDuplicateTap = BehaviorRelay<Bool>(value: false)
         
         let nickValid = BehaviorRelay<Bool>(value: false)
         let phoneValid = BehaviorRelay<Bool>(value: false)
@@ -73,35 +77,44 @@ final class RegisterViewModel: ViewModelType {
         }
         .disposed(by: disposeBag)
         
-        if emailVerification.value == true {
-            //유효성 검사를 통과한 이메일 중복검사
+        // 아무값이나 있을 때 중복확인 버튼을 눌렀을 때
             input.emailDuplicateTap
                 .debounce(.seconds(1), scheduler: MainScheduler.instance)
                 .withLatestFrom(emailValid)
                 .flatMapLatest { email in
-                    NetworkManager.shared.requestEmailDuplicate(api: Router.emailValidate(email: email))
+                        NetworkManager.shared.requestEmailDuplicate(api: Router.emailValidate(email: email))
                 }
-                .subscribe(with: self,
-                           onNext: {
-                    owner, response in
-                    owner.emailVerification.accept(true)
-                    checkEmailValidate.accept(true)
-                },
-                           onError: { owner, error in
-                    checkEmailValidate.accept(false)
+                .bind(with: self, onNext: { owner, result in
+                    switch result {
+                    case .success(_):
+                        if owner.emailVerification.value {
+                            checkEmailValidate.accept("사용가능")
+                        }
+                    case .failure(let error):
+                        if error == .duplicate {
+                            if owner.emailVerification.value {
+                                checkEmailValidate.accept("중복")
+                            }
+                        }
+                    }
                 })
                 .disposed(by: disposeBag)
-        }
-        // 아무값이나 있을 때 중복확인 버튼을 눌렀을 때
+        
         input.emailDuplicateTap
-            .bind(with: self) { owner, _ in
+            .bind(with: self, onNext: { owner, _ in
                 if owner.emailVerification.value == false {
-                    checkEmailValidate.accept(false)
+                    nonValidEmailDuplicateTap.accept(false)
+                    owner.emailVerification.accept(false)
+                    
                 } else {
-                    checkEmailValidate.accept(true)
+                    nonValidEmailDuplicateTap.accept(true)
+                    owner.emailVerification.accept(true)
                 }
-            }
+            })
             .disposed(by: disposeBag)
+        
+        
+        
         
         input.nickValid
             .map { $0.count >= 1 && $0.count <= 30 }
@@ -165,31 +178,31 @@ final class RegisterViewModel: ViewModelType {
             )
             .bind(with: self) { owner, value in
                 let falseArray = [value.0, value.1, value.2, value.3, value.4]
-                    
-                    registerTap.accept(falseArray)
-                    
-                    if value.0 == false {
-                        emailToast.accept(true)
-                    }
-                    
-                    if value.1 == false {
-                        nickToast.accept(true)
-                    }
-                    
-                    if value.2 == false {
-                        phoneToast.accept(true)
-                    }
-                    
-                    if value.3 == false {
-                        pwToast.accept(true)
-                    }
-                    
-                    if value.4 == false {
-                        chpwToast.accept(true)
-                    }
                 
+                registerTap.accept(falseArray)
+                
+                if value.0 == false {
+                    emailToast.accept(true)
                 }
-                .disposed(by: disposeBag)
+                
+                if value.1 == false {
+                    nickToast.accept(true)
+                }
+                
+                if value.2 == false {
+                    phoneToast.accept(true)
+                }
+                
+                if value.3 == false {
+                    pwToast.accept(true)
+                }
+                
+                if value.4 == false {
+                    chpwToast.accept(true)
+                }
+                
+            }
+            .disposed(by: disposeBag)
         
         input.registerTap
             .debounce(.seconds(1), scheduler: MainScheduler.instance)
@@ -204,7 +217,7 @@ final class RegisterViewModel: ViewModelType {
             )
             .flatMapLatest { email, nick, phone, pw, chpw in
                 NetworkManager.shared.requestSingle(type: LoginResult.self, api: Router.register(email: email, password: pw, nickname: nick, phone: phone, deviceToken: ""))
-                }
+            }
             .subscribe(with: self, onNext: { owner, result in
                 switch result {
                 case .success(let response):
@@ -218,6 +231,8 @@ final class RegisterViewModel: ViewModelType {
         return Output(
             emailValid: emailDuplicateActive,
             emailDuplicateTap: checkEmailValidate,
+            nonValidEmailDuplicateTap: nonValidEmailDuplicateTap,
+            emailVerification: emailVerification,
             registerActivate: joinvalid,
             registerTap: input.registerTap,
             falseValue: registerTap,
