@@ -23,3 +23,15 @@ struct LoginResult: Decodable {
 struct Tokens: Decodable {
     let accessToken, refreshToken: String
 }
+
+struct makeWorkSpaceResult: Decodable {
+    let workspaceID, ownerID: Int
+    let name, thumbnail,createdAt: String
+    let description: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case name, description, thumbnail, createdAt
+        case workspaceID = "workspace_id"
+        case ownerID = "owner_id"
+    }
+}

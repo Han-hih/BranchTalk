@@ -93,4 +93,31 @@ final class NetworkManager {
             return Disposables.create()
         }
     }
+     // 싱글 멀티파트
+    func requestMultipart<T: Decodable>(type: T.Type, api: Router) -> Single<Result<T, CommonError>> {
+        return Single.create { single in
+            let request = AF.upload(multipartFormData: api.multipart, with: api).responseDecodable(of: T.self) { response in
+                switch response.result {
+                case .success(let response):
+                    single(.success(.success(response)))
+                case .failure(let error):
+                    print(error)
+                    if let data = response.data {
+                        do {
+                            let networkError = try JSONDecoder().decode(CommonErrorReason.self, from: data)
+                            let errorString = networkError.errorCode
+                            let errorEnum = CommonError(rawValue: errorString) ?? CommonError.unknownError
+                            single(.success(.failure(errorEnum)))
+                        }
+                        catch {
+                            single(.failure(CommonError.unknownError))
+                        }
+                    }
+                }
+            }
+            return Disposables.create {
+                request.cancel()
+            }
+        }
+    }
 }
