@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import PhotosUI
+import RxSwift
 
 final class CreateWorkSpaceViewController: BaseViewController {
     
     private let imageView = {
-        let view = UIView()
+        let view = UIImageView()
         view.backgroundColor = Colors.BrandGreen.CutsomColor
         view.clipsToBounds = true
         view.layer.cornerRadius = 8
@@ -19,7 +21,14 @@ final class CreateWorkSpaceViewController: BaseViewController {
     
     private let wordingImageView = UIImageView(image: UIImage(named: "workspace"))
     
-    private let cameraImageView = UIImageView(image: UIImage(named: "Camera"))
+    private lazy var cameraButton = {
+        let bt = UIButton()
+        bt.setImage(UIImage(named: "Camera"), for: .normal)
+        bt.clipsToBounds = true
+        bt.layer.cornerRadius = 12
+        bt.addTarget(self, action: #selector(photoButtonTapped), for: .touchUpInside)
+        return bt
+    }()
     
     private let nameLabel = {
         let lb = CustomTitle2Label()
@@ -51,6 +60,8 @@ final class CreateWorkSpaceViewController: BaseViewController {
         return bt
     }()
     
+    private var itemProviders: [NSItemProvider] = []
+    
     private let viewModel = CreateWorkSpaceViewModel()
     
     override func viewDidLoad() {
@@ -75,7 +86,7 @@ final class CreateWorkSpaceViewController: BaseViewController {
     
     override func setUI() {
         super.setUI()
-        [imageView, wordingImageView, cameraImageView, nameLabel, nameTextField, descriptionLabel, descriptionTextField, completButton].forEach {
+        [imageView, wordingImageView, cameraButton, nameLabel, nameTextField, descriptionLabel, descriptionTextField, completButton].forEach {
             view.addSubview($0)
         }
         
@@ -90,7 +101,7 @@ final class CreateWorkSpaceViewController: BaseViewController {
         wordingImageView.snp.makeConstraints { make in
             make.center.equalTo(imageView)
         }
-        cameraImageView.snp.makeConstraints { make in
+        cameraButton.snp.makeConstraints { make in
             make.bottom.trailing.equalTo(imageView).offset(5)
         }
         nameLabel.snp.makeConstraints { make in
@@ -129,6 +140,10 @@ final class CreateWorkSpaceViewController: BaseViewController {
         self.navigationController?.navigationBar.backgroundColor = Colors.BackgroundSecondary.CutsomColor
     }
     
+    @objc func photoButtonTapped() {
+        presentPicker()
+    }
+    
     @objc func backButtonTapped() {
         dismiss(animated: true)
     }
@@ -146,3 +161,41 @@ extension CreateWorkSpaceViewController: UITextFieldDelegate {
         }
     }
 }
+
+extension CreateWorkSpaceViewController: PHPickerViewControllerDelegate {
+    private func presentPicker() {
+        var config = PHPickerConfiguration()
+        
+        config.filter = .images
+        config.selectionLimit = 1
+        
+        let imagePicker = PHPickerViewController(configuration: config)
+        imagePicker.delegate = self
+        
+        self.present(imagePicker, animated: true)
+    }
+    
+    private func displayImage() {
+        guard let itemProvider = itemProviders.first else { return }
+        
+        if itemProvider.canLoadObject(ofClass: UIImage.self) {
+            itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
+                guard let self = self,
+                      let image = image as? UIImage else { return }
+                
+                DispatchQueue.main.async {
+                    self.imageView.image = image
+                    self.wordingImageView.image = nil
+                }
+            }
+        }
+    }
+    
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+        
+        itemProviders = results.map(\.itemProvider)
+        displayImage()
+    }
+}
+
