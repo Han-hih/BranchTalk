@@ -35,3 +35,7 @@ struct makeWorkSpaceResult: Decodable {
         case ownerID = "owner_id"
     }
 }
+
+struct TokenResponse: Decodable {
+    let accessToken: String
+}
