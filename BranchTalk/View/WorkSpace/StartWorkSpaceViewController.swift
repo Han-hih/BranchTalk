@@ -9,7 +9,7 @@ import UIKit
 
 final class StartWorkSpaceViewController: BaseViewController {
     
-   private let nickName = UserDefaults.value(forKey: "userID")
+    var nickName: String?
     
     private let topLabel = {
         let label = CustomTitle1Label()
