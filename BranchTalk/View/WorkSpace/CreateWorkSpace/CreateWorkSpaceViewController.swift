@@ -68,10 +68,16 @@ final class CreateWorkSpaceViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = Colors.BackgroundPrimary.CutsomColor
     }
-
+    
     override func Bind() {
         super.Bind()
-        let input = CreateWorkSpaceViewModel.Input(nameTextFieldInput: nameTextField.rx.controlEvent(.editingChanged).withLatestFrom(nameTextField.rx.text.orEmpty.asObservable()))
+        let input = CreateWorkSpaceViewModel.Input(
+            nameTextFieldInput: nameTextField.rx.controlEvent(.editingChanged).withLatestFrom(nameTextField.rx.text.orEmpty.asObservable()),
+            createButtonTapped: completButton.rx.tap.asObservable(),
+            nameInput: nameTextField.rx.text.orEmpty.asObservable(),
+            descInput: descriptionTextField.rx.text.orEmpty.asObservable(),
+            image: Observable.just(((imageView.image?.jpegData(compressionQuality: 1) ?? UIImage(named: "workspace")?.jpegData(compressionQuality: 1))!))
+            )
         
         let output = viewModel.transform(input: input)
         
