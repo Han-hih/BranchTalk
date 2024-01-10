@@ -14,6 +14,7 @@ enum Router: URLRequestConvertible {
     case emailValidate(email: String)
     case register(email: String, password: String, nickname: String, phone: String?, deviceToken: String?)
     case makeWorkSpace(makeWorkSpace)
+    case refresh
     
     private var baseURL: URL {
         guard let url = URL(string: APIKey.baseURL) else { fatalError() }
@@ -24,6 +25,8 @@ enum Router: URLRequestConvertible {
         switch self {
         case .kakaoLogin, .emailValidate, .register, .makeWorkSpace:
                return .post
+        case .refresh:
+               return .get
         }
     }
     
@@ -37,6 +40,8 @@ enum Router: URLRequestConvertible {
             return "/v1/users/join"
         case .makeWorkSpace:
             return "/v1/workspaces"
+        case .refresh:
+            return "/v1/auth/refresh"
         }
     }
     
@@ -49,6 +54,11 @@ enum Router: URLRequestConvertible {
             return ["Content-Type": "multipart/form-data",
                     "Authorization": KeyChain.shared.read(key: "access")!,
                     "SesacKey": "\(APIKey.apiKey)"]
+        case .refresh:
+            return ["Content-Type": "application/json",
+                    "Authorization": KeyChain.shared.read(key: "access")!,
+                    "SesacKey": "\(APIKey.apiKey)",
+                    "RefreshToken": "\(KeyChain.shared.read(key: "refresh") ?? "")"]
         }
     }
     
@@ -61,8 +71,9 @@ enum Router: URLRequestConvertible {
             return ["email": email]
         case .register(email: let email, password: let password, nickname: let nickname, phone: let phone, deviceToken: let token):
             return ["email": email, "password": password, "nickname": nickname, "phone": phone ?? "", "deviceToken": token ?? ""]
-        case .makeWorkSpace:
+        case .makeWorkSpace, .refresh:
             return nil
+        
         }
     }
     
@@ -73,16 +84,15 @@ enum Router: URLRequestConvertible {
         request.method = method
         request.headers = header
         
-        if case .makeWorkSpace = self {
+        switch self {
+        case .makeWorkSpace, .refresh:
             return try URLEncoding.default.encode(request, with: parameters)
-            
-        } else {
+        default:
             let jsonData = try? JSONSerialization.data(withJSONObject: parameters)
             request.httpBody = jsonData
-            return request
+            return request  
         }
     }
-    
 }
 
 extension Router {
