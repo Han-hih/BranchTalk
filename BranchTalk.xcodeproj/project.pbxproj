@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8007410C2B4EE07500CCB95C /* Interceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8007410B2B4EE07500CCB95C /* Interceptor.swift */; };
 		800ED5062B45CD89001A7ECC /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800ED5052B45CD89001A7ECC /* NetworkManager.swift */; };
 		800ED5082B45CFE8001A7ECC /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800ED5072B45CFE8001A7ECC /* Router.swift */; };
 		800ED50B2B464ACE001A7ECC /* NetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800ED50A2B464ACE001A7ECC /* NetworkModel.swift */; };
@@ -51,6 +52,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8007410B2B4EE07500CCB95C /* Interceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interceptor.swift; sourceTree = "<group>"; };
 		800ED5022B45C67D001A7ECC /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		800ED5052B45CD89001A7ECC /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		800ED5072B45CFE8001A7ECC /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 				800ED5052B45CD89001A7ECC /* NetworkManager.swift */,
 				800ED5072B45CFE8001A7ECC /* Router.swift */,
 				809CF0102B4C441200F7BC68 /* CommonError.swift */,
+				8007410B2B4EE07500CCB95C /* Interceptor.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -378,6 +381,7 @@
 				802837C92B4BDE20004CB167 /* CreateWorkSpaceViewController.swift in Sources */,
 				80802A9D2B46CDAC008F1723 /* KeyChain.swift in Sources */,
 				80802AA52B471013008F1723 /* RegisterViewModel.swift in Sources */,
+				8007410C2B4EE07500CCB95C /* Interceptor.swift in Sources */,
 				8047E84E2B456B940018254B /* CustomRegisterTextField.swift in Sources */,
 				802DB5142B451903004A5C47 /* CustonButton.swift in Sources */,
 				8047E8472B4532740018254B /* SocialLoginViewController.swift in Sources */,
