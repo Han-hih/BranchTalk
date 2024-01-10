@@ -19,15 +19,13 @@ final class NetworkManager {
         api: Router,
         completion: @escaping (Result<T, CommonError>) -> Void
     ) {
-        AF.request(api)
+        AF.request(api, interceptor: Interceptor())
             .responseDecodable(of: T.self) { response in
-                if let data = response.data  {
-                    let string = String(decoding: data, as: UTF8.self)
-                }
                 switch response.result {
                 case .success(let data):
                     completion(.success(data))
                 case .failure(let error):
+                    print(error)
                     if let data = response.data {
                         do {
                             let networkError = try JSONDecoder().decode(CommonErrorReason.self, from: data)
@@ -96,7 +94,7 @@ final class NetworkManager {
      // 싱글 멀티파트
     func requestMultipart<T: Decodable>(type: T.Type, api: Router) -> Single<Result<T, CommonError>> {
         return Single.create { single in
-            let request = AF.upload(multipartFormData: api.multipart, with: api).responseDecodable(of: T.self) { response in
+            let request = AF.upload(multipartFormData: api.multipart, with: api, interceptor: Interceptor()).responseDecodable(of: T.self) { response in
                 switch response.result {
                 case .success(let response):
                     single(.success(.success(response)))
