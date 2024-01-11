@@ -24,18 +24,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         
-        let userdefaults = UserDefaults()
-        
-        if userdefaults.value(forKey: "userID") != nil {
-            let vc = HomeEmptyViewController()
-            let nav = UINavigationController(rootViewController: vc)
-            window?.rootViewController = nav
-            window?.makeKeyAndVisible()
-        } else {
-            let vc = OnboardingViewController()
-            window?.rootViewController = vc
-            window?.makeKeyAndVisible()
-        }
+        let vc = LaunchViewController()
+        window?.rootViewController = vc
+        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
