@@ -15,6 +15,7 @@ enum Router: URLRequestConvertible {
     case register(email: String, password: String, nickname: String, phone: String?, deviceToken: String?)
     case makeWorkSpace(makeWorkSpace)
     case refresh
+    case getWorkSpaceList
     
     private var baseURL: URL {
         guard let url = URL(string: APIKey.baseURL) else { fatalError() }
@@ -25,7 +26,7 @@ enum Router: URLRequestConvertible {
         switch self {
         case .kakaoLogin, .emailValidate, .register, .makeWorkSpace:
                return .post
-        case .refresh:
+        case .refresh, .getWorkSpaceList:
                return .get
         }
     }
@@ -42,6 +43,8 @@ enum Router: URLRequestConvertible {
             return "/v1/workspaces"
         case .refresh:
             return "/v1/auth/refresh"
+        case .getWorkSpaceList:
+            return "/v1/workspaces"
         }
     }
     
@@ -59,6 +62,10 @@ enum Router: URLRequestConvertible {
                     "Authorization": KeyChain.shared.read(key: "access")!,
                     "SesacKey": "\(APIKey.apiKey)",
                     "RefreshToken": "\(KeyChain.shared.read(key: "refresh") ?? "")"]
+        case .getWorkSpaceList:
+            return ["Content-Type": "application/json",
+                    "Authorization": KeyChain.shared.read(key: "access")!,
+                    "SesacKey": "\(APIKey.apiKey)"]
         }
     }
     
@@ -71,7 +78,7 @@ enum Router: URLRequestConvertible {
             return ["email": email]
         case .register(email: let email, password: let password, nickname: let nickname, phone: let phone, deviceToken: let token):
             return ["email": email, "password": password, "nickname": nickname, "phone": phone ?? "", "deviceToken": token ?? ""]
-        case .makeWorkSpace, .refresh:
+        case .makeWorkSpace, .refresh, .getWorkSpaceList:
             return nil
         
         }
@@ -85,7 +92,7 @@ enum Router: URLRequestConvertible {
         request.headers = header
         
         switch self {
-        case .makeWorkSpace, .refresh:
+        case .makeWorkSpace, .refresh, .getWorkSpaceList:
             return try URLEncoding.default.encode(request, with: parameters)
         default:
             let jsonData = try? JSONSerialization.data(withJSONObject: parameters)
