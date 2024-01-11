@@ -39,3 +39,21 @@ struct makeWorkSpaceResult: Decodable {
 struct TokenResponse: Decodable {
     let accessToken: String
 }
+
+struct GetWorkSpaceInfo: Decodable {
+    let workspaceID: Int
+    let description: String?
+    let name, thumbnail: String
+    let ownerID: Int
+    let createdAt: String
+
+    enum CodingKeys: String, CodingKey {
+        case workspaceID = "workspace_id"
+        case name, description, thumbnail
+        case ownerID = "owner_id"
+        case createdAt
+    }
+}
+
+typealias GetWorkSpaceList = [GetWorkSpaceInfo]
+
