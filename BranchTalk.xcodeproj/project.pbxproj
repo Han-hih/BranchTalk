@@ -20,6 +20,7 @@
 		8047E84A2B4544020018254B /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8047E8492B4544020018254B /* RegisterViewController.swift */; };
 		8047E84E2B456B940018254B /* CustomRegisterTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8047E84D2B456B940018254B /* CustomRegisterTextField.swift */; };
 		807E3A9D2B4F17C500587A33 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807E3A9C2B4F17C500587A33 /* LaunchViewController.swift */; };
+		807E3A9F2B4FAC4100587A33 /* HomeInitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807E3A9E2B4FAC4100587A33 /* HomeInitialViewController.swift */; };
 		80802A972B468B4E008F1723 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802A962B468B4E008F1723 /* BaseViewController.swift */; };
 		80802A992B4692AE008F1723 /* SocialLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802A982B4692AE008F1723 /* SocialLoginViewModel.swift */; };
 		80802A9D2B46CDAC008F1723 /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802A9C2B46CDAC008F1723 /* KeyChain.swift */; };
@@ -66,6 +67,7 @@
 		8047E8492B4544020018254B /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		8047E84D2B456B940018254B /* CustomRegisterTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRegisterTextField.swift; sourceTree = "<group>"; };
 		807E3A9C2B4F17C500587A33 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
+		807E3A9E2B4FAC4100587A33 /* HomeInitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInitialViewController.swift; sourceTree = "<group>"; };
 		80802A962B468B4E008F1723 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		80802A982B4692AE008F1723 /* SocialLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginViewModel.swift; sourceTree = "<group>"; };
 		80802A9C2B46CDAC008F1723 /* KeyChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChain.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				80802A9F2B46E09E008F1723 /* HomeEmptyViewController.swift */,
+				807E3A9E2B4FAC4100587A33 /* HomeInitialViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -392,6 +395,7 @@
 				80CC39AE2B4447B9009E0818 /* Fonts.swift in Sources */,
 				80CC39742B4430BA009E0818 /* SceneDelegate.swift in Sources */,
 				80802AA72B471059008F1723 /* ViewModelType.swift in Sources */,
+				807E3A9F2B4FAC4100587A33 /* HomeInitialViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
