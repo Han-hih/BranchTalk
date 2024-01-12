@@ -30,6 +30,8 @@
 		80802AA92B471748008F1723 /* ValidationCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802AA82B471748008F1723 /* ValidationCheck.swift */; };
 		809CF0112B4C441200F7BC68 /* CommonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809CF0102B4C441200F7BC68 /* CommonError.swift */; };
 		809CF0132B4D3CB200F7BC68 /* MultipartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809CF0122B4D3CB200F7BC68 /* MultipartModel.swift */; };
+		80C16BF72B4FD3A400414D98 /* KFModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C16BF62B4FD3A400414D98 /* KFModifier.swift */; };
+		80C16BF92B5159D700414D98 /* ViewMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C16BF82B5159D700414D98 /* ViewMove.swift */; };
 		80CC39722B4430BA009E0818 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC39712B4430BA009E0818 /* AppDelegate.swift */; };
 		80CC39742B4430BA009E0818 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC39732B4430BA009E0818 /* SceneDelegate.swift */; };
 		80CC39762B4430BA009E0818 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC39752B4430BA009E0818 /* OnboardingViewController.swift */; };
@@ -77,6 +79,8 @@
 		80802AA82B471748008F1723 /* ValidationCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationCheck.swift; sourceTree = "<group>"; };
 		809CF0102B4C441200F7BC68 /* CommonError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonError.swift; sourceTree = "<group>"; };
 		809CF0122B4D3CB200F7BC68 /* MultipartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartModel.swift; sourceTree = "<group>"; };
+		80C16BF62B4FD3A400414D98 /* KFModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KFModifier.swift; sourceTree = "<group>"; };
+		80C16BF82B5159D700414D98 /* ViewMove.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMove.swift; sourceTree = "<group>"; };
 		80CC396E2B4430BA009E0818 /* BranchTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BranchTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80CC39712B4430BA009E0818 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80CC39732B4430BA009E0818 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -269,6 +273,8 @@
 				80CC39AF2B44584C009E0818 /* SF-Pro.ttf */,
 				80802A9C2B46CDAC008F1723 /* KeyChain.swift */,
 				80802AA82B471748008F1723 /* ValidationCheck.swift */,
+				80C16BF62B4FD3A400414D98 /* KFModifier.swift */,
+				80C16BF82B5159D700414D98 /* ViewMove.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -377,6 +383,7 @@
 				800ED50B2B464ACE001A7ECC /* NetworkModel.swift in Sources */,
 				809CF0132B4D3CB200F7BC68 /* MultipartModel.swift in Sources */,
 				80802A972B468B4E008F1723 /* BaseViewController.swift in Sources */,
+				80C16BF92B5159D700414D98 /* ViewMove.swift in Sources */,
 				802837CB2B4BDE32004CB167 /* CreateWorkSpaceViewModel.swift in Sources */,
 				80CC39722B4430BA009E0818 /* AppDelegate.swift in Sources */,
 				80CC39A82B443FE0009E0818 /* APIKey.swift in Sources */,
@@ -386,6 +393,7 @@
 				8007410C2B4EE07500CCB95C /* Interceptor.swift in Sources */,
 				8047E84E2B456B940018254B /* CustomRegisterTextField.swift in Sources */,
 				802DB5142B451903004A5C47 /* CustonButton.swift in Sources */,
+				80C16BF72B4FD3A400414D98 /* KFModifier.swift in Sources */,
 				807E3A9D2B4F17C500587A33 /* LaunchViewController.swift in Sources */,
 				8047E8472B4532740018254B /* SocialLoginViewController.swift in Sources */,
 				800ED5062B45CD89001A7ECC /* NetworkManager.swift in Sources */,
