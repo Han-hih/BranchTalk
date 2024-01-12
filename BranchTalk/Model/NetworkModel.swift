@@ -57,3 +57,13 @@ struct GetWorkSpaceInfo: Decodable {
 
 typealias GetWorkSpaceList = [GetWorkSpaceInfo]
 
+struct MyInfo: Decodable {
+    let userID, sesacCoin: Int
+    let email, nickname, createdAt: String
+    let profileImage, phone, vendor: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case userID = "user_id"
+        case email, nickname, createdAt, profileImage, phone, vendor, sesacCoin
+    }
+}
