@@ -62,9 +62,9 @@ enum Router: URLRequestConvertible {
                     "SesacKey": "\(APIKey.apiKey)"]
         case .refresh:
             return ["Content-Type": "application/json",
+                    "RefreshToken": KeyChain.shared.read(key: "refresh") ?? "",
                     "Authorization": KeyChain.shared.read(key: "access") ?? "",
-                    "SesacKey": "\(APIKey.apiKey)",
-                    "RefreshToken": "\(KeyChain.shared.read(key: "refresh") ?? "")"]
+                    "SesacKey": "\(APIKey.apiKey)"]
         case .getWorkSpaceList, .getMyProfile:
             return ["Content-Type": "application/json",
                     "Authorization": KeyChain.shared.read(key: "access")!,
@@ -81,9 +81,8 @@ enum Router: URLRequestConvertible {
             return ["email": email]
         case .register(email: let email, password: let password, nickname: let nickname, phone: let phone, deviceToken: let token):
             return ["email": email, "password": password, "nickname": nickname, "phone": phone ?? "", "deviceToken": token ?? ""]
-        case .makeWorkSpace, .refresh, .getWorkSpaceList, .getMyProfile:
+        default:
             return nil
-        
         }
     }
     
@@ -94,10 +93,14 @@ enum Router: URLRequestConvertible {
         request.method = method
         request.headers = header
         
-        print("🩵", request.headers)
+//        print("🩵", request.headers)
+        
+        if case .refresh = self {
+            return request
+        }
         
         switch self {
-        case .makeWorkSpace, .refresh, .getWorkSpaceList, .getMyProfile:
+        case .makeWorkSpace, .getWorkSpaceList, .getMyProfile:
             return try URLEncoding.default.encode(request, with: parameters)
         default:
             let jsonData = try? JSONSerialization.data(withJSONObject: parameters)
