@@ -15,7 +15,8 @@ final class ViewMove {
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         let sceneDelegate = windowScene?.delegate as? SceneDelegate
         let vc = HomeInitialViewController()
-        sceneDelegate?.window?.rootViewController = vc
+        let nav = UINavigationController(rootViewController: vc)
+        sceneDelegate?.window?.rootViewController = nav
         sceneDelegate?.window?.makeKey()
     }
     
