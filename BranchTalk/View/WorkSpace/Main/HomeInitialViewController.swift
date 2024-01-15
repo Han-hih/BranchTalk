@@ -6,6 +6,20 @@
 //
 
 import UIKit
+import SideMenu
+
+// 레이아웃
+enum Section: Hashable {
+    case channel
+    case dm
+}
+//셀
+enum Item: Hashable {
+    case channelList
+    case messageList
+}
+
+
 
 final class HomeInitialViewController: BaseViewController {
     
@@ -36,20 +50,14 @@ final class HomeInitialViewController: BaseViewController {
         super.viewDidLoad()
         getWorkSpaceList()
         getProfile()
-        
-//        deleteKeyChainSetting()
+        swipeRecognizer()
     }
-    func deleteKeyChainSetting() {
-        UserDefaults.standard.removeObject(forKey: "userID")
-           KeyChain.shared.delete(key: "access")
-           KeyChain.shared.delete(key: "refresh")
-       }
     
     private func getWorkSpaceList() {
         NetworkManager.shared.request(type: GetWorkSpaceList.self, api: Router.getWorkSpaceList) { [weak self] result in
             switch result {
             case .success(let response):
-                let imageURL = APIKey.baseURL + response[0].thumbnail
+                let imageURL = APIKey.baseURL + "/v1" + response[0].thumbnail
                 self?.setCustomNav(title: response[0].name, image: imageURL)
                 print(imageURL)
             case .failure(let error):
@@ -73,8 +81,8 @@ final class HomeInitialViewController: BaseViewController {
     
     
     private func setCustomNav(title: String, image: String) {
-        let spaceImage = UIBarButtonItem(customView: navImageView)
         navImageView.kf.setImage(with: URL(string: image))
+        lazy var spaceImage = UIBarButtonItem(customView: navImageView)
         lazy var spaceName = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(spaceImageTapped))
         let spacer = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         spacer.width = 8
@@ -96,13 +104,37 @@ final class HomeInitialViewController: BaseViewController {
         navigationItem.rightBarButtonItem = profileImage
     }
     
-    @objc func makeWorkSpaceTapped() {
-        
+    private func swipeRecognizer() {
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture(_:)))
+        swipeRight.direction = UISwipeGestureRecognizer.Direction.right
+        self.view.addGestureRecognizer(swipeRight)
     }
+    
+    @objc func respondToSwipeGesture(_ gesture: UIGestureRecognizer){
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction{
+            case UISwipeGestureRecognizer.Direction.right:
+                let menu = HomeSideMenuNavigation(rootViewController: SideMenuViewController())
+                present(menu, animated: true)
+            default: break
+            }
+        }
+    }
+    
+    @objc func makeWorkSpaceTapped() {
+     
+    }
+    
     @objc func spaceImageTapped() {
+        let menu = HomeSideMenuNavigation(rootViewController: SideMenuViewController())
+        present(menu, animated: true)
         
     }
     @objc func profileImageTapped() {
+        
+    }
+    
+    private func showSlideMenu() {
         
     }
 }
