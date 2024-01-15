@@ -27,13 +27,15 @@ final class LaunchViewController: BaseViewController {
     }
     
     private func checkToken() {
-        guard let accessToken = KeyChain.shared.read(key: "access") else { return ViewMove.shared.goLoginView() }
-        print(accessToken)
+        if let accessToken = KeyChain.shared.read(key: "access") {
             goToMainView()
+        } else {
+            ViewMove.shared.goLoginView()
+        }
     }
     
     private func goToMainView() {
-        NetworkManager.shared.request(type: GetWorkSpaceList.self, api: Router.getWorkSpaceList) { result in
+        NetworkManager.shared.request(type: GetWorkSpaceList.self, api: .getWorkSpaceList) { result in
             print(result)
             switch result {
             case .success(let response):
