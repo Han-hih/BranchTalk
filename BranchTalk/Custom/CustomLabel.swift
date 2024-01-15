@@ -44,6 +44,23 @@ class CustomTitle2Label: UILabel {
     }
 }
 
+class CustomBodyBoldLabel: UILabel {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setLabel()
+    }
+    
+    private func setLabel() {
+        font = Font.bodyBold()
+        textColor = Colors.BrandBlack.CutsomColor
+        textAlignment = .center
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 class CustomBodyLabel: UILabel {
     
     override init(frame: CGRect) {
