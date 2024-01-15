@@ -9,6 +9,7 @@ import Foundation
 import KakaoSDKAuth
 import KakaoSDKUser
 import KakaoSDKCommon
+import UIKit
 
 class SocialLoginViewModel {
     
@@ -65,6 +66,22 @@ class SocialLoginViewModel {
                             }
                         }
                 }
+            }
+        }
+    }
+    
+    func getWorkSpaceList() {
+        NetworkManager.shared.request(type: GetWorkSpaceList.self, api: Router.getWorkSpaceList) { result in
+            switch result {
+            case .success(let response):
+                print(response.count)
+                if response.count > 0 {
+                    ViewMove.shared.goHomeInitialView()
+                } else {
+                    ViewMove.shared.goStartWorkSpaceView()
+                }
+            case .failure(let error):
+                print(error)
             }
         }
     }

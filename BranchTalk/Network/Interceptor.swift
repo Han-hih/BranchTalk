@@ -27,36 +27,27 @@ class Interceptor: RequestInterceptor {
     
     func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
         print("retry 진입")
-        guard let response = request.task?.response as? HTTPURLResponse, response.statusCode == 400 else {
-            print("아직 리트라이 할 때 아님")
-            completion(.doNotRetryWithError(error))
-            return
-        }
         
-        NetworkManager.shared.request(type: TokenResponse.self, api: Router.refresh) { response in
+        guard let refreshToken = KeyChain.shared.read(key: "refresh") else { return }
+ 
+        NetworkManager.shared.refreshRequest(type: TokenResponse.self, api: .refresh) { response in
+            print(response)
             switch response {
             case .success(let response):
                 print(response.accessToken)
                 KeyChain.shared.create(key: "access", token: response.accessToken)
+                print("retry 성공")
                 completion(.retry)
             case .failure(let error):
-                print(error.rawValue)
+                print(error.message)
                 let refreshErrorArray = ["E06", "E02", "E03"]
+                
                 if refreshErrorArray.contains(error.rawValue) {
-                    self.goLoginView()
+                    ViewMove.shared.goLoginView()
                 }
+                
                 completion(.doNotRetryWithError(error))
             }
         }
     }
-    
-    
-    private func goLoginView() {
-        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-        let sceneDelegate = windowScene?.delegate as? SceneDelegate
-        let vc = SocialLoginViewController()
-        sceneDelegate?.window?.rootViewController = vc
-        sceneDelegate?.window?.makeKey()
-    }
-    
 }

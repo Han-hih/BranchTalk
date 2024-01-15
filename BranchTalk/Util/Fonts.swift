@@ -42,7 +42,7 @@ enum Font: String {
     }
     
     static func bodyBold() -> UIFont {
-        return Font.Regular.of(size: 13, lineHeight: 18)
+        return Font.Bold.of(size: 13, lineHeight: 18)
     }
     
     static func body() -> UIFont {

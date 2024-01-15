@@ -17,6 +17,7 @@ enum CommonError: String, ErrorProtocol {
     case tokenAuthenticationFailed = "E02"
     case failedLogin = "E03"
     case expiredAccessToken = "E05"
+    case expiredRefreshToken = "E06"
     case wrongRequest = "E11"
     case duplicate = "E12"
     case coinShortage = "E21"
@@ -34,6 +35,8 @@ enum CommonError: String, ErrorProtocol {
             return "로그인 실패"
         case .expiredAccessToken:
             return "액세스 토큰 만료"
+        case .expiredRefreshToken:
+            return "리프레시 만료"
         case .wrongRequest:
             return "잘못된 요청"
         case .duplicate:

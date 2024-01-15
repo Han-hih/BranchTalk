@@ -16,6 +16,7 @@ enum Router: URLRequestConvertible {
     case makeWorkSpace(makeWorkSpace)
     case refresh
     case getWorkSpaceList
+    case getMyProfile
     
     private var baseURL: URL {
         guard let url = URL(string: APIKey.baseURL) else { fatalError() }
@@ -26,7 +27,7 @@ enum Router: URLRequestConvertible {
         switch self {
         case .kakaoLogin, .emailValidate, .register, .makeWorkSpace:
                return .post
-        case .refresh, .getWorkSpaceList:
+        case .refresh, .getWorkSpaceList, .getMyProfile:
                return .get
         }
     }
@@ -45,6 +46,8 @@ enum Router: URLRequestConvertible {
             return "/v1/auth/refresh"
         case .getWorkSpaceList:
             return "/v1/workspaces"
+        case .getMyProfile:
+            return "v1/users/my"
         }
     }
     
@@ -59,10 +62,10 @@ enum Router: URLRequestConvertible {
                     "SesacKey": "\(APIKey.apiKey)"]
         case .refresh:
             return ["Content-Type": "application/json",
-                    "Authorization": KeyChain.shared.read(key: "access")!,
-                    "SesacKey": "\(APIKey.apiKey)",
-                    "RefreshToken": "\(KeyChain.shared.read(key: "refresh") ?? "")"]
-        case .getWorkSpaceList:
+                    "RefreshToken": KeyChain.shared.read(key: "refresh") ?? "",
+                    "Authorization": KeyChain.shared.read(key: "access") ?? "",
+                    "SesacKey": "\(APIKey.apiKey)"]
+        case .getWorkSpaceList, .getMyProfile:
             return ["Content-Type": "application/json",
                     "Authorization": KeyChain.shared.read(key: "access")!,
                     "SesacKey": "\(APIKey.apiKey)"]
@@ -78,9 +81,8 @@ enum Router: URLRequestConvertible {
             return ["email": email]
         case .register(email: let email, password: let password, nickname: let nickname, phone: let phone, deviceToken: let token):
             return ["email": email, "password": password, "nickname": nickname, "phone": phone ?? "", "deviceToken": token ?? ""]
-        case .makeWorkSpace, .refresh, .getWorkSpaceList:
+        default:
             return nil
-        
         }
     }
     
@@ -91,8 +93,14 @@ enum Router: URLRequestConvertible {
         request.method = method
         request.headers = header
         
+//        print("🩵", request.headers)
+        
+        if case .refresh = self {
+            return request
+        }
+        
         switch self {
-        case .makeWorkSpace, .refresh, .getWorkSpaceList:
+        case .makeWorkSpace, .getWorkSpaceList, .getMyProfile:
             return try URLEncoding.default.encode(request, with: parameters)
         default:
             let jsonData = try? JSONSerialization.data(withJSONObject: parameters)

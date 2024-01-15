@@ -56,11 +56,12 @@ final class SocialLoginViewController: BaseViewController {
     
     @objc func kakaoButtonTapped() {
         viewModel.kakaoLoginRequest { result in
-            let vc = StartWorkSpaceViewController()
-            vc.nickName = result.nickname
-            let nav = UINavigationController(rootViewController: vc)
-            nav.modalPresentationStyle = .fullScreen
-            self.present(nav, animated: true)
+            let userID = UserDefaults.standard.integer(forKey: "userID")
+            if result.userID == userID {
+                self.viewModel.getWorkSpaceList()
+            } else {
+                ViewMove.shared.goStartWorkSpaceView()
+            }
         }
     }
     

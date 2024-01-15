@@ -14,6 +14,37 @@ final class NetworkManager {
     
     private init() { }
     
+    
+    func refreshRequest<T: Decodable>(
+        type: T.Type,
+        api: Router,
+        completion: @escaping (Result<T, CommonError>) -> Void
+    ) {
+        AF.request(api)
+            .responseDecodable(of: T.self) { response in
+                print("0000\(response)")
+                switch response.result {
+                case .success(let data):
+                    completion(.success(data))
+                    
+                case .failure(let error):
+                    print(error)
+                    if let data = response.data {
+                        print(data)
+                        do {
+                            let networkError = try JSONDecoder().decode(CommonErrorReason.self, from: data)
+                            let errorString = networkError.errorCode
+                            let errorEnum = CommonError(rawValue: errorString) ?? CommonError.unknownError
+                            completion(.failure(errorEnum))
+                        }
+                        catch {
+                            completion(.failure(CommonError.unknownError))
+                        }
+                    }
+                }
+            }
+    }
+    
     func request<T: Decodable>(
         type: T.Type,
         api: Router,
