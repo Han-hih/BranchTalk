@@ -16,6 +16,7 @@
 		800ED50B2B464ACE001A7ECC /* NetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800ED50A2B464ACE001A7ECC /* NetworkModel.swift */; };
 		800ED50E2B46734B001A7ECC /* StartWorkSpaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800ED50D2B46734B001A7ECC /* StartWorkSpaceViewController.swift */; };
 		800ED5102B468041001A7ECC /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800ED50F2B468041001A7ECC /* CustomLabel.swift */; };
+		8020C9692B599A0600783221 /* ChannelHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8020C9682B599A0600783221 /* ChannelHeaderView.swift */; };
 		802837C92B4BDE20004CB167 /* CreateWorkSpaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802837C82B4BDE20004CB167 /* CreateWorkSpaceViewController.swift */; };
 		802837CB2B4BDE32004CB167 /* CreateWorkSpaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802837CA2B4BDE32004CB167 /* CreateWorkSpaceViewModel.swift */; };
 		802DB5142B451903004A5C47 /* CustonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802DB5132B451903004A5C47 /* CustonButton.swift */; };
@@ -59,7 +60,6 @@
 		80CC39B02B44584C009E0818 /* SF-Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 80CC39AF2B44584C009E0818 /* SF-Pro.ttf */; };
 		80D696DA2B55971F00C1761E /* HomeInitialViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D696D92B55971F00C1761E /* HomeInitialViewModel.swift */; };
 		80FFA2692B55712C00ED6995 /* ChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FFA2682B55712C00ED6995 /* ChannelTableViewCell.swift */; };
-		80FFA26B2B55713700ED6995 /* DMTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FFA26A2B55713700ED6995 /* DMTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +72,7 @@
 		800ED50A2B464ACE001A7ECC /* NetworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkModel.swift; sourceTree = "<group>"; };
 		800ED50D2B46734B001A7ECC /* StartWorkSpaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartWorkSpaceViewController.swift; sourceTree = "<group>"; };
 		800ED50F2B468041001A7ECC /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
+		8020C9682B599A0600783221 /* ChannelHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelHeaderView.swift; sourceTree = "<group>"; };
 		802837C82B4BDE20004CB167 /* CreateWorkSpaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkSpaceViewController.swift; sourceTree = "<group>"; };
 		802837CA2B4BDE32004CB167 /* CreateWorkSpaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkSpaceViewModel.swift; sourceTree = "<group>"; };
 		802DB5132B451903004A5C47 /* CustonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustonButton.swift; sourceTree = "<group>"; };
@@ -106,7 +107,6 @@
 		80CC39AF2B44584C009E0818 /* SF-Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro.ttf"; sourceTree = "<group>"; };
 		80D696D92B55971F00C1761E /* HomeInitialViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInitialViewModel.swift; sourceTree = "<group>"; };
 		80FFA2682B55712C00ED6995 /* ChannelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelTableViewCell.swift; sourceTree = "<group>"; };
-		80FFA26A2B55713700ED6995 /* DMTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +149,15 @@
 				800ED50D2B46734B001A7ECC /* StartWorkSpaceViewController.swift */,
 			);
 			path = WorkSpace;
+			sourceTree = "<group>";
+		};
+		8020C9672B5999E200783221 /* Channel */ = {
+			isa = PBXGroup;
+			children = (
+				80FFA2682B55712C00ED6995 /* ChannelTableViewCell.swift */,
+				8020C9682B599A0600783221 /* ChannelHeaderView.swift */,
+			);
+			path = Channel;
 			sourceTree = "<group>";
 		};
 		802837C72B4BDE05004CB167 /* CreateWorkSpace */ = {
@@ -310,10 +319,9 @@
 		80FFA2672B55710400ED6995 /* HomeInitial */ = {
 			isa = PBXGroup;
 			children = (
+				8020C9672B5999E200783221 /* Channel */,
 				807E3A9E2B4FAC4100587A33 /* HomeInitialViewController.swift */,
 				80D696D92B55971F00C1761E /* HomeInitialViewModel.swift */,
-				80FFA2682B55712C00ED6995 /* ChannelTableViewCell.swift */,
-				80FFA26A2B55713700ED6995 /* DMTableViewCell.swift */,
 			);
 			path = HomeInitial;
 			sourceTree = "<group>";
@@ -424,12 +432,12 @@
 				809CF0112B4C441200F7BC68 /* CommonError.swift in Sources */,
 				80802A992B4692AE008F1723 /* SocialLoginViewModel.swift in Sources */,
 				800ED50B2B464ACE001A7ECC /* NetworkModel.swift in Sources */,
+				8020C9692B599A0600783221 /* ChannelHeaderView.swift in Sources */,
 				809CF0132B4D3CB200F7BC68 /* MultipartModel.swift in Sources */,
 				80802A972B468B4E008F1723 /* BaseViewController.swift in Sources */,
 				808A75C22B5437E400FD075D /* ReusableViewProtocol.swift in Sources */,
 				80C16BF92B5159D700414D98 /* ViewMove.swift in Sources */,
 				802837CB2B4BDE32004CB167 /* CreateWorkSpaceViewModel.swift in Sources */,
-				80FFA26B2B55713700ED6995 /* DMTableViewCell.swift in Sources */,
 				80CC39722B4430BA009E0818 /* AppDelegate.swift in Sources */,
 				80CC39A82B443FE0009E0818 /* APIKey.swift in Sources */,
 				802837C92B4BDE20004CB167 /* CreateWorkSpaceViewController.swift in Sources */,
