@@ -27,8 +27,10 @@ final class HomeInitialViewController: BaseViewController {
     private lazy var tableView = {
         let view = UITableView()
         view.register(ChannelTableViewCell.self, forCellReuseIdentifier: ChannelTableViewCell.identifier)
+        view.register(ChannelHeaderView.self, forHeaderFooterViewReuseIdentifier: ChannelHeaderView.identifier)
+        view.delegate = self
         view.rowHeight = 41
-        view.backgroundColor = .green
+        view.sectionHeaderHeight = 56
         return view
     }()
     
@@ -60,7 +62,7 @@ final class HomeInitialViewController: BaseViewController {
     private let viewModel = HomeInitialViewModel()
     
     private let channelTrigger = PublishSubject<Void>()
-     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         getWorkSpaceList()
@@ -105,7 +107,7 @@ final class HomeInitialViewController: BaseViewController {
         })
         
     }
-                                                                  
+    
     
     private func getWorkSpaceList() {
         NetworkManager.shared.request(type: GetWorkSpaceList.self, api: Router.getWorkSpaceList) { [weak self] result in
@@ -188,7 +190,7 @@ final class HomeInitialViewController: BaseViewController {
     }
     
     @objc func makeWorkSpaceTapped() {
-     
+        
     }
     
     @objc func spaceImageTapped() {
@@ -201,6 +203,16 @@ final class HomeInitialViewController: BaseViewController {
     }
     
     private func showSlideMenu() {
+        
+    }
+}
+
+extension HomeInitialViewController: UITableViewDelegate{
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        if section == 0 {
+           return ChannelHeaderView()
+        } else { return UIView() }
         
     }
 }
