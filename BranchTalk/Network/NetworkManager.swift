@@ -22,7 +22,7 @@ final class NetworkManager {
     ) {
         AF.request(api)
             .responseDecodable(of: T.self) { response in
-                print("0000\(response)")
+//                print("0000\(response)")
                 switch response.result {
                 case .success(let data):
                     completion(.success(data))
@@ -112,6 +112,7 @@ final class NetworkManager {
     ) -> Single<Result<T, CommonError>> {
         return Single.create { [weak self] single in
             self?.request(type: T.self, api: api, completion: { result in
+                print("singleRequest \(result)")
                 switch result {
                 case .success(let success):
                     single(.success(.success(success)))

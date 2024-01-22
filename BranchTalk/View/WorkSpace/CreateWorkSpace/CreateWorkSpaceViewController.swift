@@ -69,8 +69,8 @@ final class CreateWorkSpaceViewController: BaseViewController {
         view.backgroundColor = Colors.BackgroundPrimary.CutsomColor
     }
     
-    override func Bind() {
-        super.Bind()
+    override func bind() {
+        super.bind()
         let input = CreateWorkSpaceViewModel.Input(
             nameTextFieldInput: nameTextField.rx.controlEvent(.editingChanged).withLatestFrom(nameTextField.rx.text.orEmpty.asObservable()),
             createButtonTapped: completButton.rx.tap.asObservable(),

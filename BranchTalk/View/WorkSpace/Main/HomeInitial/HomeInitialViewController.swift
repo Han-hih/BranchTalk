@@ -7,6 +7,7 @@
 
 import UIKit
 import SideMenu
+import RxSwift
 
 // 레이아웃
 enum Section: Hashable {
@@ -15,13 +16,24 @@ enum Section: Hashable {
 }
 //셀
 enum Item: Hashable {
-    case channelList
-    case messageList
+    case channelList(GetChannel)
+    case messageList(User)
 }
 
-
-
 final class HomeInitialViewController: BaseViewController {
+    
+    private lazy var tableView = {
+        let view = UITableView()
+        view.register(ChannelTableViewCell.self, forCellReuseIdentifier: ChannelTableViewCell.identifier)
+        view.register(ChannelHeaderView.self, forHeaderFooterViewReuseIdentifier: ChannelHeaderView.identifier)
+        view.register(ChannelFooterView.self, forHeaderFooterViewReuseIdentifier: ChannelFooterView.identifier)
+        view.delegate = self
+        view.rowHeight = 41
+        view.separatorStyle = .none
+        view.sectionHeaderHeight = 56
+        view.sectionFooterHeight = 41
+        return view
+    }()
     
     private lazy var makeSpaceButton = {
         let bt = GreenCustonButton()
@@ -46,12 +58,56 @@ final class HomeInitialViewController: BaseViewController {
         return view
     }()
     
+    private var dataSource: UITableViewDiffableDataSource<Section,Item>?
+    
+    private let viewModel = HomeInitialViewModel()
+    
+    private let channelTrigger = PublishSubject<Void>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         getWorkSpaceList()
         getProfile()
         swipeRecognizer()
+        channelTrigger.onNext(())
+        setDataSource()
     }
+    
+    override func bind() {
+        super.bind()
+        let input = HomeInitialViewModel.Input(channelTrigger: channelTrigger.asObservable())
+        
+        let output = viewModel.transform(input: input)
+        
+        output.channelList.bind(with: self) { owner, list in
+            var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+            let items = list.map { Item.channelList($0) }
+            let section = Section.channel
+            snapshot.appendSections([.channel])
+            snapshot.appendItems(items, toSection: .channel)
+            self.dataSource?.apply(snapshot)
+        }
+        .disposed(by: disposeBag)
+    }
+    
+    private func getChannelList() {
+        
+    }
+    
+    private func setDataSource() {
+        dataSource = UITableViewDiffableDataSource<Section, Item>(tableView: tableView, cellProvider: { tableView, indexPath, item in
+            switch item {
+            case .channelList(let list):
+                let cell = tableView.dequeueReusableCell(withIdentifier: ChannelTableViewCell.identifier, for: indexPath) as? ChannelTableViewCell
+                cell?.configure(channelName: list.name)
+                return cell
+            case .messageList(let list):
+                return UITableViewCell()
+            }
+        })
+        
+    }
+    
     
     private func getWorkSpaceList() {
         NetworkManager.shared.request(type: GetWorkSpaceList.self, api: Router.getWorkSpaceList) { [weak self] result in
@@ -121,8 +177,18 @@ final class HomeInitialViewController: BaseViewController {
         }
     }
     
+    override func setUI() {
+        super.setUI()
+        view.addSubview(tableView)
+        
+        tableView.snp.makeConstraints { make in
+            make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.height.greaterThanOrEqualTo(160)
+        }
+    }
+    
     @objc func makeWorkSpaceTapped() {
-     
+        
     }
     
     @objc func spaceImageTapped() {
@@ -135,6 +201,16 @@ final class HomeInitialViewController: BaseViewController {
     }
     
     private func showSlideMenu() {
+        
+    }
+}
+
+extension HomeInitialViewController: UITableViewDelegate{
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        if section == 0 {
+           return ChannelHeaderView()
+        } else { return UIView() }
         
     }
 }

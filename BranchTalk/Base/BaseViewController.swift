@@ -18,7 +18,7 @@ class BaseViewController: UIViewController {
         self.view.backgroundColor = Colors.BackgroundSecondary.CutsomColor
         setUI()
         setNav()
-        Bind()
+        bind()
     }
     
     func setUI() {
@@ -29,7 +29,7 @@ class BaseViewController: UIViewController {
         
     }
     
-    func Bind() {
+    func bind() {
         
     }
     

@@ -21,8 +21,8 @@ final class RegisterViewController: BaseViewController {
         
     }
     
-    override func Bind() {
-        super.Bind()
+    override func bind() {
+        super.bind()
         let input = RegisterViewModel.Input(
             emailHasOneLetter: emailTextField.rx.controlEvent(.editingChanged).withLatestFrom(emailTextField.rx.text.orEmpty.asObservable()),
             emailDuplicateTap: emailCheckButton.rx.tap.asObservable(), nonValidEmailDuplicateTap: emailCheckButton.rx.tap.asObservable(),
