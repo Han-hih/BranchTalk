@@ -18,6 +18,7 @@ enum Router: URLRequestConvertible {
     case getWorkSpaceList
     case getMyProfile
     case getChannelList(id: Int)
+    case getDmList(id: Int)
     
     private var baseURL: URL {
         guard let url = URL(string: APIKey.baseURL) else { fatalError() }
@@ -28,7 +29,7 @@ enum Router: URLRequestConvertible {
         switch self {
         case .kakaoLogin, .emailValidate, .register, .makeWorkSpace:
                return .post
-        case .refresh, .getWorkSpaceList, .getMyProfile, .getChannelList:
+        case .refresh, .getWorkSpaceList, .getMyProfile, .getChannelList, .getDmList:
                return .get
         }
     }
@@ -51,6 +52,8 @@ enum Router: URLRequestConvertible {
             return "v1/users/my"
         case .getChannelList(let id):
             return "v1/workspaces/\(id)/channels"
+        case .getDmList(let id):
+            return "v1/workspaces/\(id)/dms"
         }
     }
     
@@ -68,7 +71,7 @@ enum Router: URLRequestConvertible {
                     "RefreshToken": KeyChain.shared.read(key: "refresh") ?? "",
                     "Authorization": KeyChain.shared.read(key: "access") ?? "",
                     "SesacKey": "\(APIKey.apiKey)"]
-        case .getWorkSpaceList, .getMyProfile, .getChannelList:
+        case .getWorkSpaceList, .getMyProfile, .getChannelList, .getDmList:
             return ["Content-Type": "application/json",
                     "Authorization": KeyChain.shared.read(key: "access")!,
                     "SesacKey": "\(APIKey.apiKey)"]
@@ -103,7 +106,7 @@ enum Router: URLRequestConvertible {
         }
         
         switch self {
-        case .makeWorkSpace, .getWorkSpaceList, .getMyProfile, .getChannelList:
+        case .makeWorkSpace, .getWorkSpaceList, .getMyProfile, .getChannelList, .getDmList:
             return try URLEncoding.default.encode(request, with: parameters)
         default:
             let jsonData = try? JSONSerialization.data(withJSONObject: parameters)

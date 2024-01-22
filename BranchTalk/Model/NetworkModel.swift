@@ -82,7 +82,7 @@ struct GetChannel: Decodable, Hashable {
     }
 }
 
-struct GetDmList: Decodable {
+struct GetDmList: Decodable, Hashable {
     let workspaceID, roomID: Int
     let createdAt: String
     let user: User
