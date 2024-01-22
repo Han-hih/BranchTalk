@@ -20,17 +20,18 @@ enum Item: Hashable {
     case messageList(User)
 }
 
-
-
 final class HomeInitialViewController: BaseViewController {
     
     private lazy var tableView = {
         let view = UITableView()
         view.register(ChannelTableViewCell.self, forCellReuseIdentifier: ChannelTableViewCell.identifier)
         view.register(ChannelHeaderView.self, forHeaderFooterViewReuseIdentifier: ChannelHeaderView.identifier)
+        view.register(ChannelFooterView.self, forHeaderFooterViewReuseIdentifier: ChannelFooterView.identifier)
         view.delegate = self
         view.rowHeight = 41
+        view.separatorStyle = .none
         view.sectionHeaderHeight = 56
+        view.sectionFooterHeight = 41
         return view
     }()
     
@@ -87,7 +88,6 @@ final class HomeInitialViewController: BaseViewController {
             self.dataSource?.apply(snapshot)
         }
         .disposed(by: disposeBag)
-        
     }
     
     private func getChannelList() {
@@ -183,10 +183,8 @@ final class HomeInitialViewController: BaseViewController {
         
         tableView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
-            make.height.greaterThanOrEqualTo(138)
-            
+            make.height.greaterThanOrEqualTo(160)
         }
-        
     }
     
     @objc func makeWorkSpaceTapped() {
