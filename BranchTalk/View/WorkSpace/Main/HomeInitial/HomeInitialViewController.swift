@@ -17,7 +17,7 @@ enum Section: Hashable {
 //셀
 enum Item: Hashable {
     case channelList(GetChannel)
-    case messageList(User)
+    case dmList(GetDmList)
 }
 
 final class HomeInitialViewController: BaseViewController {
@@ -27,6 +27,7 @@ final class HomeInitialViewController: BaseViewController {
         view.register(ChannelTableViewCell.self, forCellReuseIdentifier: ChannelTableViewCell.identifier)
         view.register(ChannelHeaderView.self, forHeaderFooterViewReuseIdentifier: ChannelHeaderView.identifier)
         view.register(ChannelFooterView.self, forHeaderFooterViewReuseIdentifier: ChannelFooterView.identifier)
+        view.register(DmTableViewCell.self, forCellReuseIdentifier: DmTableViewCell.identifier)
         view.delegate = self
         view.rowHeight = 41
         view.separatorStyle = .none
@@ -63,6 +64,7 @@ final class HomeInitialViewController: BaseViewController {
     private let viewModel = HomeInitialViewModel()
     
     private let channelTrigger = PublishSubject<Void>()
+    private let dmTrigger = PublishSubject<Void>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,21 +72,30 @@ final class HomeInitialViewController: BaseViewController {
         getProfile()
         swipeRecognizer()
         channelTrigger.onNext(())
+        dmTriBranchTalk/Network/Router.swiftgger.onNext(())
         setDataSource()
     }
     
     override func bind() {
         super.bind()
-        let input = HomeInitialViewModel.Input(channelTrigger: channelTrigger.asObservable())
+        let input = HomeInitialViewModel.Input(channelTrigger: channelTrigger.asObservable(), dmTrigger: dmTrigger.asObservable())
         
         let output = viewModel.transform(input: input)
         
         output.channelList.bind(with: self) { owner, list in
             var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
             let items = list.map { Item.channelList($0) }
-            let section = Section.channel
             snapshot.appendSections([.channel])
             snapshot.appendItems(items, toSection: .channel)
+            self.dataSource?.apply(snapshot)
+        }
+        .disposed(by: disposeBag)
+        
+        output.dmList.bind(with: self) { owner, list in
+            var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+            let items = list.map { Item.dmList($0) }
+            snapshot.appendSections([.dm])
+            snapshot.appendItems(items, toSection: .dm)
             self.dataSource?.apply(snapshot)
         }
         .disposed(by: disposeBag)
@@ -101,8 +112,10 @@ final class HomeInitialViewController: BaseViewController {
                 let cell = tableView.dequeueReusableCell(withIdentifier: ChannelTableViewCell.identifier, for: indexPath) as? ChannelTableViewCell
                 cell?.configure(channelName: list.name)
                 return cell
-            case .messageList(let list):
-                return UITableViewCell()
+            case .dmList(let list):
+                let cell = tableView.dequeueReusableCell(withIdentifier: DmTableViewCell.identifier, for: indexPath) as? DmTableViewCell
+                cell?.configure(imageURL: list.user.profileImage, name: list.user.nickname)
+                return cell
             }
         })
         
@@ -212,5 +225,11 @@ extension HomeInitialViewController: UITableViewDelegate{
            return ChannelHeaderView()
         } else { return UIView() }
         
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if section == 0 {
+            return ChannelFooterView()
+        } else { return UIView() }
     }
 }

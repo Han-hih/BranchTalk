@@ -16,16 +16,17 @@ class HomeInitialViewModel: ViewModelType {
     
     struct Input {
         let channelTrigger: Observable<Void>
-//        let dmList: Observable<Void>
+        let dmTrigger: Observable<Void>
     }
     
     struct Output {
         let channelList: PublishSubject<[GetChannel]>
-//        let dmList: Observable<User>
+        let dmList: PublishSubject<[GetDmList]>
     }
     
     func transform(input: Input) -> Output {
         let channelObservable = PublishSubject<[GetChannel]>()
+        let dmObservable = PublishSubject<[GetDmList]>()
         
          input.channelTrigger
             .flatMapLatest { _ in
@@ -42,6 +43,24 @@ class HomeInitialViewModel: ViewModelType {
             })
             .disposed(by: disposeBag)
         
-        return Output(channelList: channelObservable)
+        input.dmTrigger
+            .flatMapLatest { _ in
+                NetworkManager.shared.requestSingle(type: [GetDmList].self, api: .getDmList(id: 22))
+            }
+            .subscribe(with: self, onNext: { owner, result in
+                switch result {
+                case .success(let response):
+                    print("dm리스트---------", response)
+                    dmObservable.onNext(response)
+                case .failure(let error):
+                    print(error)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        return Output(
+            channelList: channelObservable,
+            dmList: dmObservable
+        )
     }
 }
