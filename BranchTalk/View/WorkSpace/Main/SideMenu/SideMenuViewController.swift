@@ -49,7 +49,7 @@ class SideMenuViewController: BaseViewController {
         return bt
     }()
     
-    private var workSpaceResult = [GetWorkSpaceInfo]()
+    private var workSpaceResult = [WorkSpaceList]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +61,7 @@ class SideMenuViewController: BaseViewController {
     }
     
     private func getWorkList() {
-        NetworkManager.shared.refreshRequest(type: [GetWorkSpaceInfo].self, api: .getWorkSpaceList) { result in
+        NetworkManager.shared.refreshRequest(type: [WorkSpaceList].self, api: .getWorkSpaceList) { result in
             switch result {
             case .success(let success):
                 self.workSpaceResult.append(contentsOf: success)
