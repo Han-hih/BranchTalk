@@ -40,6 +40,8 @@
 		80C16BF92B5159D700414D98 /* ViewMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C16BF82B5159D700414D98 /* ViewMove.swift */; };
 		80C629782B61349C00CBFF97 /* toDateAndString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C629772B61349C00CBFF97 /* toDateAndString.swift */; };
 		80C6297B2B61350900CBFF97 /* WorkSpaceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C6297A2B61350900CBFF97 /* WorkSpaceList.swift */; };
+		80C6297D2B61374B00CBFF97 /* MyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C6297C2B61374B00CBFF97 /* MyInfo.swift */; };
+		80C6297F2B6138D000CBFF97 /* GetDmList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C6297E2B6138D000CBFF97 /* GetDmList.swift */; };
 		80CC39722B4430BA009E0818 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC39712B4430BA009E0818 /* AppDelegate.swift */; };
 		80CC39742B4430BA009E0818 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC39732B4430BA009E0818 /* SceneDelegate.swift */; };
 		80CC39762B4430BA009E0818 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC39752B4430BA009E0818 /* OnboardingViewController.swift */; };
@@ -102,6 +104,8 @@
 		80C16BF82B5159D700414D98 /* ViewMove.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMove.swift; sourceTree = "<group>"; };
 		80C629772B61349C00CBFF97 /* toDateAndString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = toDateAndString.swift; sourceTree = "<group>"; };
 		80C6297A2B61350900CBFF97 /* WorkSpaceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkSpaceList.swift; sourceTree = "<group>"; };
+		80C6297C2B61374B00CBFF97 /* MyInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfo.swift; sourceTree = "<group>"; };
+		80C6297E2B6138D000CBFF97 /* GetDmList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDmList.swift; sourceTree = "<group>"; };
 		80CC396E2B4430BA009E0818 /* BranchTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BranchTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80CC39712B4430BA009E0818 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80CC39732B4430BA009E0818 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -259,6 +263,8 @@
 			isa = PBXGroup;
 			children = (
 				80C6297A2B61350900CBFF97 /* WorkSpaceList.swift */,
+				80C6297C2B61374B00CBFF97 /* MyInfo.swift */,
+				80C6297E2B6138D000CBFF97 /* GetDmList.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -469,6 +475,7 @@
 				80F80CCD2B5E4F120077654A /* DmFooterView.swift in Sources */,
 				80802AA02B46E09E008F1723 /* HomeEmptyViewController.swift in Sources */,
 				80CC39762B4430BA009E0818 /* OnboardingViewController.swift in Sources */,
+				80C6297F2B6138D000CBFF97 /* GetDmList.swift in Sources */,
 				80C6297B2B61350900CBFF97 /* WorkSpaceList.swift in Sources */,
 				80F80CC92B5E4EF90077654A /* DmTableViewCell.swift in Sources */,
 				800A05572B5268F40010505A /* SideMenuViewController.swift in Sources */,
@@ -492,6 +499,7 @@
 				80802A9D2B46CDAC008F1723 /* KeyChain.swift in Sources */,
 				800A05552B5265AD0010505A /* HomeSideMenuNavigation.swift in Sources */,
 				80802AA52B471013008F1723 /* RegisterViewModel.swift in Sources */,
+				80C6297D2B61374B00CBFF97 /* MyInfo.swift in Sources */,
 				8007410C2B4EE07500CCB95C /* Interceptor.swift in Sources */,
 				8047E84E2B456B940018254B /* CustomRegisterTextField.swift in Sources */,
 				802DB5142B451903004A5C47 /* CustonButton.swift in Sources */,
