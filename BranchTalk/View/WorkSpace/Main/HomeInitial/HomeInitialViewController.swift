@@ -8,6 +8,7 @@
 import UIKit
 import SideMenu
 import RxSwift
+import RxCocoa
 
 // 레이아웃
 enum Section: Hashable {
@@ -17,7 +18,7 @@ enum Section: Hashable {
 //셀
 enum Item: Hashable {
     case channelList(GetChannel)
-    case messageList(User)
+    case dmList(GetDmList)
 }
 
 final class HomeInitialViewController: BaseViewController {
@@ -27,11 +28,13 @@ final class HomeInitialViewController: BaseViewController {
         view.register(ChannelTableViewCell.self, forCellReuseIdentifier: ChannelTableViewCell.identifier)
         view.register(ChannelHeaderView.self, forHeaderFooterViewReuseIdentifier: ChannelHeaderView.identifier)
         view.register(ChannelFooterView.self, forHeaderFooterViewReuseIdentifier: ChannelFooterView.identifier)
+        view.register(DmTableViewCell.self, forCellReuseIdentifier: DmTableViewCell.identifier)
         view.delegate = self
         view.rowHeight = 41
         view.separatorStyle = .none
         view.sectionHeaderHeight = 56
         view.sectionFooterHeight = 41
+        view.backgroundColor = Colors.BackgroundSecondary.CutsomColor
         return view
     }()
     
@@ -60,9 +63,15 @@ final class HomeInitialViewController: BaseViewController {
     
     private var dataSource: UITableViewDiffableDataSource<Section,Item>?
     
+    private var isExpandable: Bool = true
+    private var arrowToggle:Bool = true
+    
     private let viewModel = HomeInitialViewModel()
     
     private let channelTrigger = PublishSubject<Void>()
+    private let dmTrigger = PublishSubject<Void>()
+    
+    private var channelList = [GetChannel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,28 +79,36 @@ final class HomeInitialViewController: BaseViewController {
         getProfile()
         swipeRecognizer()
         channelTrigger.onNext(())
+        dmTrigger.onNext(())
         setDataSource()
     }
     
     override func bind() {
         super.bind()
-        let input = HomeInitialViewModel.Input(channelTrigger: channelTrigger.asObservable())
+        let input = HomeInitialViewModel.Input(channelTrigger: channelTrigger.asObservable(), dmTrigger: dmTrigger.asObservable())
         
         let output = viewModel.transform(input: input)
         
         output.channelList.bind(with: self) { owner, list in
             var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+            
             let items = list.map { Item.channelList($0) }
-            let section = Section.channel
             snapshot.appendSections([.channel])
             snapshot.appendItems(items, toSection: .channel)
+            owner.channelList.append(contentsOf: list)
+            owner.dataSource?.apply(snapshot)
+        }
+        .disposed(by: disposeBag)
+        
+        output.dmList.bind(with: self) { owner, list in
+            var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+            let items = list.map { Item.dmList($0) }
+            snapshot.appendSections([.dm])
+            snapshot.appendItems(items, toSection: .dm)
+            
             self.dataSource?.apply(snapshot)
         }
         .disposed(by: disposeBag)
-    }
-    
-    private func getChannelList() {
-        
     }
     
     private func setDataSource() {
@@ -101,8 +118,10 @@ final class HomeInitialViewController: BaseViewController {
                 let cell = tableView.dequeueReusableCell(withIdentifier: ChannelTableViewCell.identifier, for: indexPath) as? ChannelTableViewCell
                 cell?.configure(channelName: list.name)
                 return cell
-            case .messageList(let list):
-                return UITableViewCell()
+            case .dmList(let list):
+                let cell = tableView.dequeueReusableCell(withIdentifier: DmTableViewCell.identifier, for: indexPath) as? DmTableViewCell
+                cell?.configure(imageURL: list.user.profileImage, name: list.user.nickname)
+                return cell
             }
         })
         
@@ -200,17 +219,56 @@ final class HomeInitialViewController: BaseViewController {
         
     }
     
-    private func showSlideMenu() {
+    private func headerTapped() {
+        
+        var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<Item>()
+        
+        if isExpandable {
+            isExpandable = false
+            arrowToggle = false
+            var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+            snapshot.appendSections([.channel])
+            
+            dataSource?.apply(snapshot)
+            
+        } else {
+            isExpandable = true
+            arrowToggle = true
+            var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+            snapshot.appendSections([.channel])
+            
+            let items = channelList.map { Item.channelList($0) }
+            snapshot.appendItems(items, toSection: .channel)
+            
+            dataSource?.apply(snapshot)
+        }
         
     }
 }
 
 extension HomeInitialViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
         if section == 0 {
-           return ChannelHeaderView()
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ChannelHeaderView.identifier) as? ChannelHeaderView
+            header?.arrowButton.setImage(UIImage(named: arrowToggle ? "right" : "down"), for: .normal)
+            header?.setNeedsLayout()
+            header?.layoutIfNeeded()
+            let tapGesture = UITapGestureRecognizer()
+            header?.addGestureRecognizer(tapGesture)
+            tapGesture.rx.event
+                .asDriver()
+                .drive(with: self) { owner, _ in
+                    tableView.reloadData()
+                    owner.headerTapped()
+                }.disposed(by: disposeBag)
+           return header
         } else { return UIView() }
         
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if section == 0 {
+            return ChannelFooterView()
+        } else { return UIView() }
     }
 }
