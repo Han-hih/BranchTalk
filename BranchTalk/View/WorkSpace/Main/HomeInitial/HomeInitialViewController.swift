@@ -64,6 +64,7 @@ final class HomeInitialViewController: BaseViewController {
     private var dataSource: UITableViewDiffableDataSource<Section,Item>?
     
     private var isExpandable: Bool = true
+    private var arrowToggle:Bool = true
     
     private let viewModel = HomeInitialViewModel()
     
@@ -224,7 +225,7 @@ final class HomeInitialViewController: BaseViewController {
         
         if isExpandable {
             isExpandable = false
-            
+            arrowToggle = false
             var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
             snapshot.appendSections([.channel])
             
@@ -232,12 +233,13 @@ final class HomeInitialViewController: BaseViewController {
             
         } else {
             isExpandable = true
+            arrowToggle = true
             var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
             snapshot.appendSections([.channel])
-            dataSource?.apply(snapshot)
             
             let items = channelList.map { Item.channelList($0) }
             snapshot.appendItems(items, toSection: .channel)
+            
             dataSource?.apply(snapshot)
         }
         
@@ -248,14 +250,17 @@ extension HomeInitialViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ChannelHeaderView.identifier) as? ChannelHeaderView
+            header?.arrowButton.setImage(UIImage(named: arrowToggle ? "right" : "down"), for: .normal)
+            header?.setNeedsLayout()
+            header?.layoutIfNeeded()
             let tapGesture = UITapGestureRecognizer()
             header?.addGestureRecognizer(tapGesture)
             tapGesture.rx.event
                 .asDriver()
                 .drive(with: self) { owner, _ in
+                    tableView.reloadData()
                     owner.headerTapped()
                 }.disposed(by: disposeBag)
-            
            return header
         } else { return UIView() }
         
