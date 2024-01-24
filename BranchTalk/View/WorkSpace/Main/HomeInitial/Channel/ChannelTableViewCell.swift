@@ -30,6 +30,8 @@ class ChannelTableViewCell: UITableViewCell {
             contentView.addSubview($0)
         }
         
+        contentView.backgroundColor = Colors.BackgroundSecondary.CutsomColor
+        
         tagImage.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.size.equalTo(18)

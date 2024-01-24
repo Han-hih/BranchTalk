@@ -1,17 +1,17 @@
 //
-//  ChannelHeaderView.swift
+//  DmHeaderView.swift
 //  BranchTalk
 //
-//  Created by 황인호 on 1/19/24.
+//  Created by 황인호 on 1/22/24.
 //
 
 import UIKit
 
-final class ChannelHeaderView: UITableViewHeaderFooterView {
+final class DmHeaderView: UITableViewHeaderFooterView {
     
     private let headerTitle = {
         let lb = CustomTitle2Label()
-        lb.text = "채널"
+        lb.text = "다이렉트 메시지"
         return lb
     }()
     
@@ -26,8 +26,6 @@ final class ChannelHeaderView: UITableViewHeaderFooterView {
         super.init(reuseIdentifier: reuseIdentifier)
         contentView.addSubview(headerTitle)
         contentView.addSubview(arrowButton)
-        
-        contentView.backgroundColor = Colors.BackgroundSecondary.CutsomColor
         
         headerTitle.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
@@ -44,3 +42,4 @@ final class ChannelHeaderView: UITableViewHeaderFooterView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+

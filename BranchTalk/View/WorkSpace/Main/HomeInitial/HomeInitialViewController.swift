@@ -8,6 +8,7 @@
 import UIKit
 import SideMenu
 import RxSwift
+import RxCocoa
 
 // 레이아웃
 enum Section: Hashable {
@@ -33,6 +34,7 @@ final class HomeInitialViewController: BaseViewController {
         view.separatorStyle = .none
         view.sectionHeaderHeight = 56
         view.sectionFooterHeight = 41
+        view.backgroundColor = Colors.BackgroundSecondary.CutsomColor
         return view
     }()
     
@@ -61,10 +63,14 @@ final class HomeInitialViewController: BaseViewController {
     
     private var dataSource: UITableViewDiffableDataSource<Section,Item>?
     
+    private var isExpandable: Bool = true
+    
     private let viewModel = HomeInitialViewModel()
     
     private let channelTrigger = PublishSubject<Void>()
     private let dmTrigger = PublishSubject<Void>()
+    
+    private var channelList = [GetChannel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,7 +78,7 @@ final class HomeInitialViewController: BaseViewController {
         getProfile()
         swipeRecognizer()
         channelTrigger.onNext(())
-        dmTriBranchTalk/Network/Router.swiftgger.onNext(())
+        dmTrigger.onNext(())
         setDataSource()
     }
     
@@ -84,10 +90,12 @@ final class HomeInitialViewController: BaseViewController {
         
         output.channelList.bind(with: self) { owner, list in
             var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+            
             let items = list.map { Item.channelList($0) }
             snapshot.appendSections([.channel])
             snapshot.appendItems(items, toSection: .channel)
-            self.dataSource?.apply(snapshot)
+            owner.channelList.append(contentsOf: list)
+            owner.dataSource?.apply(snapshot)
         }
         .disposed(by: disposeBag)
         
@@ -96,13 +104,10 @@ final class HomeInitialViewController: BaseViewController {
             let items = list.map { Item.dmList($0) }
             snapshot.appendSections([.dm])
             snapshot.appendItems(items, toSection: .dm)
+            
             self.dataSource?.apply(snapshot)
         }
         .disposed(by: disposeBag)
-    }
-    
-    private func getChannelList() {
-        
     }
     
     private func setDataSource() {
@@ -213,16 +218,45 @@ final class HomeInitialViewController: BaseViewController {
         
     }
     
-    private func showSlideMenu() {
+    private func headerTapped() {
+        
+        var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<Item>()
+        
+        if isExpandable {
+            isExpandable = false
+            
+            var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+            snapshot.appendSections([.channel])
+            
+            dataSource?.apply(snapshot)
+            
+        } else {
+            isExpandable = true
+            var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+            snapshot.appendSections([.channel])
+            dataSource?.apply(snapshot)
+            
+            let items = channelList.map { Item.channelList($0) }
+            snapshot.appendItems(items, toSection: .channel)
+            dataSource?.apply(snapshot)
+        }
         
     }
 }
 
 extension HomeInitialViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
         if section == 0 {
-           return ChannelHeaderView()
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ChannelHeaderView.identifier) as? ChannelHeaderView
+            let tapGesture = UITapGestureRecognizer()
+            header?.addGestureRecognizer(tapGesture)
+            tapGesture.rx.event
+                .asDriver()
+                .drive(with: self) { owner, _ in
+                    owner.headerTapped()
+                }.disposed(by: disposeBag)
+            
+           return header
         } else { return UIView() }
         
     }
