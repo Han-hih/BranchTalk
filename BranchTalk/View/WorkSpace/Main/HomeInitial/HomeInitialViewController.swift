@@ -129,10 +129,10 @@ final class HomeInitialViewController: BaseViewController {
     
     
     private func getWorkSpaceList() {
-        NetworkManager.shared.request(type: GetWorkSpaceList.self, api: Router.getWorkSpaceList) { [weak self] result in
+        NetworkManager.shared.request(type: [WorkSpaceList].self, api: Router.getWorkSpaceList) { [weak self] result in
             switch result {
             case .success(let response):
-                let imageURL = APIKey.baseURL + "/v1" + response[0].thumbnail
+                let imageURL = response[0].thumbnail
                 self?.setCustomNav(title: response[0].name, image: imageURL)
                 print(imageURL)
             case .failure(let error):
@@ -145,8 +145,8 @@ final class HomeInitialViewController: BaseViewController {
         NetworkManager.shared.request(type: MyInfo.self, api: Router.getMyProfile) { result in
             switch result {
             case .success(let response):
-                let image = APIKey.baseURL + (response.profileImage ?? "")
-                self.setCustomProfile(image: image)
+                let image = response.profileImage
+                self.setCustomProfile(image: image ?? "")
                 print(image)
             case .failure(let error):
                 print(error)

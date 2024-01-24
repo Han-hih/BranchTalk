@@ -109,14 +109,13 @@ class SideMenuViewController: BaseViewController {
 
 extension SideMenuViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(workSpaceResult.count)
         return workSpaceResult.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SideMenuTableViewCell.identifier, for: indexPath) as? SideMenuTableViewCell else { return UITableViewCell() }
         
-        let imageURL = APIKey.baseURL + "/v1" + workSpaceResult[indexPath.row].thumbnail
+        let imageURL = workSpaceResult[indexPath.row].thumbnail
         
         cell.configure(image: imageURL, text: workSpaceResult[indexPath.row].name, secondText: workSpaceResult[indexPath.row].createdAt)
         
