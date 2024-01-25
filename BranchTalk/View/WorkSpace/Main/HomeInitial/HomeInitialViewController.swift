@@ -247,6 +247,9 @@ final class HomeInitialViewController: BaseViewController {
         let actionsheet = UIAlertController(title: .none, message: .none, preferredStyle: .actionSheet)
         actionsheet.addAction(UIAlertAction(title: "채널 생성", style: .default, handler: { _ in
             print("채널 생성하기")
+            let vc = AddChannelViewController()
+            let nav = UINavigationController(rootViewController: vc)
+            self.present(nav, animated: true)
         }))
         actionsheet.addAction(UIAlertAction(title: "채널 탐색", style: .default, handler: { _ in
             print("채널 탐색하기")
