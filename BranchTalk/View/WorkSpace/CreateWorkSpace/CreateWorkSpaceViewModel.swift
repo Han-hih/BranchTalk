@@ -28,7 +28,7 @@ class CreateWorkSpaceViewModel: ViewModelType {
     
     func transform(input: Input) -> Output {
         let completeButtonActivate = BehaviorRelay<Bool>(value: false)
-        let completeButtontTapped = PublishRelay<Bool>()
+        let completeButtonTapped = PublishRelay<Bool>()
         
         
         input.nameTextFieldInput
@@ -64,7 +64,7 @@ class CreateWorkSpaceViewModel: ViewModelType {
         
         return Output(
             nameTextFieldInput: completeButtonActivate,
-            createButtonTapped: completeButtontTapped
+            createButtonTapped: completeButtonTapped
         )
     }
     
