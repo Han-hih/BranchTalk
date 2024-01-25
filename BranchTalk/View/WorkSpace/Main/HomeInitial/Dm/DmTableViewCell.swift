@@ -46,7 +46,7 @@ class DmTableViewCell: UITableViewCell {
     }
     
     func configure(imageURL: String, name: String) {
-        profileImage.kf.setImage(with: URL(string: APIKey.baseURL + "/v1" + imageURL))
+        profileImage.kf.setImage(with: URL(string: imageURL), options: [.requestModifier(KFModifier.shared.modifier)])
         dmName.text = name
     }
     

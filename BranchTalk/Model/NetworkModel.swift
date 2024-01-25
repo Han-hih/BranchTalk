@@ -40,33 +40,6 @@ struct TokenResponse: Decodable {
     let accessToken: String
 }
 
-struct GetWorkSpaceInfo: Decodable {
-    let workspaceID: Int
-    let description: String?
-    let name, thumbnail: String
-    let ownerID: Int
-    let createdAt: String
-    
-    enum CodingKeys: String, CodingKey {
-        case workspaceID = "workspace_id"
-        case name, description, thumbnail
-        case ownerID = "owner_id"
-        case createdAt
-    }
-}
-
-typealias GetWorkSpaceList = [GetWorkSpaceInfo]
-
-struct MyInfo: Decodable {
-    let userID, sesacCoin: Int
-    let email, nickname, createdAt: String
-    let profileImage, phone, vendor: String?
-    
-    enum CodingKeys: String, CodingKey {
-        case userID = "user_id"
-        case email, nickname, createdAt, profileImage, phone, vendor, sesacCoin
-    }
-}
 
 struct GetChannel: Decodable, Hashable {
     let workspaceID, channelID, ownerID, `private`: Int
@@ -79,29 +52,6 @@ struct GetChannel: Decodable, Hashable {
         case ownerID = "owner_id"
         case name, description, createdAt
         case `private`
-    }
-}
-
-struct GetDmList: Decodable, Hashable {
-    let workspaceID, roomID: Int
-    let createdAt: String
-    let user: User
-    
-    enum CodingKeys: String, CodingKey {
-        case workspaceID = "workspace_id"
-        case roomID = "room_id"
-        case createdAt, user
-    }
-    
-}
-
-struct User: Decodable, Hashable {
-    let userID: Int
-    let email, nickname, profileImage: String
-    
-    enum CodingKeys: String, CodingKey {
-        case userID = "user_id"
-        case email, nickname, profileImage
     }
 }
 

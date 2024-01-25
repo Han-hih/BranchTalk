@@ -129,10 +129,10 @@ final class HomeInitialViewController: BaseViewController {
     
     
     private func getWorkSpaceList() {
-        NetworkManager.shared.request(type: GetWorkSpaceList.self, api: Router.getWorkSpaceList) { [weak self] result in
+        NetworkManager.shared.request(type: [WorkSpaceList].self, api: Router.getWorkSpaceList) { [weak self] result in
             switch result {
             case .success(let response):
-                let imageURL = APIKey.baseURL + "/v1" + response[0].thumbnail
+                let imageURL = response[0].thumbnail
                 self?.setCustomNav(title: response[0].name, image: imageURL)
                 print(imageURL)
             case .failure(let error):
@@ -145,9 +145,8 @@ final class HomeInitialViewController: BaseViewController {
         NetworkManager.shared.request(type: MyInfo.self, api: Router.getMyProfile) { result in
             switch result {
             case .success(let response):
-                let image = APIKey.baseURL + (response.profileImage ?? "")
-                self.setCustomProfile(image: image)
-                print(image)
+                let image = response.profileImage
+                self.setCustomProfile(image: image ?? "")
             case .failure(let error):
                 print(error)
             }
@@ -156,7 +155,8 @@ final class HomeInitialViewController: BaseViewController {
     
     
     private func setCustomNav(title: String, image: String) {
-        navImageView.kf.setImage(with: URL(string: image))
+        let url = URL(string: image)
+        navImageView.kf.setImage(with: url, options: [.requestModifier(KFModifier.shared.modifier)])
         lazy var spaceImage = UIBarButtonItem(customView: navImageView)
         lazy var spaceName = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(spaceImageTapped))
         let spacer = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
@@ -171,7 +171,7 @@ final class HomeInitialViewController: BaseViewController {
     
     private func setCustomProfile(image: String) {
         let profileImage = UIBarButtonItem(customView: profileImageView)
-        profileImageView.kf.setImage(with: URL(string: image))
+        profileImageView.kf.setImage(with: URL(string: image), options: [.requestModifier(KFModifier.shared.modifier)])
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(profileImageTapped))
         profileImageView.isUserInteractionEnabled = true
         profileImageView.addGestureRecognizer(tapGestureRecognizer)
@@ -220,8 +220,6 @@ final class HomeInitialViewController: BaseViewController {
     }
     
     private func headerTapped() {
-        
-        var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<Item>()
         
         if isExpandable {
             isExpandable = false

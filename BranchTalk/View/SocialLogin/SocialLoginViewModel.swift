@@ -71,7 +71,7 @@ class SocialLoginViewModel {
     }
     
     func getWorkSpaceList() {
-        NetworkManager.shared.request(type: GetWorkSpaceList.self, api: Router.getWorkSpaceList) { result in
+        NetworkManager.shared.request(type: [WorkSpaceList].self, api: Router.getWorkSpaceList) { result in
             switch result {
             case .success(let response):
                 print(response.count)

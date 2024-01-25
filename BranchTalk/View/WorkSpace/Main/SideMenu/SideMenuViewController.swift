@@ -19,7 +19,7 @@ class SideMenuViewController: BaseViewController {
         return view
     }()
     
-    private let appendWorkSpaceButton = {
+    private lazy var appendWorkSpaceButton = {
         let bt = UIButton()
         var configuration = UIButton.Configuration.plain()
         configuration.image = UIImage(named: "plus")
@@ -31,6 +31,7 @@ class SideMenuViewController: BaseViewController {
         attributedText.foregroundColor = Colors.TextSecondary.CutsomColor
         configuration.attributedTitle = attributedText
         bt.configuration = configuration
+        bt.addTarget(self, action: #selector(appendWorkSpaceButtonTapped), for: .touchUpInside)
         return bt
     }()
     
@@ -49,7 +50,7 @@ class SideMenuViewController: BaseViewController {
         return bt
     }()
     
-    private var workSpaceResult = [GetWorkSpaceInfo]()
+    private var workSpaceResult = [WorkSpaceList]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +62,7 @@ class SideMenuViewController: BaseViewController {
     }
     
     private func getWorkList() {
-        NetworkManager.shared.refreshRequest(type: [GetWorkSpaceInfo].self, api: .getWorkSpaceList) { result in
+        NetworkManager.shared.refreshRequest(type: [WorkSpaceList].self, api: .getWorkSpaceList) { result in
             switch result {
             case .success(let success):
                 self.workSpaceResult.append(contentsOf: success)
@@ -70,6 +71,11 @@ class SideMenuViewController: BaseViewController {
                 print(failure)
             }
         }
+    }
+    
+    @objc func appendWorkSpaceButtonTapped() {
+        let vc = CreateWorkSpaceViewController()
+        present(vc, animated: true)
     }
     
     override func setUI() {
@@ -109,14 +115,13 @@ class SideMenuViewController: BaseViewController {
 
 extension SideMenuViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(workSpaceResult.count)
         return workSpaceResult.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SideMenuTableViewCell.identifier, for: indexPath) as? SideMenuTableViewCell else { return UITableViewCell() }
         
-        let imageURL = APIKey.baseURL + "/v1" + workSpaceResult[indexPath.row].thumbnail
+        let imageURL = workSpaceResult[indexPath.row].thumbnail
         
         cell.configure(image: imageURL, text: workSpaceResult[indexPath.row].name, secondText: workSpaceResult[indexPath.row].createdAt)
         

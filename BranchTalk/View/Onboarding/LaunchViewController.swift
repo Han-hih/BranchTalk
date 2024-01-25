@@ -35,7 +35,7 @@ final class LaunchViewController: BaseViewController {
     }
     
     private func goToMainView() {
-        NetworkManager.shared.request(type: GetWorkSpaceList.self, api: .getWorkSpaceList) { result in
+        NetworkManager.shared.request(type: [WorkSpaceList].self, api: .getWorkSpaceList) { result in
             print(result)
             switch result {
             case .success(let response):
