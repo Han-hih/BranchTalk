@@ -19,7 +19,7 @@ class SideMenuViewController: BaseViewController {
         return view
     }()
     
-    private let appendWorkSpaceButton = {
+    private lazy var appendWorkSpaceButton = {
         let bt = UIButton()
         var configuration = UIButton.Configuration.plain()
         configuration.image = UIImage(named: "plus")
@@ -31,6 +31,7 @@ class SideMenuViewController: BaseViewController {
         attributedText.foregroundColor = Colors.TextSecondary.CutsomColor
         configuration.attributedTitle = attributedText
         bt.configuration = configuration
+        bt.addTarget(self, action: #selector(appendWorkSpaceButtonTapped), for: .touchUpInside)
         return bt
     }()
     
@@ -70,6 +71,11 @@ class SideMenuViewController: BaseViewController {
                 print(failure)
             }
         }
+    }
+    
+    @objc func appendWorkSpaceButtonTapped() {
+        let vc = CreateWorkSpaceViewController()
+        present(vc, animated: true)
     }
     
     override func setUI() {
