@@ -71,13 +71,13 @@ class SideMenuTableViewCell: UITableViewCell {
         }
         
         dotButton.snp.makeConstraints { make in
-            make.trailing.centerY.equalToSuperview()
+            make.centerY.equalToSuperview()
             make.trailing.equalToSuperview().inset(16)
         }
     }
     
      func configure(image: String, text: String, secondText: String) {
-        spaceImage.kf.setImage(with: URL(string: image))
+        spaceImage.kf.setImage(with: URL(string: image), options: [.requestModifier(KFModifier.shared.modifier)])
         titleTextLabel.text = text
         secondTextLabel.text = secondText
     }
