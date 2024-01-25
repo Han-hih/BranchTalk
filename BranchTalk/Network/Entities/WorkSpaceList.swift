@@ -31,7 +31,6 @@ struct WorkSpaceList: Decodable {
         self.ownerID = try container.decode(Int.self, forKey: .ownerID)
         
         let serverDate = try container.decode(String.self, forKey: .createdAt)
-        let date = serverDate.toDate()
         let formattedDate = serverDate.toFormattedString()
         
         self.createdAt = formattedDate ?? ""
