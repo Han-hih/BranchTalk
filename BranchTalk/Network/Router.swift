@@ -28,9 +28,9 @@ enum Router: URLRequestConvertible {
     private var method: HTTPMethod {
         switch self {
         case .kakaoLogin, .emailValidate, .register, .makeWorkSpace:
-               return .post
+            return .post
         case .refresh, .getWorkSpaceList, .getMyProfile, .getChannelList, .getDmList:
-               return .get
+            return .get
         }
     }
     
@@ -94,12 +94,12 @@ enum Router: URLRequestConvertible {
     
     func asURLRequest() throws -> URLRequest {
         let url = baseURL.appendingPathComponent(path)
-
+        
         var request = URLRequest(url: url)
         request.method = method
         request.headers = header
         
-//        print("🩵", request.headers)
+        print("🩵", request.headers)
         
         if case .refresh = self {
             return request
@@ -111,7 +111,7 @@ enum Router: URLRequestConvertible {
         default:
             let jsonData = try? JSONSerialization.data(withJSONObject: parameters)
             request.httpBody = jsonData
-            return request  
+            return request
         }
     }
 }
@@ -129,7 +129,7 @@ extension Router {
             ]
             return makeMultipartFormdata(params: param, with: "workSpace")
             
-        default: return MultipartFormData()
+        default: return multipartFormData
         }
     }
     
