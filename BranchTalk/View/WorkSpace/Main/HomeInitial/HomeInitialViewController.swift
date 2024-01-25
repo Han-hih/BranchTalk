@@ -242,6 +242,18 @@ final class HomeInitialViewController: BaseViewController {
         }
         
     }
+    
+    private func footerTapped() {
+        let actionsheet = UIAlertController(title: .none, message: .none, preferredStyle: .actionSheet)
+        actionsheet.addAction(UIAlertAction(title: "채널 생성", style: .default, handler: { _ in
+            print("채널 생성하기")
+        }))
+        actionsheet.addAction(UIAlertAction(title: "채널 탐색", style: .default, handler: { _ in
+            print("채널 탐색하기")
+        }))
+        actionsheet.addAction(UIAlertAction(title: "취소", style: .cancel))
+        self.present(actionsheet, animated: true)
+    }
 }
 
 extension HomeInitialViewController: UITableViewDelegate{
@@ -266,7 +278,15 @@ extension HomeInitialViewController: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if section == 0 {
-            return ChannelFooterView()
+            let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: ChannelFooterView.identifier) as? ChannelFooterView
+            let tapGesture = UITapGestureRecognizer()
+            footer?.addGestureRecognizer(tapGesture)
+            tapGesture.rx.event
+                .asDriver()
+                .drive(with: self) { owner, _ in
+                    owner.footerTapped()
+                }.disposed(by: disposeBag)
+            return footer
         } else { return UIView() }
     }
 }
