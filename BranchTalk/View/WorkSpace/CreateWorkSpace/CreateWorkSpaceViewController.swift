@@ -64,6 +64,7 @@ final class CreateWorkSpaceViewController: BaseViewController {
     
     private let viewModel = CreateWorkSpaceViewModel()
     
+    private var imageObservable = BehaviorSubject(value: Data())
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Colors.BackgroundPrimary.CutsomColor
@@ -76,8 +77,8 @@ final class CreateWorkSpaceViewController: BaseViewController {
             createButtonTapped: completButton.rx.tap.asObservable(),
             nameInput: nameTextField.rx.text.orEmpty.asObservable(),
             descInput: descriptionTextField.rx.text.orEmpty.asObservable(),
-            image: Observable.just(((imageView.image?.jpegData(compressionQuality: 1) ?? UIImage(named: "workspace")?.jpegData(compressionQuality: 1))!))
-            )
+            image: imageObservable.asObservable()
+        )
         
         let output = viewModel.transform(input: input)
         
@@ -190,8 +191,9 @@ extension CreateWorkSpaceViewController: PHPickerViewControllerDelegate {
                       let image = image as? UIImage else { return }
                 
                 DispatchQueue.main.async {
-                    self.imageView.image = image
                     self.wordingImageView.image = nil
+                    self.imageView.image = image
+                    self.imageObservable.onNext(image.jpegData(compressionQuality: 0.1) ?? Data())
                 }
             }
         }
