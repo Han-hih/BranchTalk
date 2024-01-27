@@ -41,7 +41,11 @@ final class LaunchViewController: BaseViewController {
             case .success(let response):
                 print(response)
                 if response.count > 0 {
+                    if UserDefaultsValue.shared.workSpaceID == nil {
+                        UserDefaults.standard.set(response[0].workspaceID, forKey: "workSpaceID")
+                    }
                     ViewMove.shared.goHomeInitialView()
+                    
                 } else {
                     ViewMove.shared.goHomeEmptyView()
                 }
