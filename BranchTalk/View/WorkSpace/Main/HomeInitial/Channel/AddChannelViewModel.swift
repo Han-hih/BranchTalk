@@ -22,7 +22,7 @@ class AddChannelViewModel: ViewModelType {
     
     struct Output {
         let nameTextFieldInput: BehaviorRelay<Bool>
-        let createButtonTapped: PublishRelay<Bool>
+        let createButtonTapped: Observable<Void>
     }
     
     func transform(input: Input) -> Output {
@@ -52,6 +52,7 @@ class AddChannelViewModel: ViewModelType {
             .subscribe(with: self, onNext: { owner, value in
                 switch value {
                 case .success(let response):
+                    completeButtonTapped.accept(true)
                     print(response)
                 case .failure(let error):
                     print(error)
@@ -62,7 +63,7 @@ class AddChannelViewModel: ViewModelType {
         
         return Output(
             nameTextFieldInput: completeButtonActivate,
-            createButtonTapped: completeButtonTapped
+            createButtonTapped: input.createButtonTapped
         )
     }
 }

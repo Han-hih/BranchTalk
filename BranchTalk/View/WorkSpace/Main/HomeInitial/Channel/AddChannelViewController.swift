@@ -63,6 +63,12 @@ final class AddChannelViewController: BaseViewController {
                 owner.createButton.backgroundColor = value ? Colors.BrandGreen.CutsomColor : Colors.BrandInactive.CutsomColor
             }
             .disposed(by: disposeBag)
+        
+        output.createButtonTapped
+            .bind(with: self) { owner, _ in
+                owner.dismiss(animated: true)
+            }
+            .disposed(by: disposeBag)
     }
     
     override func setUI() {
