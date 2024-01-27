@@ -15,7 +15,6 @@ class SideMenuViewController: BaseViewController {
         view.rowHeight = 72
         view.register(SideMenuTableViewCell.self, forCellReuseIdentifier: SideMenuTableViewCell.identifier)
         view.separatorStyle = .none
-        view.allowsSelection = false
         return view
     }()
     
@@ -104,8 +103,13 @@ class SideMenuViewController: BaseViewController {
     }
     
     override func setNav() {
-        lazy var spaceName = UIBarButtonItem(title: "워크스페이스", style: .done, target: self, action: nil)
+        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.backgroundColor = Colors.BackgroundPrimary.CutsomColor
+        navigationController?.navigationBar.standardAppearance = navigationBarAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
         
+        lazy var spaceName = UIBarButtonItem(title: "워크스페이스", style: .done, target: self, action: nil)
+        spaceName.isSelected = false
         spaceName.setTitleTextAttributes([NSAttributedString.Key.font: Font.title1Bold(),
                                           NSAttributedString.Key.foregroundColor: Colors.BrandBlack.CutsomColor], for: .normal)
         
@@ -124,8 +128,19 @@ extension SideMenuViewController: UITableViewDelegate, UITableViewDataSource {
         let imageURL = workSpaceResult[indexPath.row].thumbnail
         
         cell.configure(image: imageURL, text: workSpaceResult[indexPath.row].name, secondText: workSpaceResult[indexPath.row].createdAt)
+        cell.selectionStyle = .none
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        guard var cell = tableView.cellForRow(at: indexPath) else { return }
+        
+//        cell.dotButton.isHidden = false
+        cell.contentView.backgroundColor = Colors.BackgroundPrimary.CutsomColor
+        
+        print(workSpaceResult[indexPath.row].workspaceID)
     }
 }
 
