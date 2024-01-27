@@ -26,6 +26,7 @@ final class HomeInitialViewController: BaseViewController, NetworkDelegate {
         print("-----------", id)
         UserDefaults.standard.set(id, forKey: "workSpaceID")
         bind()
+        getOneWorkSpaceList(id: id)
         
     }
     
@@ -81,9 +82,11 @@ final class HomeInitialViewController: BaseViewController, NetworkDelegate {
     
     private var channelList = [GetChannel]()
     
+    private let workSpaceID = UserDefaultsValue.shared.workSpaceID
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        getWorkSpaceList()
+        getOneWorkSpaceList(id: workSpaceID as! Int)
         getProfile()
         swipeRecognizer()
         channelTrigger.onNext(())
@@ -136,13 +139,12 @@ final class HomeInitialViewController: BaseViewController, NetworkDelegate {
         
     }
     
-    private func getWorkSpaceList() {
-        NetworkManager.shared.request(type: [WorkSpaceList].self, api: Router.getWorkSpaceList) { [weak self] result in
+    private func getOneWorkSpaceList(id: Int) {
+        NetworkManager.shared.request(type: WorkSpaceList.self, api: .getOneWorkSpaceList(id: id)) { [weak self] result in
             switch result {
             case .success(let response):
-                let imageURL = response[0].thumbnail
-                self?.setCustomNav(title: response[0].name, image: imageURL)
-                print(imageURL)
+                let imageURL = response.thumbnail
+                self?.setCustomNav(title: response.name, image: imageURL)
             case .failure(let error):
                 print(error)
             }
