@@ -39,9 +39,30 @@ final class AddChannelViewController: BaseViewController {
         return bt
     }()
     
+    private let viewModel = AddChannelViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Colors.BackgroundPrimary.CutsomColor
+    }
+    
+    override func bind() {
+        super.bind()
+        let input = AddChannelViewModel.Input(
+            nameTextFieldInput: nameTextField.rx.controlEvent(.editingChanged).withLatestFrom(nameTextField.rx.text.orEmpty.asObservable()),
+            createButtonTapped: createButton.rx.tap.asObservable(),
+            nameInput: nameTextField.rx.text.orEmpty.asObservable(),
+            descInput: descriptionTextField.rx.text.orEmpty.asObservable()
+        )
+        
+        let output = viewModel.transform(input: input)
+        
+        output.nameTextFieldInput
+            .bind(with: self) { owner, value in
+                owner.createButton.isEnabled = value
+                owner.createButton.backgroundColor = value ? Colors.BrandGreen.CutsomColor : Colors.BrandInactive.CutsomColor
+            }
+            .disposed(by: disposeBag)
     }
     
     override func setUI() {

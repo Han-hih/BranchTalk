@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8007410C2B4EE07500CCB95C /* Interceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8007410B2B4EE07500CCB95C /* Interceptor.swift */; };
+		8007B0D32B6272D900885AF8 /* AddChannelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8007B0D22B6272D900885AF8 /* AddChannelViewController.swift */; };
+		8007B0D52B62748100885AF8 /* AddChannelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8007B0D42B62748100885AF8 /* AddChannelViewModel.swift */; };
 		800A05532B5265350010505A /* SideMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 800A05522B5265350010505A /* SideMenu */; };
 		800A05552B5265AD0010505A /* HomeSideMenuNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800A05542B5265AD0010505A /* HomeSideMenuNavigation.swift */; };
 		800A05572B5268F40010505A /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800A05562B5268F40010505A /* SideMenuViewController.swift */; };
@@ -72,6 +74,8 @@
 
 /* Begin PBXFileReference section */
 		8007410B2B4EE07500CCB95C /* Interceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interceptor.swift; sourceTree = "<group>"; };
+		8007B0D22B6272D900885AF8 /* AddChannelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChannelViewController.swift; sourceTree = "<group>"; };
+		8007B0D42B62748100885AF8 /* AddChannelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChannelViewModel.swift; sourceTree = "<group>"; };
 		800A05542B5265AD0010505A /* HomeSideMenuNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSideMenuNavigation.swift; sourceTree = "<group>"; };
 		800A05562B5268F40010505A /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		800ED5022B45C67D001A7ECC /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
@@ -173,6 +177,8 @@
 				80FFA2682B55712C00ED6995 /* ChannelTableViewCell.swift */,
 				8020C9682B599A0600783221 /* ChannelHeaderView.swift */,
 				80F80CC52B5D5C760077654A /* ChannelFooterView.swift */,
+				8007B0D22B6272D900885AF8 /* AddChannelViewController.swift */,
+				8007B0D42B62748100885AF8 /* AddChannelViewModel.swift */,
 			);
 			path = Channel;
 			sourceTree = "<group>";
@@ -366,10 +372,10 @@
 		80FFA2672B55710400ED6995 /* HomeInitial */ = {
 			isa = PBXGroup;
 			children = (
-				80F80CC72B5E4EE60077654A /* Dm */,
-				8020C9672B5999E200783221 /* Channel */,
 				807E3A9E2B4FAC4100587A33 /* HomeInitialViewController.swift */,
 				80D696D92B55971F00C1761E /* HomeInitialViewModel.swift */,
+				80F80CC72B5E4EE60077654A /* Dm */,
+				8020C9672B5999E200783221 /* Channel */,
 			);
 			path = HomeInitial;
 			sourceTree = "<group>";
@@ -502,7 +508,9 @@
 				80C6297D2B61374B00CBFF97 /* MyInfo.swift in Sources */,
 				8007410C2B4EE07500CCB95C /* Interceptor.swift in Sources */,
 				8047E84E2B456B940018254B /* CustomRegisterTextField.swift in Sources */,
+				8007B0D32B6272D900885AF8 /* AddChannelViewController.swift in Sources */,
 				802DB5142B451903004A5C47 /* CustonButton.swift in Sources */,
+				8007B0D52B62748100885AF8 /* AddChannelViewModel.swift in Sources */,
 				80C16BF72B4FD3A400414D98 /* KFModifier.swift in Sources */,
 				807E3A9D2B4F17C500587A33 /* LaunchViewController.swift in Sources */,
 				8047E8472B4532740018254B /* SocialLoginViewController.swift in Sources */,
