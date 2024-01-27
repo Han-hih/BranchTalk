@@ -31,10 +31,11 @@ final class HomeInitialViewController: BaseViewController {
         view.register(DmTableViewCell.self, forCellReuseIdentifier: DmTableViewCell.identifier)
         view.delegate = self
         view.rowHeight = 41
-        view.separatorStyle = .none
         view.sectionHeaderHeight = 56
         view.sectionFooterHeight = 41
         view.backgroundColor = Colors.BackgroundSecondary.CutsomColor
+        view.separatorStyle = .none
+        view.sectionHeaderTopPadding = 0
         return view
     }()
     
