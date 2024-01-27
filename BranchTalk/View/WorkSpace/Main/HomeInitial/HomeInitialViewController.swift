@@ -94,8 +94,9 @@ final class HomeInitialViewController: BaseViewController {
             
             let items = list.map { Item.channelList($0) }
             snapshot.appendSections([.channel])
-            snapshot.appendItems(items, toSection: .channel)
-            owner.channelList.append(contentsOf: list)
+            snapshot.appendItems(items.reversed(), toSection: .channel)
+            
+            owner.channelList.append(contentsOf: list.reversed())
             owner.dataSource?.apply(snapshot)
         }
         .disposed(by: disposeBag)
@@ -126,7 +127,6 @@ final class HomeInitialViewController: BaseViewController {
         })
         
     }
-    
     
     private func getWorkSpaceList() {
         NetworkManager.shared.request(type: [WorkSpaceList].self, api: Router.getWorkSpaceList) { [weak self] result in
@@ -202,7 +202,7 @@ final class HomeInitialViewController: BaseViewController {
         
         tableView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
-            make.height.greaterThanOrEqualTo(160)
+            make.height.greaterThanOrEqualTo(250)
         }
     }
     
@@ -228,7 +228,7 @@ final class HomeInitialViewController: BaseViewController {
             snapshot.appendSections([.channel])
             
             dataSource?.apply(snapshot)
-            
+            tableView.footerView(forSection: 0)?.isHidden = true
         } else {
             isExpandable = true
             arrowToggle = true
@@ -239,8 +239,24 @@ final class HomeInitialViewController: BaseViewController {
             snapshot.appendItems(items, toSection: .channel)
             
             dataSource?.apply(snapshot)
+            tableView.footerView(forSection: 0)?.isHidden = false
         }
         
+    }
+    
+    private func footerTapped() {
+        let actionsheet = UIAlertController(title: .none, message: .none, preferredStyle: .actionSheet)
+        actionsheet.addAction(UIAlertAction(title: "채널 생성", style: .default, handler: { _ in
+            print("채널 생성하기")
+            let vc = AddChannelViewController()
+            let nav = UINavigationController(rootViewController: vc)
+            self.present(nav, animated: true)
+        }))
+        actionsheet.addAction(UIAlertAction(title: "채널 탐색", style: .default, handler: { _ in
+            print("채널 탐색하기")
+        }))
+        actionsheet.addAction(UIAlertAction(title: "취소", style: .cancel))
+        self.present(actionsheet, animated: true)
     }
 }
 
@@ -266,7 +282,15 @@ extension HomeInitialViewController: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if section == 0 {
-            return ChannelFooterView()
+            let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: ChannelFooterView.identifier) as? ChannelFooterView
+            let tapGesture = UITapGestureRecognizer()
+            footer?.addGestureRecognizer(tapGesture)
+            tapGesture.rx.event
+                .asDriver()
+                .drive(with: self) { owner, _ in
+                    owner.footerTapped()
+                }.disposed(by: disposeBag)
+            return footer
         } else { return UIView() }
     }
 }

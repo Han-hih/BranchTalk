@@ -19,6 +19,7 @@ enum Router: URLRequestConvertible {
     case getMyProfile
     case getChannelList(id: Int)
     case getDmList(id: Int)
+    case createChannel(id: Int, name: String, desc: String)
     
     private var baseURL: URL {
         guard let url = URL(string: APIKey.baseURL) else { fatalError() }
@@ -27,7 +28,7 @@ enum Router: URLRequestConvertible {
     
     private var method: HTTPMethod {
         switch self {
-        case .kakaoLogin, .emailValidate, .register, .makeWorkSpace:
+        case .kakaoLogin, .emailValidate, .register, .makeWorkSpace, .createChannel:
             return .post
         case .refresh, .getWorkSpaceList, .getMyProfile, .getChannelList, .getDmList:
             return .get
@@ -54,6 +55,8 @@ enum Router: URLRequestConvertible {
             return "v1/workspaces/\(id)/channels"
         case .getDmList(let id):
             return "v1/workspaces/\(id)/dms"
+        case .createChannel(let id, _, _):
+            return "v1/workspaces/\(id)/channels"
         }
     }
     
@@ -71,7 +74,7 @@ enum Router: URLRequestConvertible {
                     "RefreshToken": KeyChain.shared.read(key: "refresh") ?? "",
                     "Authorization": KeyChain.shared.read(key: "access") ?? "",
                     "SesacKey": "\(APIKey.apiKey)"]
-        case .getWorkSpaceList, .getMyProfile, .getChannelList, .getDmList:
+        case .getWorkSpaceList, .getMyProfile, .getChannelList, .getDmList, .createChannel:
             return ["Content-Type": "application/json",
                     "Authorization": KeyChain.shared.read(key: "access")!,
                     "SesacKey": "\(APIKey.apiKey)"]
@@ -87,6 +90,9 @@ enum Router: URLRequestConvertible {
             return ["email": email]
         case .register(email: let email, password: let password, nickname: let nickname, phone: let phone, deviceToken: let token):
             return ["email": email, "password": password, "nickname": nickname, "phone": phone ?? "", "deviceToken": token ?? ""]
+        case .createChannel(_, let name, let desc):
+            return [ "name": name,
+                     "description": desc]
         default:
             return nil
         }
