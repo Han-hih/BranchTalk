@@ -56,6 +56,7 @@ class CreateWorkSpaceViewModel: ViewModelType {
                 switch value {
                 case .success(let response):
                     print(response)
+                    UserDefaults.standard.setValue(response.workspaceID, forKey: "workSpaceID")
                 case .failure(let error):
                     print(error)
                 }
