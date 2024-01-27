@@ -31,6 +31,7 @@ class SideMenuTableViewCell: UITableViewCell {
         let bt = UIButton()
         bt.setImage(UIImage(named: "three dots"), for: .normal)
         bt.tintColor = Colors.BrandBlack.CutsomColor
+        bt.isHidden = true
         return bt
     }()
     
@@ -52,7 +53,7 @@ class SideMenuTableViewCell: UITableViewCell {
         
         contentView.layer.cornerRadius = 8
         contentView.clipsToBounds = true
-        contentView.backgroundColor = Colors.BackgroundPrimary.CutsomColor
+        contentView.backgroundColor = Colors.BackgroundSecondary.CutsomColor
         
         spaceImage.snp.makeConstraints { make in
             make.size.equalTo(44)
