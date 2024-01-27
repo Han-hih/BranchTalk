@@ -24,6 +24,9 @@ enum Item: Hashable {
 final class HomeInitialViewController: BaseViewController, NetworkDelegate {
     func getWorkSpaceNetworkCall(id: Int) {
         print("-----------", id)
+        UserDefaults.standard.set(id, forKey: "workSpaceID")
+        bind()
+        
     }
     
     
