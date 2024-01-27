@@ -10,6 +10,7 @@
 		8007410C2B4EE07500CCB95C /* Interceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8007410B2B4EE07500CCB95C /* Interceptor.swift */; };
 		8007B0D32B6272D900885AF8 /* AddChannelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8007B0D22B6272D900885AF8 /* AddChannelViewController.swift */; };
 		8007B0D52B62748100885AF8 /* AddChannelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8007B0D42B62748100885AF8 /* AddChannelViewModel.swift */; };
+		8007B0DB2B64C2A700885AF8 /* UserDefaultsValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8007B0DA2B64C2A700885AF8 /* UserDefaultsValue.swift */; };
 		800A05532B5265350010505A /* SideMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 800A05522B5265350010505A /* SideMenu */; };
 		800A05552B5265AD0010505A /* HomeSideMenuNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800A05542B5265AD0010505A /* HomeSideMenuNavigation.swift */; };
 		800A05572B5268F40010505A /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800A05562B5268F40010505A /* SideMenuViewController.swift */; };
@@ -76,6 +77,7 @@
 		8007410B2B4EE07500CCB95C /* Interceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interceptor.swift; sourceTree = "<group>"; };
 		8007B0D22B6272D900885AF8 /* AddChannelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChannelViewController.swift; sourceTree = "<group>"; };
 		8007B0D42B62748100885AF8 /* AddChannelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChannelViewModel.swift; sourceTree = "<group>"; };
+		8007B0DA2B64C2A700885AF8 /* UserDefaultsValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsValue.swift; sourceTree = "<group>"; };
 		800A05542B5265AD0010505A /* HomeSideMenuNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSideMenuNavigation.swift; sourceTree = "<group>"; };
 		800A05562B5268F40010505A /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		800ED5022B45C67D001A7ECC /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
@@ -352,6 +354,7 @@
 				80CC39AD2B4447B9009E0818 /* Fonts.swift */,
 				80CC39AF2B44584C009E0818 /* SF-Pro.ttf */,
 				80802A9C2B46CDAC008F1723 /* KeyChain.swift */,
+				8007B0DA2B64C2A700885AF8 /* UserDefaultsValue.swift */,
 				80802AA82B471748008F1723 /* ValidationCheck.swift */,
 				80C16BF62B4FD3A400414D98 /* KFModifier.swift */,
 				80C16BF82B5159D700414D98 /* ViewMove.swift */,
@@ -516,6 +519,7 @@
 				8047E8472B4532740018254B /* SocialLoginViewController.swift in Sources */,
 				800ED5062B45CD89001A7ECC /* NetworkManager.swift in Sources */,
 				800ED5082B45CFE8001A7ECC /* Router.swift in Sources */,
+				8007B0DB2B64C2A700885AF8 /* UserDefaultsValue.swift in Sources */,
 				808A75C02B542D7400FD075D /* SideMenuTableViewCell.swift in Sources */,
 				800ED50E2B46734B001A7ECC /* StartWorkSpaceViewController.swift in Sources */,
 				80D696DA2B55971F00C1761E /* HomeInitialViewModel.swift in Sources */,
