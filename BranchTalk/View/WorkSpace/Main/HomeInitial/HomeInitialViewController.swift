@@ -202,7 +202,7 @@ final class HomeInitialViewController: BaseViewController {
         
         tableView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
-            make.height.greaterThanOrEqualTo(160)
+            make.height.greaterThanOrEqualTo(250)
         }
     }
     
@@ -228,7 +228,7 @@ final class HomeInitialViewController: BaseViewController {
             snapshot.appendSections([.channel])
             
             dataSource?.apply(snapshot)
-            
+            tableView.footerView(forSection: 0)?.isHidden = true
         } else {
             isExpandable = true
             arrowToggle = true
@@ -239,6 +239,7 @@ final class HomeInitialViewController: BaseViewController {
             snapshot.appendItems(items, toSection: .channel)
             
             dataSource?.apply(snapshot)
+            tableView.footerView(forSection: 0)?.isHidden = false
         }
         
     }
