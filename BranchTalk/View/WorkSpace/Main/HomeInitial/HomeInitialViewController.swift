@@ -94,8 +94,9 @@ final class HomeInitialViewController: BaseViewController {
             
             let items = list.map { Item.channelList($0) }
             snapshot.appendSections([.channel])
-            snapshot.appendItems(items, toSection: .channel)
-            owner.channelList.append(contentsOf: list)
+            snapshot.appendItems(items.reversed(), toSection: .channel)
+            
+            owner.channelList.append(contentsOf: list.reversed())
             owner.dataSource?.apply(snapshot)
         }
         .disposed(by: disposeBag)
@@ -126,7 +127,6 @@ final class HomeInitialViewController: BaseViewController {
         })
         
     }
-    
     
     private func getWorkSpaceList() {
         NetworkManager.shared.request(type: [WorkSpaceList].self, api: Router.getWorkSpaceList) { [weak self] result in
