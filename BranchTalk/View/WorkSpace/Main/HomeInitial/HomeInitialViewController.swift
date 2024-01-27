@@ -21,7 +21,11 @@ enum Item: Hashable {
     case dmList(GetDmList)
 }
 
-final class HomeInitialViewController: BaseViewController {
+final class HomeInitialViewController: BaseViewController, NetworkDelegate {
+    func getWorkSpaceNetworkCall(id: Int) {
+        print("-----------", id)
+    }
+    
     
     private lazy var tableView = {
         let view = UITableView()
@@ -190,8 +194,7 @@ final class HomeInitialViewController: BaseViewController {
         if let swipeGesture = gesture as? UISwipeGestureRecognizer {
             switch swipeGesture.direction{
             case UISwipeGestureRecognizer.Direction.right:
-                let menu = HomeSideMenuNavigation(rootViewController: SideMenuViewController())
-                present(menu, animated: true)
+                spaceImageTapped()
             default: break
             }
         }
@@ -212,7 +215,11 @@ final class HomeInitialViewController: BaseViewController {
     }
     
     @objc func spaceImageTapped() {
-        let menu = HomeSideMenuNavigation(rootViewController: SideMenuViewController())
+        
+        let vc = SideMenuViewController()
+        vc.delegate = self
+        
+        let menu = HomeSideMenuNavigation(rootViewController: vc)
         present(menu, animated: true)
         
     }

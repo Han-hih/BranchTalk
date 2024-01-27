@@ -8,6 +8,10 @@
 import UIKit
 import Kingfisher
 
+protocol NetworkDelegate: AnyObject {
+    func getWorkSpaceNetworkCall(id: Int)
+}
+
 class SideMenuViewController: BaseViewController {
     
     private lazy var tableView = {
@@ -50,6 +54,8 @@ class SideMenuViewController: BaseViewController {
     }()
     
     private var workSpaceResult = [WorkSpaceList]()
+    
+    var delegate: NetworkDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -135,12 +141,15 @@ extension SideMenuViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        guard var cell = tableView.cellForRow(at: indexPath) else { return }
-        
-//        cell.dotButton.isHidden = false
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+    
         cell.contentView.backgroundColor = Colors.BackgroundPrimary.CutsomColor
         
-        print(workSpaceResult[indexPath.row].workspaceID)
+        let id = workSpaceResult[indexPath.row].workspaceID
+        
+        delegate?.getWorkSpaceNetworkCall(id: id)
+    
+        dismiss(animated: true)
     }
 }
 
