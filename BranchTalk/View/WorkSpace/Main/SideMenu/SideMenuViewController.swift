@@ -8,6 +8,10 @@
 import UIKit
 import Kingfisher
 
+protocol NetworkDelegate: AnyObject {
+    func getWorkSpaceNetworkCall(id: Int)
+}
+
 class SideMenuViewController: BaseViewController {
     
     private lazy var tableView = {
@@ -15,7 +19,6 @@ class SideMenuViewController: BaseViewController {
         view.rowHeight = 72
         view.register(SideMenuTableViewCell.self, forCellReuseIdentifier: SideMenuTableViewCell.identifier)
         view.separatorStyle = .none
-        view.allowsSelection = false
         return view
     }()
     
@@ -51,6 +54,8 @@ class SideMenuViewController: BaseViewController {
     }()
     
     private var workSpaceResult = [WorkSpaceList]()
+    
+    var delegate: NetworkDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,8 +109,13 @@ class SideMenuViewController: BaseViewController {
     }
     
     override func setNav() {
-        lazy var spaceName = UIBarButtonItem(title: "워크스페이스", style: .done, target: self, action: nil)
+        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.backgroundColor = Colors.BackgroundPrimary.CutsomColor
+        navigationController?.navigationBar.standardAppearance = navigationBarAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
         
+        lazy var spaceName = UIBarButtonItem(title: "워크스페이스", style: .done, target: self, action: nil)
+        spaceName.isSelected = false
         spaceName.setTitleTextAttributes([NSAttributedString.Key.font: Font.title1Bold(),
                                           NSAttributedString.Key.foregroundColor: Colors.BrandBlack.CutsomColor], for: .normal)
         
@@ -124,8 +134,22 @@ extension SideMenuViewController: UITableViewDelegate, UITableViewDataSource {
         let imageURL = workSpaceResult[indexPath.row].thumbnail
         
         cell.configure(image: imageURL, text: workSpaceResult[indexPath.row].name, secondText: workSpaceResult[indexPath.row].createdAt)
+        cell.selectionStyle = .none
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+    
+        cell.contentView.backgroundColor = Colors.BackgroundPrimary.CutsomColor
+        
+        let id = workSpaceResult[indexPath.row].workspaceID
+        
+        delegate?.getWorkSpaceNetworkCall(id: id)
+    
+        dismiss(animated: true)
     }
 }
 

@@ -13,7 +13,6 @@ class HomeInitialViewModel: ViewModelType {
     
     private let disposeBag = DisposeBag()
     
-    
     struct Input {
         let channelTrigger: Observable<Void>
         let dmTrigger: Observable<Void>
@@ -29,8 +28,14 @@ class HomeInitialViewModel: ViewModelType {
         let dmObservable = PublishSubject<[GetDmList]>()
         
          input.channelTrigger
+            .debug()
             .flatMapLatest { _ in
-                NetworkManager.shared.requestSingle(type: [GetChannel].self, api: .getChannelList(id: 22))
+                NetworkManager.shared.requestSingle(
+                    type: [GetChannel].self,
+                    api: .getChannelList(
+                        id: UserDefaults.standard.integer(forKey: "workSpaceID")
+                    )
+                )
             }
             .subscribe(with: self, onNext: { owner, result in
                 switch result {
@@ -45,7 +50,12 @@ class HomeInitialViewModel: ViewModelType {
         
         input.dmTrigger
             .flatMapLatest { _ in
-                NetworkManager.shared.requestSingle(type: [GetDmList].self, api: .getDmList(id: 22))
+                NetworkManager.shared.requestSingle(
+                    type: [GetDmList].self,
+                    api: .getDmList(
+                        id: UserDefaults.standard.integer(forKey: "workSpaceID")
+                    )
+                )
             }
             .subscribe(with: self, onNext: { owner, result in
                 switch result {

@@ -9,6 +9,7 @@ import UIKit
 import SideMenu
 import RxSwift
 import RxCocoa
+import Kingfisher
 
 // 레이아웃
 enum Section: Hashable {
@@ -21,8 +22,16 @@ enum Item: Hashable {
     case dmList(GetDmList)
 }
 
-final class HomeInitialViewController: BaseViewController {
+final class HomeInitialViewController: BaseViewController, NetworkDelegate {
     
+    func getWorkSpaceNetworkCall(id: Int) {
+        print("-----------", id)
+        UserDefaults.standard.set(id, forKey: "workSpaceID")
+        channelTrigger.onNext(())
+        dmTrigger.onNext(())
+        getOneWorkSpaceList(id: id)
+    }
+
     private lazy var tableView = {
         let view = UITableView()
         view.register(ChannelTableViewCell.self, forCellReuseIdentifier: ChannelTableViewCell.identifier)
@@ -31,10 +40,11 @@ final class HomeInitialViewController: BaseViewController {
         view.register(DmTableViewCell.self, forCellReuseIdentifier: DmTableViewCell.identifier)
         view.delegate = self
         view.rowHeight = 41
-        view.separatorStyle = .none
         view.sectionHeaderHeight = 56
         view.sectionFooterHeight = 41
         view.backgroundColor = Colors.BackgroundSecondary.CutsomColor
+        view.separatorStyle = .none
+        view.sectionHeaderTopPadding = 0
         return view
     }()
     
@@ -73,9 +83,11 @@ final class HomeInitialViewController: BaseViewController {
     
     private var channelList = [GetChannel]()
     
+    private let workSpaceID = UserDefaultsValue.shared.workSpaceID
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        getWorkSpaceList()
+        getOneWorkSpaceList(id: workSpaceID)
         getProfile()
         swipeRecognizer()
         channelTrigger.onNext(())
@@ -128,13 +140,12 @@ final class HomeInitialViewController: BaseViewController {
         
     }
     
-    private func getWorkSpaceList() {
-        NetworkManager.shared.request(type: [WorkSpaceList].self, api: Router.getWorkSpaceList) { [weak self] result in
+    private func getOneWorkSpaceList(id: Int) {
+        NetworkManager.shared.request(type: WorkSpaceList.self, api: .getOneWorkSpaceList(id: id)) { [weak self] result in
             switch result {
             case .success(let response):
-                let imageURL = response[0].thumbnail
-                self?.setCustomNav(title: response[0].name, image: imageURL)
-                print(imageURL)
+                let imageURL = response.thumbnail
+                self?.setCustomNav(title: response.name, image: imageURL)
             case .failure(let error):
                 print(error)
             }
@@ -156,7 +167,8 @@ final class HomeInitialViewController: BaseViewController {
     
     private func setCustomNav(title: String, image: String) {
         let url = URL(string: image)
-        navImageView.kf.setImage(with: url, options: [.requestModifier(KFModifier.shared.modifier)])
+        let processor = ResizingImageProcessor(referenceSize: CGSize(width: 32, height: 32), mode: .aspectFill)
+        navImageView.kf.setImage(with: url, options: [.requestModifier(KFModifier.shared.modifier), .processor(processor)])
         lazy var spaceImage = UIBarButtonItem(customView: navImageView)
         lazy var spaceName = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(spaceImageTapped))
         let spacer = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
@@ -189,8 +201,7 @@ final class HomeInitialViewController: BaseViewController {
         if let swipeGesture = gesture as? UISwipeGestureRecognizer {
             switch swipeGesture.direction{
             case UISwipeGestureRecognizer.Direction.right:
-                let menu = HomeSideMenuNavigation(rootViewController: SideMenuViewController())
-                present(menu, animated: true)
+                spaceImageTapped()
             default: break
             }
         }
@@ -211,7 +222,11 @@ final class HomeInitialViewController: BaseViewController {
     }
     
     @objc func spaceImageTapped() {
-        let menu = HomeSideMenuNavigation(rootViewController: SideMenuViewController())
+        
+        let vc = SideMenuViewController()
+        vc.delegate = self
+        
+        let menu = HomeSideMenuNavigation(rootViewController: vc)
         present(menu, animated: true)
         
     }

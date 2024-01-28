@@ -16,6 +16,7 @@ enum Router: URLRequestConvertible {
     case makeWorkSpace(makeWorkSpace)
     case refresh
     case getWorkSpaceList
+    case getOneWorkSpaceList(id: Int)
     case getMyProfile
     case getChannelList(id: Int)
     case getDmList(id: Int)
@@ -30,7 +31,7 @@ enum Router: URLRequestConvertible {
         switch self {
         case .kakaoLogin, .emailValidate, .register, .makeWorkSpace, .createChannel:
             return .post
-        case .refresh, .getWorkSpaceList, .getMyProfile, .getChannelList, .getDmList:
+        case .refresh, .getWorkSpaceList, .getOneWorkSpaceList, .getMyProfile, .getChannelList, .getDmList:
             return .get
         }
     }
@@ -49,6 +50,8 @@ enum Router: URLRequestConvertible {
             return "/v1/auth/refresh"
         case .getWorkSpaceList:
             return "/v1/workspaces"
+        case .getOneWorkSpaceList(let id):
+            return "/v1/workspaces/\(id)"
         case .getMyProfile:
             return "v1/users/my"
         case .getChannelList(let id):
@@ -74,7 +77,7 @@ enum Router: URLRequestConvertible {
                     "RefreshToken": KeyChain.shared.read(key: "refresh") ?? "",
                     "Authorization": KeyChain.shared.read(key: "access") ?? "",
                     "SesacKey": "\(APIKey.apiKey)"]
-        case .getWorkSpaceList, .getMyProfile, .getChannelList, .getDmList, .createChannel:
+        case .getWorkSpaceList, .getOneWorkSpaceList, .getMyProfile, .getChannelList, .getDmList, .createChannel:
             return ["Content-Type": "application/json",
                     "Authorization": KeyChain.shared.read(key: "access")!,
                     "SesacKey": "\(APIKey.apiKey)"]
@@ -112,7 +115,7 @@ enum Router: URLRequestConvertible {
         }
         
         switch self {
-        case .makeWorkSpace, .getWorkSpaceList, .getMyProfile, .getChannelList, .getDmList:
+        case .makeWorkSpace, .getWorkSpaceList, .getOneWorkSpaceList, .getMyProfile, .getChannelList, .getDmList:
             return try URLEncoding.default.encode(request, with: parameters)
         default:
             let jsonData = try? JSONSerialization.data(withJSONObject: parameters)
