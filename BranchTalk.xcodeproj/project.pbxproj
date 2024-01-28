@@ -23,6 +23,8 @@
 		802837C92B4BDE20004CB167 /* CreateWorkSpaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802837C82B4BDE20004CB167 /* CreateWorkSpaceViewController.swift */; };
 		802837CB2B4BDE32004CB167 /* CreateWorkSpaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802837CA2B4BDE32004CB167 /* CreateWorkSpaceViewModel.swift */; };
 		802DB5142B451903004A5C47 /* CustonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802DB5132B451903004A5C47 /* CustonButton.swift */; };
+		803E5E0C2B6639AD0016985F /* FindChannelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803E5E0B2B6639AC0016985F /* FindChannelViewController.swift */; };
+		803E5E0E2B66426C0016985F /* FindChannelListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803E5E0D2B66426C0016985F /* FindChannelListTableViewCell.swift */; };
 		8047E8472B4532740018254B /* SocialLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8047E8462B4532740018254B /* SocialLoginViewController.swift */; };
 		8047E84A2B4544020018254B /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8047E8492B4544020018254B /* RegisterViewController.swift */; };
 		8047E84E2B456B940018254B /* CustomRegisterTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8047E84D2B456B940018254B /* CustomRegisterTextField.swift */; };
@@ -91,6 +93,8 @@
 		802837C82B4BDE20004CB167 /* CreateWorkSpaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkSpaceViewController.swift; sourceTree = "<group>"; };
 		802837CA2B4BDE32004CB167 /* CreateWorkSpaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkSpaceViewModel.swift; sourceTree = "<group>"; };
 		802DB5132B451903004A5C47 /* CustonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustonButton.swift; sourceTree = "<group>"; };
+		803E5E0B2B6639AC0016985F /* FindChannelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindChannelViewController.swift; sourceTree = "<group>"; };
+		803E5E0D2B66426C0016985F /* FindChannelListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindChannelListTableViewCell.swift; sourceTree = "<group>"; };
 		8047E8462B4532740018254B /* SocialLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginViewController.swift; sourceTree = "<group>"; };
 		8047E8492B4544020018254B /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		8047E84D2B456B940018254B /* CustomRegisterTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRegisterTextField.swift; sourceTree = "<group>"; };
@@ -227,6 +231,8 @@
 		803E5E0A2B6639070016985F /* Find */ = {
 			isa = PBXGroup;
 			children = (
+				803E5E0B2B6639AC0016985F /* FindChannelViewController.swift */,
+				803E5E0D2B66426C0016985F /* FindChannelListTableViewCell.swift */,
 			);
 			path = Find;
 			sourceTree = "<group>";
@@ -514,6 +520,7 @@
 				809CF0112B4C441200F7BC68 /* CommonError.swift in Sources */,
 				80802A992B4692AE008F1723 /* SocialLoginViewModel.swift in Sources */,
 				800ED50B2B464ACE001A7ECC /* NetworkModel.swift in Sources */,
+				803E5E0C2B6639AD0016985F /* FindChannelViewController.swift in Sources */,
 				8020C9692B599A0600783221 /* ChannelHeaderView.swift in Sources */,
 				809CF0132B4D3CB200F7BC68 /* MultipartModel.swift in Sources */,
 				80802A972B468B4E008F1723 /* BaseViewController.swift in Sources */,
@@ -527,6 +534,7 @@
 				80802A9D2B46CDAC008F1723 /* KeyChain.swift in Sources */,
 				800A05552B5265AD0010505A /* HomeSideMenuNavigation.swift in Sources */,
 				80802AA52B471013008F1723 /* RegisterViewModel.swift in Sources */,
+				803E5E0E2B66426C0016985F /* FindChannelListTableViewCell.swift in Sources */,
 				80C6297D2B61374B00CBFF97 /* MyInfo.swift in Sources */,
 				8007410C2B4EE07500CCB95C /* Interceptor.swift in Sources */,
 				8047E84E2B456B940018254B /* CustomRegisterTextField.swift in Sources */,
