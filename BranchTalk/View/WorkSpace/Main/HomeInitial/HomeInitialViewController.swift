@@ -9,6 +9,7 @@ import UIKit
 import SideMenu
 import RxSwift
 import RxCocoa
+import Kingfisher
 
 // 레이아웃
 enum Section: Hashable {
@@ -22,15 +23,15 @@ enum Item: Hashable {
 }
 
 final class HomeInitialViewController: BaseViewController, NetworkDelegate {
+    
     func getWorkSpaceNetworkCall(id: Int) {
         print("-----------", id)
         UserDefaults.standard.set(id, forKey: "workSpaceID")
-        bind()
+        channelTrigger.onNext(())
+        dmTrigger.onNext(())
         getOneWorkSpaceList(id: id)
-        
     }
-    
-    
+
     private lazy var tableView = {
         let view = UITableView()
         view.register(ChannelTableViewCell.self, forCellReuseIdentifier: ChannelTableViewCell.identifier)
@@ -86,7 +87,7 @@ final class HomeInitialViewController: BaseViewController, NetworkDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getOneWorkSpaceList(id: workSpaceID as! Int)
+        getOneWorkSpaceList(id: workSpaceID)
         getProfile()
         swipeRecognizer()
         channelTrigger.onNext(())
@@ -166,7 +167,8 @@ final class HomeInitialViewController: BaseViewController, NetworkDelegate {
     
     private func setCustomNav(title: String, image: String) {
         let url = URL(string: image)
-        navImageView.kf.setImage(with: url, options: [.requestModifier(KFModifier.shared.modifier)])
+        let processor = ResizingImageProcessor(referenceSize: CGSize(width: 32, height: 32), mode: .aspectFill)
+        navImageView.kf.setImage(with: url, options: [.requestModifier(KFModifier.shared.modifier), .processor(processor)])
         lazy var spaceImage = UIBarButtonItem(customView: navImageView)
         lazy var spaceName = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(spaceImageTapped))
         let spacer = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
