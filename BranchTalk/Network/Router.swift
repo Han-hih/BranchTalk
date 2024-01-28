@@ -21,6 +21,8 @@ enum Router: URLRequestConvertible {
     case getChannelList(id: Int)
     case getDmList(id: Int)
     case createChannel(id: Int, name: String, desc: String)
+    case getAllMyChannel(id: Int)
+    case getAllChannel(id: Int)
     
     private var baseURL: URL {
         guard let url = URL(string: APIKey.baseURL) else { fatalError() }
@@ -31,7 +33,7 @@ enum Router: URLRequestConvertible {
         switch self {
         case .kakaoLogin, .emailValidate, .register, .makeWorkSpace, .createChannel:
             return .post
-        case .refresh, .getWorkSpaceList, .getOneWorkSpaceList, .getMyProfile, .getChannelList, .getDmList:
+        case .refresh, .getWorkSpaceList, .getOneWorkSpaceList, .getMyProfile, .getChannelList, .getDmList, .getAllMyChannel, .getAllChannel:
             return .get
         }
     }
@@ -60,6 +62,10 @@ enum Router: URLRequestConvertible {
             return "v1/workspaces/\(id)/dms"
         case .createChannel(let id, _, _):
             return "v1/workspaces/\(id)/channels"
+        case .getAllMyChannel(let id):
+            return "/v1/workspaces/\(id)/channels/my"
+        case .getAllChannel(let id):
+            return "/v1/workspaces/\(id)/channels"
         }
     }
     
@@ -77,7 +83,7 @@ enum Router: URLRequestConvertible {
                     "RefreshToken": KeyChain.shared.read(key: "refresh") ?? "",
                     "Authorization": KeyChain.shared.read(key: "access") ?? "",
                     "SesacKey": "\(APIKey.apiKey)"]
-        case .getWorkSpaceList, .getOneWorkSpaceList, .getMyProfile, .getChannelList, .getDmList, .createChannel:
+        case .getWorkSpaceList, .getOneWorkSpaceList, .getMyProfile, .getChannelList, .getDmList, .createChannel, .getAllChannel, .getAllMyChannel:
             return ["Content-Type": "application/json",
                     "Authorization": KeyChain.shared.read(key: "access")!,
                     "SesacKey": "\(APIKey.apiKey)"]
@@ -115,7 +121,7 @@ enum Router: URLRequestConvertible {
         }
         
         switch self {
-        case .makeWorkSpace, .getWorkSpaceList, .getOneWorkSpaceList, .getMyProfile, .getChannelList, .getDmList:
+        case .makeWorkSpace, .getWorkSpaceList, .getOneWorkSpaceList, .getMyProfile, .getChannelList, .getDmList, .getAllChannel, .getAllMyChannel:
             return try URLEncoding.default.encode(request, with: parameters)
         default:
             let jsonData = try? JSONSerialization.data(withJSONObject: parameters)
