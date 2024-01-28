@@ -26,6 +26,7 @@
 		8047E8472B4532740018254B /* SocialLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8047E8462B4532740018254B /* SocialLoginViewController.swift */; };
 		8047E84A2B4544020018254B /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8047E8492B4544020018254B /* RegisterViewController.swift */; };
 		8047E84E2B456B940018254B /* CustomRegisterTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8047E84D2B456B940018254B /* CustomRegisterTextField.swift */; };
+		804D63BB2B65307B0038C9F9 /* UIimageResize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804D63BA2B65307B0038C9F9 /* UIimageResize.swift */; };
 		807E3A9D2B4F17C500587A33 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807E3A9C2B4F17C500587A33 /* LaunchViewController.swift */; };
 		807E3A9F2B4FAC4100587A33 /* HomeInitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807E3A9E2B4FAC4100587A33 /* HomeInitialViewController.swift */; };
 		80802A972B468B4E008F1723 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802A962B468B4E008F1723 /* BaseViewController.swift */; };
@@ -93,6 +94,7 @@
 		8047E8462B4532740018254B /* SocialLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginViewController.swift; sourceTree = "<group>"; };
 		8047E8492B4544020018254B /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		8047E84D2B456B940018254B /* CustomRegisterTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRegisterTextField.swift; sourceTree = "<group>"; };
+		804D63BA2B65307B0038C9F9 /* UIimageResize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIimageResize.swift; sourceTree = "<group>"; };
 		807E3A9C2B4F17C500587A33 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		807E3A9E2B4FAC4100587A33 /* HomeInitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInitialViewController.swift; sourceTree = "<group>"; };
 		80802A962B468B4E008F1723 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 			isa = PBXGroup;
 			children = (
 				80C629772B61349C00CBFF97 /* toDateAndString.swift */,
+				804D63BA2B65307B0038C9F9 /* UIimageResize.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -514,6 +517,7 @@
 				8007B0D32B6272D900885AF8 /* AddChannelViewController.swift in Sources */,
 				802DB5142B451903004A5C47 /* CustonButton.swift in Sources */,
 				8007B0D52B62748100885AF8 /* AddChannelViewModel.swift in Sources */,
+				804D63BB2B65307B0038C9F9 /* UIimageResize.swift in Sources */,
 				80C16BF72B4FD3A400414D98 /* KFModifier.swift in Sources */,
 				807E3A9D2B4F17C500587A33 /* LaunchViewController.swift in Sources */,
 				8047E8472B4532740018254B /* SocialLoginViewController.swift in Sources */,

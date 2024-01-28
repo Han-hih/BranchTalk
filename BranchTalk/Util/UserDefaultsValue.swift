@@ -11,6 +11,6 @@ final class UserDefaultsValue {
     
     static let shared = UserDefaultsValue()
     
-    var workSpaceID = UserDefaults.standard.value(forKey: "workSpaceID")
+    var workSpaceID = UserDefaults.standard.integer(forKey: "workSpaceID")
     
 }
