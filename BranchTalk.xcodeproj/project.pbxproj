@@ -181,8 +181,8 @@
 				80FFA2682B55712C00ED6995 /* ChannelTableViewCell.swift */,
 				8020C9682B599A0600783221 /* ChannelHeaderView.swift */,
 				80F80CC52B5D5C760077654A /* ChannelFooterView.swift */,
-				8007B0D22B6272D900885AF8 /* AddChannelViewController.swift */,
-				8007B0D42B62748100885AF8 /* AddChannelViewModel.swift */,
+				803E5E0A2B6639070016985F /* Find */,
+				803E5E092B6638F90016985F /* Add */,
 			);
 			path = Channel;
 			sourceTree = "<group>";
@@ -213,6 +213,22 @@
 				800ED50F2B468041001A7ECC /* CustomLabel.swift */,
 			);
 			path = Custom;
+			sourceTree = "<group>";
+		};
+		803E5E092B6638F90016985F /* Add */ = {
+			isa = PBXGroup;
+			children = (
+				8007B0D22B6272D900885AF8 /* AddChannelViewController.swift */,
+				8007B0D42B62748100885AF8 /* AddChannelViewModel.swift */,
+			);
+			path = Add;
+			sourceTree = "<group>";
+		};
+		803E5E0A2B6639070016985F /* Find */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Find;
 			sourceTree = "<group>";
 		};
 		8047E8452B4532340018254B /* SocialLogin */ = {
