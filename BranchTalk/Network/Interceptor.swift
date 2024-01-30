@@ -27,8 +27,6 @@ class Interceptor: RequestInterceptor {
     
     func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
         print("retry 진입")
-        
-        guard let refreshToken = KeyChain.shared.read(key: "refresh") else { return }
  
         NetworkManager.shared.refreshRequest(type: TokenResponse.self, api: .refresh) { response in
             print(response)

@@ -108,7 +108,7 @@ final class HomeInitialViewController: BaseViewController, NetworkDelegate {
             snapshot.appendSections([.channel])
             snapshot.appendItems(items.reversed(), toSection: .channel)
             
-            owner.channelList.append(contentsOf: list.reversed())
+            owner.channelList = list.reversed()
             owner.dataSource?.apply(snapshot)
         }
         .disposed(by: disposeBag)
@@ -269,6 +269,8 @@ final class HomeInitialViewController: BaseViewController, NetworkDelegate {
         }))
         actionsheet.addAction(UIAlertAction(title: "채널 탐색", style: .default, handler: { _ in
             print("채널 탐색하기")
+            let vc = FindChannelViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
         }))
         actionsheet.addAction(UIAlertAction(title: "취소", style: .cancel))
         self.present(actionsheet, animated: true)

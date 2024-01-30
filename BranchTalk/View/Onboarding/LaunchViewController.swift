@@ -27,7 +27,7 @@ final class LaunchViewController: BaseViewController {
     }
     
     private func checkToken() {
-        if let accessToken = KeyChain.shared.read(key: "access") {
+        if KeyChain.shared.read(key: "access") != nil {
             goToMainView()
         } else {
             ViewMove.shared.goLoginView()
