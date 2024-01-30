@@ -108,7 +108,7 @@ final class HomeInitialViewController: BaseViewController, NetworkDelegate {
             snapshot.appendSections([.channel])
             snapshot.appendItems(items.reversed(), toSection: .channel)
             
-            owner.channelList.append(contentsOf: list.reversed())
+            owner.channelList = list.reversed()
             owner.dataSource?.apply(snapshot)
         }
         .disposed(by: disposeBag)
