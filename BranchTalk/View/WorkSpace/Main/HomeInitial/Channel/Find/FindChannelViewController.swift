@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class FindChannelViewController: BaseViewController {
  
@@ -18,7 +19,31 @@ final class FindChannelViewController: BaseViewController {
         view.separatorStyle = .none
         return view
     }()
+    
+    private let viewModel = FindChannelViewModel()
+    
+    private let channelTrigger = PublishSubject<Void>()
+    
+    private var channelList = [GetChannel]()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        channelTrigger.onNext(())
+    }
  
+    override func bind() {
+        super.bind()
+        let input = FindChannelViewModel.Input(channelTrigger: channelTrigger)
+        
+        let output = viewModel.transform(input: input)
+        
+        output.channelList.bind(with: self) { owner, list in
+            owner.channelList = list.reversed()
+            owner.tableView.reloadData()
+        }
+        .disposed(by: disposeBag)
+    }
+    
     override func setNav() {
         super.setNav()
         let backButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .done, target: self, action: #selector(backButtonTapped))
@@ -44,12 +69,12 @@ final class FindChannelViewController: BaseViewController {
 
 extension FindChannelViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return channelList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FindChannelListTableViewCell.identifier, for: indexPath) as? FindChannelListTableViewCell else { return UITableViewCell() }
-        cell.configure(name: "ddddd")
+        cell.configure(name: channelList[indexPath.row].name)
         return cell
     }
     
