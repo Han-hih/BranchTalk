@@ -12,6 +12,8 @@ class FindChannelViewModel: ViewModelType {
     
     private let disposeBag = DisposeBag()
     
+    private var myChannel = [GetChannel]()
+    
     struct Input {
         let channelTrigger: Observable<Void>
     }
@@ -40,6 +42,24 @@ class FindChannelViewModel: ViewModelType {
                 }
             }
             .disposed(by: disposeBag)
+        
+        input.channelTrigger
+                    .flatMapLatest { _ in
+                        NetworkManager.shared.requestSingle(
+                            type: [GetChannel].self,
+                            api: .getAllMyChannel(id: UserDefaults.standard.integer(forKey: "workSpaceID"))
+                        )
+                    }
+                    .subscribe(with: self) { owner, result in
+                        switch result {
+                        case .success(let response):
+                            print("내가 속한 채널 ------------", response)
+                            owner.myChannel = response
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
+                    .disposed(by: disposeBag)
         
         return Output(channelList: channelObservable)
     }
