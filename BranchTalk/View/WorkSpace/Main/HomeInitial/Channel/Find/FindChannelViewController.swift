@@ -78,6 +78,17 @@ extension FindChannelViewController: UITableViewDelegate, UITableViewDataSource 
         return cell
     }
     
-    
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.reloadRows(at: [indexPath], with: .automatic)
+        
+        let notEngagedChannel = channelList.filter { !viewModel.myChannel.contains($0) }
+        
+        if notEngagedChannel.contains(channelList[indexPath.row]) {
+            print("참여 안 된 채널")
+        } else {
+            print("이미 참여한 채널")
+        }
+        
+    }
 }

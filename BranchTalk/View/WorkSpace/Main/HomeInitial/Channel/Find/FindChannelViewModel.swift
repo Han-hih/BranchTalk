@@ -12,7 +12,7 @@ class FindChannelViewModel: ViewModelType {
     
     private let disposeBag = DisposeBag()
     
-    private var myChannel = [GetChannel]()
+    var myChannel = [GetChannel]()
     
     struct Input {
         let channelTrigger: Observable<Void>
