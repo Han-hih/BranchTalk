@@ -38,7 +38,7 @@ final class FindChannelViewController: BaseViewController {
         let output = viewModel.transform(input: input)
         
         output.channelList.bind(with: self) { owner, list in
-            owner.channelList = list.reversed()
+            owner.channelList = list.reversed().filter { $0.name != "일반" }
             owner.tableView.reloadData()
         }
         .disposed(by: disposeBag)
