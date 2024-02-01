@@ -26,6 +26,7 @@
 		803E5E0C2B6639AD0016985F /* FindChannelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803E5E0B2B6639AC0016985F /* FindChannelViewController.swift */; };
 		803E5E0E2B66426C0016985F /* FindChannelListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803E5E0D2B66426C0016985F /* FindChannelListTableViewCell.swift */; };
 		803E5E102B66912C0016985F /* FindChannelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803E5E0F2B66912C0016985F /* FindChannelViewModel.swift */; };
+		803E5E122B6A56320016985F /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803E5E112B6A56320016985F /* CustomAlertViewController.swift */; };
 		8047E8472B4532740018254B /* SocialLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8047E8462B4532740018254B /* SocialLoginViewController.swift */; };
 		8047E84A2B4544020018254B /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8047E8492B4544020018254B /* RegisterViewController.swift */; };
 		8047E84E2B456B940018254B /* CustomRegisterTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8047E84D2B456B940018254B /* CustomRegisterTextField.swift */; };
@@ -97,6 +98,7 @@
 		803E5E0B2B6639AC0016985F /* FindChannelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindChannelViewController.swift; sourceTree = "<group>"; };
 		803E5E0D2B66426C0016985F /* FindChannelListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindChannelListTableViewCell.swift; sourceTree = "<group>"; };
 		803E5E0F2B66912C0016985F /* FindChannelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindChannelViewModel.swift; sourceTree = "<group>"; };
+		803E5E112B6A56320016985F /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
 		8047E8462B4532740018254B /* SocialLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginViewController.swift; sourceTree = "<group>"; };
 		8047E8492B4544020018254B /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		8047E84D2B456B940018254B /* CustomRegisterTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRegisterTextField.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 				802DB5132B451903004A5C47 /* CustonButton.swift */,
 				8047E84D2B456B940018254B /* CustomRegisterTextField.swift */,
 				800ED50F2B468041001A7ECC /* CustomLabel.swift */,
+				803E5E112B6A56320016985F /* CustomAlertViewController.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -537,6 +540,7 @@
 				802837C92B4BDE20004CB167 /* CreateWorkSpaceViewController.swift in Sources */,
 				80802A9D2B46CDAC008F1723 /* KeyChain.swift in Sources */,
 				800A05552B5265AD0010505A /* HomeSideMenuNavigation.swift in Sources */,
+				803E5E122B6A56320016985F /* CustomAlertViewController.swift in Sources */,
 				80802AA52B471013008F1723 /* RegisterViewModel.swift in Sources */,
 				803E5E0E2B66426C0016985F /* FindChannelListTableViewCell.swift in Sources */,
 				80C6297D2B61374B00CBFF97 /* MyInfo.swift in Sources */,
