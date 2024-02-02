@@ -70,7 +70,7 @@ class CustomBodyLabel: UILabel {
     
     private func setLabel() {
         font = Font.body()
-        textColor = Colors.BrandBlack.CutsomColor
+        textColor = Colors.TextSecondary.CutsomColor
         textAlignment = .center
     }
     
