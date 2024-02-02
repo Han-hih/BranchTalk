@@ -89,15 +89,14 @@ extension FindChannelViewController: UITableViewDelegate, UITableViewDataSource 
         } else {
             print("이미 참여한 채널")
             show(alertType: .canCancel, alertText: "채널 참여", descText: "[\(channelList[indexPath.row].name)] 채널에 참여하시겠습니까?", confirmButtonText: "확인")
+            UserDefaults.standard.setValue(channelList[indexPath.row].channelID, forKey: "channelID")
         }
     }
 }
 
 extension FindChannelViewController: CustomAlertDelegate {
-    func confirm(title: String) {
+    func confirm() {
         let vc = ChannelChattingViewController()
-        vc.channelTitle = title
-        let nav = UINavigationController(rootViewController: vc)
         navigationController?.pushViewController(vc, animated: true)
     }
 }

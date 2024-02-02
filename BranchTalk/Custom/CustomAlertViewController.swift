@@ -8,7 +8,7 @@
 import UIKit
 
 protocol CustomAlertDelegate: AnyObject {
-    func confirm(title: String)
+    func confirm()
 }
 
 enum AlertType {
@@ -129,7 +129,7 @@ class CustomAlertViewController: UIViewController {
     
     @objc func confirmButtonTapped() {
         self.dismiss(animated: true) {
-            self.delegate?.confirm(title: self.navTitle)
+            self.delegate?.confirm()
         }
     }
     
