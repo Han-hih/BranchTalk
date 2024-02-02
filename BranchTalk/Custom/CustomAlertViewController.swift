@@ -7,8 +7,8 @@
 
 import UIKit
 
-protocol CustomAlertDelegate {
-    func confirm()
+protocol CustomAlertDelegate: AnyObject {
+    func confirm(title: String)
 }
 
 enum AlertType {
@@ -18,7 +18,9 @@ enum AlertType {
 
 class CustomAlertViewController: UIViewController {
     
-    var delegate: CustomAlertDelegate?
+    weak var delegate: CustomAlertDelegate?
+    
+    var navTitle = ""
     
     private let alertView = {
         let view = UIView()
@@ -51,7 +53,7 @@ class CustomAlertViewController: UIViewController {
     lazy var confirmButton = {
         let bt = GreenCustonButton()
         bt.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
-       return bt
+        return bt
     }()
     
     lazy var cancelButton = {
@@ -126,10 +128,26 @@ class CustomAlertViewController: UIViewController {
     }
     
     @objc func confirmButtonTapped() {
-        self.delegate?.confirm()
+        self.dismiss(animated: true) {
+            self.delegate?.confirm(title: self.navTitle)
+        }
     }
     
     @objc func cancelButtonTapped() {
         self.dismiss(animated: true)
+    }
+}
+
+extension CustomAlertDelegate where Self: UIViewController {
+    func show(alertType: AlertType, alertText: String, descText: String, confirmButtonText: String) {
+        let alertVC = CustomAlertViewController()
+        
+        alertVC.delegate = self
+        alertVC.modalPresentationStyle = .overFullScreen
+        alertVC.titleLabel.text = alertText
+        alertVC.descriptionLabel.text = descText
+        alertVC.confirmButton.setTitle(confirmButtonText, for: .normal)
+        
+        self.present(alertVC, animated: true)   
     }
 }
