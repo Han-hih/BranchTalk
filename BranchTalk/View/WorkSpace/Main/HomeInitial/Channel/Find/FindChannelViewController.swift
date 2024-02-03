@@ -26,6 +26,8 @@ final class FindChannelViewController: BaseViewController {
     
     private var channelList = [GetChannel]()
     
+    private var channelTitle = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         channelTrigger.onNext(())
@@ -86,10 +88,16 @@ extension FindChannelViewController: UITableViewDelegate, UITableViewDataSource 
         
         if notEngagedChannel.contains(channelList[indexPath.row]) {
             print("참여 안 된 채널")
-        } else {
-            print("이미 참여한 채널")
+            self.channelTitle = channelList[indexPath.row].name
             show(alertType: .canCancel, alertText: "채널 참여", descText: "[\(channelList[indexPath.row].name)] 채널에 참여하시겠습니까?", confirmButtonText: "확인")
             UserDefaults.standard.setValue(channelList[indexPath.row].channelID, forKey: "channelID")
+            UserDefaults.standard.setValue(channelList[indexPath.row].name, forKey: "channelName")
+            
+        } else {
+            print("이미 참여한 채널")
+            let vc = ChannelChattingViewController()
+            vc.channelTitle = channelList[indexPath.row].name
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
 }
@@ -97,6 +105,7 @@ extension FindChannelViewController: UITableViewDelegate, UITableViewDataSource 
 extension FindChannelViewController: CustomAlertDelegate {
     func confirm() {
         let vc = ChannelChattingViewController()
+        vc.channelTitle = channelTitle
         navigationController?.pushViewController(vc, animated: true)
     }
 }
