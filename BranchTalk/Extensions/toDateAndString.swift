@@ -21,4 +21,12 @@ extension String {
         dateFormatter.dateFormat = "yy. MM. dd"
         return dateFormatter.string(from: date)
     }
+    
+    func toChannelCreatedTime() -> String? {
+        guard let date = self.toDate() else { return nil }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "hh:mm a"
+        return dateFormatter.string(from: date)
+    }
 }
