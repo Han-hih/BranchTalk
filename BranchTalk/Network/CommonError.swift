@@ -20,6 +20,7 @@ enum CommonError: String, ErrorProtocol {
     case expiredRefreshToken = "E06"
     case wrongRequest = "E11"
     case duplicate = "E12"
+    case nonData = "E13"
     case coinShortage = "E21"
     
     case unknownRouterRoutes = "E97"
@@ -41,6 +42,8 @@ enum CommonError: String, ErrorProtocol {
             return "잘못된 요청"
         case .duplicate:
             return "중복_데이터"
+        case .nonData:
+            return "존재하지 않는 데이터"
         case .coinShortage:
             return "새싹 코인 부족"
             
