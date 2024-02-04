@@ -55,7 +55,8 @@ final class ChannelChattingViewController: BaseViewController {
     }
     
     @objc func propertyButtonTapped() {
-        print("프로퍼티 버튼 눌림")
+        let vc = ChannelSettingViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func backButtonTapped() {
