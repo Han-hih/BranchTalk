@@ -23,7 +23,6 @@ final class ChannelInfoCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .red
         [titleLabel, descLabel].forEach {
             contentView.addSubview($0)
         }
@@ -35,6 +34,7 @@ final class ChannelInfoCollectionViewCell: UICollectionViewCell {
         descLabel.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
             make.top.equalTo(titleLabel.snp.bottom).offset(10)
+            make.bottom.equalToSuperview()
         }
     }
     
