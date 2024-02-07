@@ -15,7 +15,7 @@ class BaseViewController: UIViewController {
     var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
-        self.view.backgroundColor = Colors.BackgroundSecondary.CutsomColor
+        self.view.backgroundColor = Colors.BackgroundPrimary.CutsomColor
         setUI()
         setNav()
         bind()
@@ -26,7 +26,9 @@ class BaseViewController: UIViewController {
     }
     
     func setNav() {
-        
+        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.backgroundColor = Colors.BackgroundSecondary.CutsomColor
+        navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
     }
     
     func bind() {

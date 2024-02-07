@@ -24,6 +24,8 @@ enum Router: URLRequestConvertible {
     case getAllMyChannel(id: Int)
     case getAllChannel(id: Int)
     case getChannelChatting(cursor_date: String?, name: String, id: Int)
+    case getOneChannel(name: String, id: Int)
+    
     
     private var baseURL: URL {
         guard let url = URL(string: APIKey.baseURL) else { fatalError() }
@@ -34,7 +36,7 @@ enum Router: URLRequestConvertible {
         switch self {
         case .kakaoLogin, .emailValidate, .register, .makeWorkSpace, .createChannel:
             return .post
-        case .refresh, .getWorkSpaceList, .getOneWorkSpaceList, .getMyProfile, .getChannelList, .getDmList, .getAllMyChannel, .getAllChannel, .getChannelChatting:
+        case .refresh, .getWorkSpaceList, .getOneWorkSpaceList, .getMyProfile, .getChannelList, .getDmList, .getAllMyChannel, .getAllChannel, .getChannelChatting, .getOneChannel:
             return .get
         }
     }
@@ -69,6 +71,8 @@ enum Router: URLRequestConvertible {
             return "/v1/workspaces/\(id)/channels"
         case .getChannelChatting(_, let name, let id):
             return "/v1/workspaces/\(id)/channels/\(name)/chats"
+        case .getOneChannel(let name, id: let id):
+            return "/v1/workspaces/\(id)/channels/\(name)"
         }
     }
     
@@ -86,7 +90,7 @@ enum Router: URLRequestConvertible {
                     "RefreshToken": KeyChain.shared.read(key: "refresh") ?? "",
                     "Authorization": KeyChain.shared.read(key: "access") ?? "",
                     "SesacKey": "\(APIKey.apiKey)"]
-        case .getWorkSpaceList, .getOneWorkSpaceList, .getMyProfile, .getChannelList, .getDmList, .createChannel, .getAllChannel, .getAllMyChannel, .getChannelChatting:
+        case .getWorkSpaceList, .getOneWorkSpaceList, .getMyProfile, .getChannelList, .getDmList, .createChannel, .getAllChannel, .getAllMyChannel, .getChannelChatting, .getOneChannel:
             return ["Content-Type": "application/json",
                     "Authorization": KeyChain.shared.read(key: "access")!,
                     "SesacKey": "\(APIKey.apiKey)"]
@@ -128,7 +132,7 @@ enum Router: URLRequestConvertible {
         }
         
         switch self {
-        case .makeWorkSpace, .getWorkSpaceList, .getOneWorkSpaceList, .getMyProfile, .getChannelList, .getDmList, .getAllChannel, .getAllMyChannel, .getChannelChatting:
+        case .makeWorkSpace, .getWorkSpaceList, .getOneWorkSpaceList, .getMyProfile, .getChannelList, .getDmList, .getAllChannel, .getAllMyChannel, .getChannelChatting, .getOneChannel:
             return try URLEncoding.default.encode(request, with: parameters)
         default:
             let jsonData = try? JSONSerialization.data(withJSONObject: parameters)
