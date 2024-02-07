@@ -10,7 +10,7 @@ import RxSwift
 
 enum SettingSection: Hashable {
     case channelInfo
-    case memberInfo
+    case memberInfo(String)
 }
 
 enum SettingItem: Hashable {
@@ -24,6 +24,7 @@ final class ChannelSettingViewController: BaseViewController {
         let view = UICollectionView(frame: view.bounds, collectionViewLayout: self.createLayout())
         view.register(ChannelInfoCollectionViewCell.self, forCellWithReuseIdentifier: ChannelInfoCollectionViewCell.identifier)
         view.register(ChannelMemberCollectionViewCell.self, forCellWithReuseIdentifier: ChannelMemberCollectionViewCell.identifier)
+        view.register(ChannelMemberHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ChannelMemberHeaderView.id)
         return view
     }()
     
@@ -54,14 +55,14 @@ final class ChannelSettingViewController: BaseViewController {
                 snapshot.appendItems(firstSectionItem, toSection: .channelInfo)
                 
                 let secondSectionItem = result.channelMembers.map { SettingItem.memberInfo($0) }
-                snapshot.appendSections([.memberInfo])
+                snapshot.appendSections([.memberInfo("\(result.channelMembers.count)")])
                 snapshot.appendItems(secondSectionItem)
                 
                 owner.dataSource?.apply(snapshot)
             }
             .disposed(by: disposeBag)
     }
-    
+    //섹션간의 간격 설정
     private func createLayout() -> UICollectionViewCompositionalLayout {
         let config = UICollectionViewCompositionalLayoutConfiguration()
         config.interSectionSpacing = .zero
@@ -82,13 +83,13 @@ final class ChannelSettingViewController: BaseViewController {
     private func createInfoSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(18))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 16, bottom: 0, trailing: 16)
         
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(18))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
         
         let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .continuous
+        
         return section
     }
     
@@ -98,9 +99,14 @@ final class ChannelSettingViewController: BaseViewController {
         item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
         
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.2))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, repeatingSubitem: item, count: 5)
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
     
         let section = NSCollectionLayoutSection(group: group)
+        
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(44))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .topLeading)
+        
+        section.boundarySupplementaryItems = [header]
         
         return section
     }
@@ -110,7 +116,7 @@ final class ChannelSettingViewController: BaseViewController {
             switch item {
             case .channelInfo(let channelData):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChannelInfoCollectionViewCell.identifier, for: indexPath) as? ChannelInfoCollectionViewCell
-                cell?.configure(title: channelData.name, desc: "ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ")
+                cell?.configure(title: "#\(channelData.name)", desc: channelData.description)
                 return cell
                 
             case .memberInfo(let memberData):
@@ -119,16 +125,29 @@ final class ChannelSettingViewController: BaseViewController {
                 return cell
             }
         })
-        //datasource supplymentviewprovider 헤더 추가해줄 자리
+    
+        dataSource?.supplementaryViewProvider = { [weak self] collectionView, kind, indexPath -> UICollectionReusableView in
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ChannelMemberHeaderView.id, for: indexPath)
+            let section = self?.dataSource?.sectionIdentifier(for: indexPath.section)
+            
+            switch section {
+            case .memberInfo(let title):
+                (header as? ChannelMemberHeaderView)?.configure(title: title)
+                
+            default:
+                print("")
+            }
+            return header
+        }
     }
     
     override func setUI() {
         super.setUI()
-        self.view.addSubview(collectionView)
-        
+        view.addSubview(collectionView)
+        collectionView.backgroundColor = Colors.BackgroundPrimary.CutsomColor
         collectionView.snp.makeConstraints { make in
-            make.horizontalEdges.verticalEdges.equalToSuperview()
-            
+            make.horizontalEdges.bottom.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
         }
     }
 }
