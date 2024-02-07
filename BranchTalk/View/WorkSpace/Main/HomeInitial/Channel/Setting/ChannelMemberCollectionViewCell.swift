@@ -26,7 +26,6 @@ final class ChannelMemberCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .blue
         self.addSubview(profileImage)
         self.addSubview(nameLabel)
         

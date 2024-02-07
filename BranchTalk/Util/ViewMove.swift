@@ -17,31 +17,34 @@ final class ViewMove {
         let vc = HomeInitialViewController()
         let nav = UINavigationController(rootViewController: vc)
         sceneDelegate?.window?.rootViewController = nav
-        sceneDelegate?.window?.makeKey()
+        sceneDelegate?.window?.makeKeyAndVisible()
     }
     
     func goHomeEmptyView() {
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         let sceneDelegate = windowScene?.delegate as? SceneDelegate
         let vc = HomeEmptyViewController()
-        sceneDelegate?.window?.rootViewController = vc
-        sceneDelegate?.window?.makeKey()
+        let nav = UINavigationController(rootViewController: vc)
+        sceneDelegate?.window?.rootViewController = nav
+        sceneDelegate?.window?.makeKeyAndVisible()
     }
     
     func goLoginView() {
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         let sceneDelegate = windowScene?.delegate as? SceneDelegate
         let vc = OnboardingViewController()
-        sceneDelegate?.window?.rootViewController = vc
-        sceneDelegate?.window?.makeKey()
+        let nav = UINavigationController(rootViewController: vc)
+        sceneDelegate?.window?.rootViewController = nav
+        sceneDelegate?.window?.makeKeyAndVisible()
     }
     
     func goStartWorkSpaceView() {
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         let sceneDelegate = windowScene?.delegate as? SceneDelegate
         let vc = StartWorkSpaceViewController()
-        sceneDelegate?.window?.rootViewController = vc
-        sceneDelegate?.window?.makeKey()
+        let nav = UINavigationController(rootViewController: vc)
+        sceneDelegate?.window?.rootViewController = nav
+        sceneDelegate?.window?.makeKeyAndVisible()
     }
     
 }
