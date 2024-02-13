@@ -10,6 +10,32 @@ import RxSwift
 
 final class ChannelChattingViewController: BaseViewController {
     
+    private let chatGroupView = {
+        let view = UIView()
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 8
+        view.backgroundColor = Colors.BackgroundPrimary.CutsomColor
+        return view
+    }()
+    
+    private let plusButton = {
+        let bt = UIButton()
+        bt.setImage(UIImage(named: "plus"), for: .normal)
+        return bt
+    }()
+    
+    private let textView = {
+        let tv = UITextView()
+        tv.backgroundColor = .red
+        return tv
+    }()
+    
+    private let sendButton = {
+        let bt = UIButton()
+        bt.setImage(UIImage(named: "send"), for: .normal)
+        return bt
+    }()
+    
     var channelTitle = ""
     
     private let chatTrigger = PublishSubject<Void>()
@@ -18,6 +44,7 @@ final class ChannelChattingViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = Colors.BackgroundSecondary.CutsomColor
         chatTrigger.onNext(())
     }
     
@@ -32,6 +59,37 @@ final class ChannelChattingViewController: BaseViewController {
         }
         .disposed(by: disposeBag)
         
+        
+    }
+    
+    override func setUI() {
+        super.setUI()
+        [chatGroupView, plusButton, textView, sendButton].forEach {
+            view.addSubview($0)
+        }
+        
+        chatGroupView.snp.makeConstraints { make in
+            make.bottom.equalTo(view.keyboardLayoutGuide).inset(32)
+            make.height.greaterThanOrEqualTo(38)
+            make.horizontalEdges.equalToSuperview().inset(16)
+        }
+        
+        plusButton.snp.makeConstraints { make in
+            make.leading.equalTo(chatGroupView).offset(12)
+            make.centerY.equalTo(chatGroupView)
+        }
+        
+        textView.snp.makeConstraints { make in
+            make.centerY.equalTo(chatGroupView)
+            make.leading.equalTo(plusButton.snp.trailing).offset(8)
+            make.trailing.equalTo(sendButton.snp.leading).offset(-8)
+            make.height.greaterThanOrEqualTo(18)
+        }
+        
+        sendButton.snp.makeConstraints { make in
+            make.trailing.equalTo(chatGroupView).inset(12)
+            make.centerY.equalTo(chatGroupView)
+        }
         
     }
     
