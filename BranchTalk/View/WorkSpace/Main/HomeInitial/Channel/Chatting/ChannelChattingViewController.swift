@@ -44,6 +44,26 @@ final class ChannelChattingViewController: BaseViewController {
         return bt
     }()
     
+    private lazy var imageCollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.register(ChattingImageCollectionViewCell.self, forCellWithReuseIdentifier: ChattingImageCollectionViewCell.identifier)
+        view.isScrollEnabled = false
+        view.delegate = self
+        view.dataSource = self
+        return view
+    }()
+    
+    private let stackView = {
+        let st = UIStackView()
+        st.spacing = 8
+        st.distribution = .fill
+        st.axis = .vertical
+        return st
+    }()
+    
     var channelTitle = ""
     
     private let textViewPlaceholder = "메시지를 입력하세요"
@@ -74,13 +94,17 @@ final class ChannelChattingViewController: BaseViewController {
     
     override func setUI() {
         super.setUI()
-        [chatGroupView, plusButton, textView, sendButton].forEach {
+        [chatGroupView, plusButton, stackView, sendButton].forEach {
             view.addSubview($0)
+        }
+        
+        [textView, imageCollectionView].forEach {
+            stackView.addArrangedSubview($0)
         }
         
         chatGroupView.snp.makeConstraints { make in
             make.bottom.equalTo(view.keyboardLayoutGuide.snp.top).offset(-12)
-            make.top.equalTo(textView.snp.top).offset(-10)
+            make.top.equalTo(stackView.snp.top).offset(-10)
             make.horizontalEdges.equalToSuperview().inset(16)
         }
         
@@ -91,11 +115,16 @@ final class ChannelChattingViewController: BaseViewController {
             make.height.equalTo(20)
         }
         
-        textView.snp.makeConstraints { make in
+        stackView.snp.makeConstraints { make in
             make.leading.equalTo(plusButton.snp.trailing).offset(8)
             make.trailing.equalTo(sendButton.snp.leading).offset(-8)
+            make.bottom.equalTo(chatGroupView).inset(8)
             make.height.greaterThanOrEqualTo(18)
-            make.bottom.equalTo(chatGroupView.snp.bottom).inset(10)
+        }
+
+        imageCollectionView.snp.makeConstraints { make in
+            make.height.greaterThanOrEqualTo(40)
+            
         }
         
         sendButton.snp.makeConstraints { make in
@@ -167,5 +196,26 @@ extension ChannelChattingViewController: UITextViewDelegate {
                 constraint.constant = estimatedSize.height
             }
         }
+    }
+}
+
+extension ChannelChattingViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+       return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = imageCollectionView.dequeueReusableCell(withReuseIdentifier: ChattingImageCollectionViewCell.identifier, for: indexPath) as? ChattingImageCollectionViewCell else { return UICollectionViewCell() }
+        
+        cell.imageView.backgroundColor = .red
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let width = (imageCollectionView.frame.width) / 6
+        let height = width
+        
+        return CGSize(width: width, height: height)
     }
 }
