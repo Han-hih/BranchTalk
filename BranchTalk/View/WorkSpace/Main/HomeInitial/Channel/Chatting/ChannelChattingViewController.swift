@@ -191,6 +191,9 @@ extension ChannelChattingViewController: UITextViewDelegate {
             
             if estimatedSize.height >= 54 {
                 textView.isScrollEnabled = true
+                textView.snp.remakeConstraints { make in
+                    make.height.equalTo(54)
+                }
             } else {
                 textView.isScrollEnabled = false
                 constraint.constant = estimatedSize.height
