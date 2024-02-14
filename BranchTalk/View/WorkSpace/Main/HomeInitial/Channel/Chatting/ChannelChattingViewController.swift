@@ -125,6 +125,10 @@ final class ChannelChattingViewController: BaseViewController {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: Font.navTitle()]
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     @objc func propertyButtonTapped() {
         let vc = ChannelSettingViewController()
         navigationController?.pushViewController(vc, animated: true)
