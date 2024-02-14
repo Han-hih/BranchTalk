@@ -24,9 +24,17 @@ final class ChannelChattingViewController: BaseViewController {
         return bt
     }()
     
-    private let textView = {
+    private lazy var textView = {
         let tv = UITextView()
-        tv.backgroundColor = .red
+        tv.text = textViewPlaceholder
+        tv.backgroundColor = Colors.BackgroundPrimary.CutsomColor
+        tv.textColor = Colors.TextSecondary.CutsomColor
+        tv.font = Font.body()
+        tv.delegate = self
+        tv.textContainerInset = .zero
+        tv.sizeToFit()
+        tv.isScrollEnabled = false
+        
         return tv
     }()
     
@@ -37,6 +45,8 @@ final class ChannelChattingViewController: BaseViewController {
     }()
     
     var channelTitle = ""
+    
+    private let textViewPlaceholder = "메시지를 입력하세요"
     
     private let chatTrigger = PublishSubject<Void>()
     
@@ -69,26 +79,29 @@ final class ChannelChattingViewController: BaseViewController {
         }
         
         chatGroupView.snp.makeConstraints { make in
-            make.bottom.equalTo(view.keyboardLayoutGuide).inset(32)
-            make.height.greaterThanOrEqualTo(38)
+            make.bottom.equalTo(view.keyboardLayoutGuide.snp.top).offset(-12)
+            make.top.equalTo(textView.snp.top).offset(-10)
             make.horizontalEdges.equalToSuperview().inset(16)
         }
         
         plusButton.snp.makeConstraints { make in
             make.leading.equalTo(chatGroupView).offset(12)
-            make.centerY.equalTo(chatGroupView)
+            make.bottom.equalTo(chatGroupView.snp.bottom).inset(9)
+            make.width.equalTo(22)
+            make.height.equalTo(20)
         }
         
         textView.snp.makeConstraints { make in
-            make.centerY.equalTo(chatGroupView)
             make.leading.equalTo(plusButton.snp.trailing).offset(8)
             make.trailing.equalTo(sendButton.snp.leading).offset(-8)
             make.height.greaterThanOrEqualTo(18)
+            make.bottom.equalTo(chatGroupView.snp.bottom).inset(10)
         }
         
         sendButton.snp.makeConstraints { make in
             make.trailing.equalTo(chatGroupView).inset(12)
-            make.centerY.equalTo(chatGroupView)
+            make.bottom.equalTo(chatGroupView.snp.bottom).inset(7)
+            make.width.equalTo(24)
         }
         
     }
@@ -119,5 +132,36 @@ final class ChannelChattingViewController: BaseViewController {
     
     @objc func backButtonTapped() {
         self.navigationController?.popViewController(animated: true)
+    }
+}
+
+extension ChannelChattingViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == textViewPlaceholder {
+            textView.text = nil
+            textView.textColor = Colors.TextPrimary.CutsomColor
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            textView.text = textViewPlaceholder
+            textView.textColor = Colors.TextSecondary.CutsomColor
+        }
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        let size = CGSize(width: view.frame.width, height: .infinity)
+        let estimatedSize = textView.sizeThatFits(size)
+        
+        textView.constraints.forEach { constraint in
+            
+            if estimatedSize.height >= 54 {
+                textView.isScrollEnabled = true
+            } else {
+                textView.isScrollEnabled = false
+                constraint.constant = estimatedSize.height
+            }
+        }
     }
 }
