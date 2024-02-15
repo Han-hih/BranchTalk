@@ -10,6 +10,16 @@ import RxSwift
 
 final class ChannelChattingViewController: BaseViewController {
     
+    private lazy var tableView = {
+        let view = UITableView()
+        view.register(ChattingTableViewCell.self, forCellReuseIdentifier: ChattingTableViewCell.identifier)
+        view.delegate = self
+        view.dataSource = self
+        view.separatorStyle = .none
+        view.rowHeight = UITableView.automaticDimension
+        return view
+    }()
+    
     private let chatGroupView = {
         let view = UIView()
         view.clipsToBounds = true
@@ -50,6 +60,7 @@ final class ChannelChattingViewController: BaseViewController {
         
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.register(ChattingImageCollectionViewCell.self, forCellWithReuseIdentifier: ChattingImageCollectionViewCell.identifier)
+        view.backgroundColor = Colors.BackgroundPrimary.CutsomColor
         view.isScrollEnabled = false
         view.delegate = self
         view.dataSource = self
@@ -94,12 +105,19 @@ final class ChannelChattingViewController: BaseViewController {
     
     override func setUI() {
         super.setUI()
-        [chatGroupView, plusButton, stackView, sendButton].forEach {
+        [tableView, chatGroupView, plusButton, stackView, sendButton].forEach {
             view.addSubview($0)
         }
         
         [textView, imageCollectionView].forEach {
             stackView.addArrangedSubview($0)
+        }
+        
+        tableView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.height.greaterThanOrEqualTo(10)
+            make.bottom.equalTo(chatGroupView.snp.top).offset(-16)
         }
         
         chatGroupView.snp.makeConstraints { make in
@@ -165,6 +183,20 @@ final class ChannelChattingViewController: BaseViewController {
     
     @objc func backButtonTapped() {
         self.navigationController?.popViewController(animated: true)
+    }
+}
+
+extension ChannelChattingViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingTableViewCell.identifier, for: indexPath) as? ChattingTableViewCell
+        else { return UITableViewCell() }
+        
+
+        return cell
     }
 }
 
