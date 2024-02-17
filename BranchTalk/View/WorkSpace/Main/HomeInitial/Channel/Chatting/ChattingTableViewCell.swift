@@ -20,7 +20,8 @@ final class ChattingTableViewCell: UITableViewCell {
     
     private let stackView = {
         let st = UIStackView()
-        st.distribution = .fill
+        st.alignment = .leading
+        st.distribution = .fillProportionally
         st.spacing = 5
         st.axis = .vertical
         return st
@@ -32,7 +33,7 @@ final class ChattingTableViewCell: UITableViewCell {
         return lb
     }()
     
-    let speechBubble = {
+    lazy var speechBubble = {
         let lb = BasePaddingLabel()
         lb.text = "안녕하세요. 반갑습니다"
         lb.font = Font.body()
@@ -40,15 +41,64 @@ final class ChattingTableViewCell: UITableViewCell {
         lb.layer.cornerRadius = 8
         lb.layer.borderWidth = 1
         lb.layer.borderColor = Colors.BrandInactive.CutsomColor.cgColor
+        lb.sizeToFit()
         lb.numberOfLines = 0
         return lb
     }()
     
-    let chatImageView = {
+    private let imageStackView = {
+        let st = UIStackView()
+        st.alignment = .fill
+        st.distribution = .fill
+        st.spacing = 2
+        st.axis = .vertical
+        st.layer.cornerRadius = 12
+        st.clipsToBounds = true
+        return st
+    }()
+    
+    private let firstSectionStackView = {
+        let st = UIStackView()
+        st.distribution = .fillEqually
+        st.spacing = 2
+        st.axis = .horizontal
+        return st
+    }()
+    
+    private var secondSectionStackView = {
+        let st = UIStackView()
+        st.distribution = .fillEqually
+        st.spacing = 2
+        st.axis = .horizontal
+        return st
+    }()
+    
+    let firstChatImage = {
         let view = UIImageView()
-        
+        view.backgroundColor = .red
         return view
     }()
+    let secondChatImage = {
+        let view = UIImageView()
+        view.backgroundColor = .black
+        return view
+    }()
+    let thirdChatImage = {
+        let view = UIImageView()
+        view.backgroundColor = .yellow
+        return view
+    }()
+    let fourthChatImage = {
+        let view = UIImageView()
+        view.backgroundColor = .blue
+        return view
+    }()
+    let fifthChatImage = {
+        let view = UIImageView()
+        view.backgroundColor = .brown
+        return view
+    }()
+    
     
     let timeLabel = {
         let lb = CustomCaptionLabel()
@@ -62,11 +112,12 @@ final class ChattingTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
             setUI()
+        secondSectionStackView.removeFromSuperview()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.chatImageView.image = nil
+//        self.chatImageView.image = nil
         self.nameLabel.text = nil
         self.speechBubble.text = nil
     }
@@ -75,8 +126,20 @@ final class ChattingTableViewCell: UITableViewCell {
         [profileImage, stackView, timeLabel].forEach {
             contentView.addSubview($0)
         }
-        [nameLabel, speechBubble, chatImageView].forEach {
+        [nameLabel, speechBubble, imageStackView].forEach {
             stackView.addArrangedSubview($0)
+        }
+        
+        [firstSectionStackView, secondSectionStackView].forEach {
+            imageStackView.addArrangedSubview($0)
+        }
+        
+        [firstChatImage, secondChatImage, thirdChatImage].forEach {
+            firstSectionStackView.addArrangedSubview($0)
+        }
+        
+        [fourthChatImage, fifthChatImage].forEach {
+            secondSectionStackView.addArrangedSubview($0)
         }
         
         profileImage.snp.makeConstraints { make in
@@ -93,14 +156,25 @@ final class ChattingTableViewCell: UITableViewCell {
             make.bottom.equalTo(contentView).inset(6)
         }
         
-        speechBubble.snp.makeConstraints { make in
-            make.width.lessThanOrEqualToSuperview()
-        }
+
         
         timeLabel.snp.makeConstraints { make in
-            make.leading.equalTo(stackView.snp.trailing).offset(8)
             make.trailing.equalToSuperview()
             make.bottom.equalTo(stackView.snp.bottom)
+        }
+        
+        firstSectionStackView.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.width.equalTo(contentView.snp.width).multipliedBy(0.7)
+            make.trailing.equalTo(timeLabel.snp.leading).offset(-8)
+            make.height.equalTo(80)
+        }
+        
+        secondSectionStackView.snp.makeConstraints { make in
+            make.leading.equalTo(firstSectionStackView)
+            make.width.equalTo(firstSectionStackView)
+            make.trailing.equalTo(firstSectionStackView)
+            make.height.equalTo(80)
         }
     }
     

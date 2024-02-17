@@ -16,6 +16,7 @@ final class ChannelChattingViewController: BaseViewController {
         view.delegate = self
         view.dataSource = self
         view.separatorStyle = .none
+        view.showsVerticalScrollIndicator = false
         view.rowHeight = UITableView.automaticDimension
         return view
     }()
