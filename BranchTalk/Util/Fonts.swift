@@ -53,6 +53,10 @@ enum Font: String {
         return Font.Regular.of(size: 12, lineHeight: 18)
     }
     
+    static func caption2() -> UIFont {
+        return Font.Regular.of(size: 11, lineHeight: 18)
+    }
+    
     static func navTitle() -> UIFont {
         return Font.Bold.of(size: 17, lineHeight: 22)
     }
