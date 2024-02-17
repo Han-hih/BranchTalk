@@ -46,10 +46,10 @@ final class ChattingTableViewCell: UITableViewCell {
         return lb
     }()
     
-    private let imageStackView = {
+     let imageStackView = {
         let st = UIStackView()
-        st.alignment = .fill
         st.distribution = .fill
+         st.alignment = .top
         st.spacing = 2
         st.axis = .vertical
         st.layer.cornerRadius = 12
@@ -57,15 +57,15 @@ final class ChattingTableViewCell: UITableViewCell {
         return st
     }()
     
-    private let firstSectionStackView = {
+     let firstSectionStackView = {
         let st = UIStackView()
-        st.distribution = .fillEqually
+         st.distribution = .fillEqually
         st.spacing = 2
         st.axis = .horizontal
         return st
     }()
     
-    private var secondSectionStackView = {
+     let secondSectionStackView = {
         let st = UIStackView()
         st.distribution = .fillEqually
         st.spacing = 2
@@ -112,7 +112,6 @@ final class ChattingTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
             setUI()
-        secondSectionStackView.removeFromSuperview()
     }
     
     override func prepareForReuse() {
@@ -155,12 +154,14 @@ final class ChattingTableViewCell: UITableViewCell {
             make.height.greaterThanOrEqualTo(50)
             make.bottom.equalTo(contentView).inset(6)
         }
-        
-
-        
+    
         timeLabel.snp.makeConstraints { make in
             make.trailing.equalToSuperview()
             make.bottom.equalTo(stackView.snp.bottom)
+        }
+        
+        imageStackView.snp.makeConstraints { make in
+            make.height.lessThanOrEqualTo(160)
         }
         
         firstSectionStackView.snp.makeConstraints { make in
