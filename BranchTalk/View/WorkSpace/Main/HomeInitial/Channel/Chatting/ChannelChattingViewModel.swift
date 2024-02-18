@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import RxRelay
 
 class ChannelChattingViewModel: ViewModelType {
     
@@ -14,16 +15,19 @@ class ChannelChattingViewModel: ViewModelType {
     
     struct Input {
         let chatTrigger: Observable<Void>
-        
+        let contentInputValid: Observable<String>
+        let imageInputValid: Observable<[Data]>
     }
     
     struct Output {
         let chatList: PublishSubject<[ChannelChatting]>
+        let chatInputValid: BehaviorRelay<Bool>
         
     }
     
     func transform(input: Input) -> Output {
         let chatTrigger = PublishSubject<[ChannelChatting]>()
+        let chatInputValid = BehaviorRelay<Bool>(value: false)
         
         input.chatTrigger
             .flatMapLatest { _ in
@@ -47,6 +51,24 @@ class ChannelChattingViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
-        return Output(chatList: chatTrigger)
+        Observable.combineLatest(
+            input.contentInputValid,
+            input.imageInputValid
+        )
+        .bind(with: self) { owner, value in
+            if value.0.count > 0 || value.1.count > 0 {
+                chatInputValid.accept(true)
+            } else {
+                
+                chatInputValid.accept(false)
+            }
+        }
+        .disposed(by: disposeBag)
+        
+ 
+        return Output(
+            chatList: chatTrigger,
+            chatInputValid: chatInputValid
+        )
     }
 }

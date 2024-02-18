@@ -84,6 +84,8 @@ final class ChannelChattingViewController: BaseViewController {
     
     private let viewModel = ChannelChattingViewModel()
     
+    private var imageArray = [Data]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Colors.BackgroundSecondary.CutsomColor
@@ -92,7 +94,11 @@ final class ChannelChattingViewController: BaseViewController {
     
     override func bind() {
         super.bind()
-        let input = ChannelChattingViewModel.Input(chatTrigger: chatTrigger)
+        let input = ChannelChattingViewModel.Input(
+            chatTrigger: chatTrigger,
+            contentInputValid: textView.rx.text.orEmpty.asObservable(),
+            imageInputValid: Observable.of(imageArray).asObservable()
+        )
 
         let output = viewModel.transform(input: input)
         
@@ -101,6 +107,14 @@ final class ChannelChattingViewController: BaseViewController {
         }
         .disposed(by: disposeBag)
         
+        output.chatInputValid.bind(with: self) { owner, bool in
+            print(bool)
+            if owner.textView.textColor != Colors.TextSecondary.CutsomColor {
+                owner.sendButton.setImage(UIImage(named: bool ? "sendactive" : "send"), for: .normal)
+                owner.sendButton.isEnabled = bool ? true : false
+            }
+        }
+        .disposed(by: disposeBag)
         
     }
     
