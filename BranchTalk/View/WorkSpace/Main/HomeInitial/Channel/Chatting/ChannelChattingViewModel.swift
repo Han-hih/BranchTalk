@@ -16,7 +16,7 @@ class ChannelChattingViewModel: ViewModelType {
     struct Input {
         let chatTrigger: Observable<Void>
         let contentInputValid: Observable<String>
-        let imageInputValid: Observable<[Data]>
+        let imageInputValid: Observable<Int>
     }
     
     struct Output {
@@ -56,10 +56,9 @@ class ChannelChattingViewModel: ViewModelType {
             input.imageInputValid
         )
         .bind(with: self) { owner, value in
-            if value.0.count > 0 || value.1.count > 0 {
+            if value.0.count > 0 || value.1 > 0 {
                 chatInputValid.accept(true)
-            } else {
-                
+            } else {  
                 chatInputValid.accept(false)
             }
         }

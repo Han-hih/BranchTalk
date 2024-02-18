@@ -7,6 +7,7 @@
 
 import UIKit
 import RxSwift
+import PhotosUI
 
 final class ChannelChattingViewController: BaseViewController {
     
@@ -29,9 +30,10 @@ final class ChannelChattingViewController: BaseViewController {
         return view
     }()
     
-    private let plusButton = {
+    private lazy var plusButton = {
         let bt = UIButton()
         bt.setImage(UIImage(named: "plus"), for: .normal)
+        bt.addTarget(self, action: #selector(openPhpicker), for: .touchUpInside)
         return bt
     }()
     
@@ -55,7 +57,7 @@ final class ChannelChattingViewController: BaseViewController {
         return bt
     }()
     
-    private lazy var imageCollectionView = {
+    lazy var imageCollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         
@@ -82,9 +84,16 @@ final class ChannelChattingViewController: BaseViewController {
     
     private let chatTrigger = PublishSubject<Void>()
     
+    private let imageCountValue = BehaviorSubject(value: 0)
+    
     private let viewModel = ChannelChattingViewModel()
     
-    private var imageArray = [Data]()
+    private var imageArray = [UIImage]()
+    
+    private var itemProviders: [NSItemProvider] = []
+    
+    private  var selections = [String: PHPickerResult]()
+    private var selectedAssetIdentifiers = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,12 +103,13 @@ final class ChannelChattingViewController: BaseViewController {
     
     override func bind() {
         super.bind()
+        
         let input = ChannelChattingViewModel.Input(
             chatTrigger: chatTrigger,
             contentInputValid: textView.rx.text.orEmpty.asObservable(),
-            imageInputValid: Observable.of(imageArray).asObservable()
-        )
-
+            imageInputValid: imageCountValue.asObservable()
+            )
+        
         let output = viewModel.transform(input: input)
         
         output.chatList.bind(with: self) { owner, result in
@@ -109,7 +119,7 @@ final class ChannelChattingViewController: BaseViewController {
         
         output.chatInputValid.bind(with: self) { owner, bool in
             print(bool)
-            if owner.textView.textColor != Colors.TextSecondary.CutsomColor {
+            if owner.textView.textColor != Colors.TextSecondary.CutsomColor || self.imageArray.count != 0 {
                 owner.sendButton.setImage(UIImage(named: bool ? "sendactive" : "send"), for: .normal)
                 owner.sendButton.isEnabled = bool ? true : false
             }
@@ -154,7 +164,7 @@ final class ChannelChattingViewController: BaseViewController {
             make.bottom.equalTo(chatGroupView).inset(8)
             make.height.greaterThanOrEqualTo(18)
         }
-
+        
         imageCollectionView.snp.makeConstraints { make in
             make.height.greaterThanOrEqualTo(40)
             
@@ -171,12 +181,12 @@ final class ChannelChattingViewController: BaseViewController {
     
     override func setNav() {
         super.setNav()
-      
+        
         let backButtonItem = UIBarButtonItem(image: UIImage(named: "Leading"), style: .plain, target: self, action: #selector(backButtonTapped))
         
         backButtonItem.tintColor = Colors.BrandBlack.CutsomColor
         self.navigationItem.leftBarButtonItem = backButtonItem
-
+        
         let rightButton = UIBarButtonItem(image: UIImage(named: "list"), style: .plain, target: self, action: #selector(propertyButtonTapped))
         
         rightButton.tintColor = Colors.BrandBlack.CutsomColor
@@ -198,6 +208,10 @@ final class ChannelChattingViewController: BaseViewController {
     
     @objc func backButtonTapped() {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func openPhpicker() {
+        presentPicker()
     }
 }
 
@@ -279,13 +293,12 @@ extension ChannelChattingViewController: UITextViewDelegate {
 
 extension ChannelChattingViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-       return 5
+        return imageArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = imageCollectionView.dequeueReusableCell(withReuseIdentifier: ChattingImageCollectionViewCell.identifier, for: indexPath) as? ChattingImageCollectionViewCell else { return UICollectionViewCell() }
-        
-        cell.imageView.backgroundColor = .red
+        cell.imageView.image = imageArray[indexPath.row]
         return cell
     }
     
@@ -295,5 +308,91 @@ extension ChannelChattingViewController: UICollectionViewDelegate, UICollectionV
         let height = width
         
         return CGSize(width: width, height: height)
+    }
+}
+
+extension ChannelChattingViewController: PHPickerViewControllerDelegate {
+    
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        
+        picker.dismiss(animated: true)
+        
+        itemProviders = results.map(\.itemProvider)
+        
+        var newSelected = [String: PHPickerResult]()
+        
+        for result in results {
+            guard let identifier = result.assetIdentifier else { return }
+            newSelected[identifier] = selections[identifier] ?? result
+        }
+        selections = newSelected
+        
+        selectedAssetIdentifiers = results.compactMap { $0.assetIdentifier }
+        
+        
+        if itemProviders.isEmpty {
+            imageArray.removeAll()
+        } else {
+            displayImage()
+        }
+        
+        
+    }
+    
+    private func displayImage() {
+        let dispatchGroup = DispatchGroup()
+        
+        var imagesDict = [String: UIImage]()
+        
+        for (identifier, result) in selections {
+            dispatchGroup.enter()
+            
+            let itemProvider = result.itemProvider
+            
+            if itemProvider.canLoadObject(ofClass: UIImage.self) {
+                itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+                    DispatchQueue.main.async {
+                        if let image = image as? UIImage {
+                            let downImage = image.downSample(size: self.imageCollectionView.contentSize)
+                            imagesDict[identifier] = downImage
+                        }
+                        
+                        
+                        dispatchGroup.leave()
+                    }
+                }
+            }
+            
+            dispatchGroup.notify(queue: DispatchQueue.main) { [weak self] in
+                guard let self = self else { return }
+                
+                imageArray.removeAll()
+                
+                for identifier in self.selectedAssetIdentifiers {
+                    guard let image = imagesDict[identifier] else { return }
+                    self.insertImage(image)
+                }
+            }
+            
+        }
+    }
+    private func presentPicker() {
+        var config = PHPickerConfiguration(photoLibrary: .shared())
+        config.filter = PHPickerFilter.any(of: [.images])
+        config.selectionLimit = 5
+        config.selection = .ordered
+        config.preferredAssetRepresentationMode = .current
+        config.preselectedAssetIdentifiers = selectedAssetIdentifiers
+        
+        let imagePicker = PHPickerViewController(configuration: config)
+        imagePicker.delegate = self
+        
+        self.present(imagePicker, animated: true)
+    }
+    
+    private func insertImage(_ image: UIImage) {
+        imageArray.append(image)
+        imageCountValue.onNext(imageArray.count)
+        imageCollectionView.reloadData()
     }
 }
