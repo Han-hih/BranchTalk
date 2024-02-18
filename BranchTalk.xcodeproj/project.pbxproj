@@ -54,6 +54,7 @@
 		808A75C22B5437E400FD075D /* ReusableViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808A75C12B5437E400FD075D /* ReusableViewProtocol.swift */; };
 		809CF0112B4C441200F7BC68 /* CommonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809CF0102B4C441200F7BC68 /* CommonError.swift */; };
 		809CF0132B4D3CB200F7BC68 /* MultipartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809CF0122B4D3CB200F7BC68 /* MultipartModel.swift */; };
+		80A9B4FE2B81D3ED0016D1FA /* PostChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A9B4FD2B81D3ED0016D1FA /* PostChat.swift */; };
 		80BDD86B2B7C83B5003022C3 /* ChattingImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BDD86A2B7C83B5003022C3 /* ChattingImageCollectionViewCell.swift */; };
 		80C16BF72B4FD3A400414D98 /* KFModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C16BF62B4FD3A400414D98 /* KFModifier.swift */; };
 		80C16BF92B5159D700414D98 /* ViewMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C16BF82B5159D700414D98 /* ViewMove.swift */; };
@@ -137,6 +138,7 @@
 		808A75C12B5437E400FD075D /* ReusableViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableViewProtocol.swift; sourceTree = "<group>"; };
 		809CF0102B4C441200F7BC68 /* CommonError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonError.swift; sourceTree = "<group>"; };
 		809CF0122B4D3CB200F7BC68 /* MultipartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartModel.swift; sourceTree = "<group>"; };
+		80A9B4FD2B81D3ED0016D1FA /* PostChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostChat.swift; sourceTree = "<group>"; };
 		80BDD86A2B7C83B5003022C3 /* ChattingImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		80C16BF62B4FD3A400414D98 /* KFModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KFModifier.swift; sourceTree = "<group>"; };
 		80C16BF82B5159D700414D98 /* ViewMove.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMove.swift; sourceTree = "<group>"; };
@@ -353,6 +355,7 @@
 				80C6297E2B6138D000CBFF97 /* GetDmList.swift */,
 				803AD11A2B6D088100E8E8D9 /* ChannelChatting.swift */,
 				802B143A2B6F4FD60051B9AD /* ChannelInfo.swift */,
+				80A9B4FD2B81D3ED0016D1FA /* PostChat.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -610,6 +613,7 @@
 				8007B0D52B62748100885AF8 /* AddChannelViewModel.swift in Sources */,
 				804D63BB2B65307B0038C9F9 /* UIimageResize.swift in Sources */,
 				80C16BF72B4FD3A400414D98 /* KFModifier.swift in Sources */,
+				80A9B4FE2B81D3ED0016D1FA /* PostChat.swift in Sources */,
 				807E3A9D2B4F17C500587A33 /* LaunchViewController.swift in Sources */,
 				8047E8472B4532740018254B /* SocialLoginViewController.swift in Sources */,
 				800ED5062B45CD89001A7ECC /* NetworkManager.swift in Sources */,
