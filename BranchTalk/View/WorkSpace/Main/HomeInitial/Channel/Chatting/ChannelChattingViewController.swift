@@ -86,13 +86,15 @@ final class ChannelChattingViewController: BaseViewController {
     
     private let imageCountValue = BehaviorSubject(value: 0)
     
+    private let imageData = BehaviorSubject(value: [Data]())
+    
     private let viewModel = ChannelChattingViewModel()
     
     private var imageArray = [UIImage]()
     
     private var itemProviders: [NSItemProvider] = []
     
-    private  var selections = [String: PHPickerResult]()
+    private var selections = [String: PHPickerResult]()
     private var selectedAssetIdentifiers = [String]()
     
     override func viewDidLoad() {
@@ -107,7 +109,9 @@ final class ChannelChattingViewController: BaseViewController {
         let input = ChannelChattingViewModel.Input(
             chatTrigger: chatTrigger,
             contentInputValid: textView.rx.text.orEmpty.asObservable(),
-            imageInputValid: imageCountValue.asObservable()
+            imageInputValid: imageCountValue.asObservable(),
+            chatImage: imageData.asObservable(),
+            sendMessage: sendButton.rx.tap.asObservable()
             )
         
         let output = viewModel.transform(input: input)
@@ -117,13 +121,15 @@ final class ChannelChattingViewController: BaseViewController {
         }
         .disposed(by: disposeBag)
         
-        output.chatInputValid.bind(with: self) { owner, bool in
-            print(bool)
-            if owner.textView.textColor != Colors.TextSecondary.CutsomColor || self.imageArray.count != 0 {
-                owner.sendButton.setImage(UIImage(named: bool ? "sendactive" : "send"), for: .normal)
-                owner.sendButton.isEnabled = bool ? true : false
-            }
-        }
+        output.chatInputValid
+            .asDriver()
+            .drive(with: self, onNext: { owner, bool in
+                if owner.textView.textColor != Colors.TextSecondary.CutsomColor || self.imageArray.count != 0 {
+                    owner.sendButton.setImage(UIImage(named: bool ? "sendactive" : "send"), for: .normal)
+                    owner.sendButton.isEnabled = bool ? true : false
+                }
+
+            })
         .disposed(by: disposeBag)
         
     }
@@ -353,11 +359,8 @@ extension ChannelChattingViewController: PHPickerViewControllerDelegate {
                 itemProvider.loadObject(ofClass: UIImage.self) { image, error in
                     DispatchQueue.main.async {
                         if let image = image as? UIImage {
-                            let downImage = image.downSample(size: self.imageCollectionView.contentSize)
-                            imagesDict[identifier] = downImage
+                            imagesDict[identifier] = image
                         }
-                        
-                        
                         dispatchGroup.leave()
                     }
                 }
@@ -368,14 +371,21 @@ extension ChannelChattingViewController: PHPickerViewControllerDelegate {
                 
                 imageArray.removeAll()
                 
+                var imageDataArray: [Data] = []
+                
                 for identifier in self.selectedAssetIdentifiers {
                     guard let image = imagesDict[identifier] else { return }
-                    self.insertImage(image)
+                    imageArray.append(image)
+                    imageDataArray.append(image.jpegData(compressionQuality: 0.3) ?? Data())
                 }
+                imageData.onNext(imageDataArray)
+                imageCountValue.onNext(imageDataArray.count)
+                imageCollectionView.reloadData()
             }
             
         }
     }
+    
     private func presentPicker() {
         var config = PHPickerConfiguration(photoLibrary: .shared())
         config.filter = PHPickerFilter.any(of: [.images])
@@ -388,11 +398,5 @@ extension ChannelChattingViewController: PHPickerViewControllerDelegate {
         imagePicker.delegate = self
         
         self.present(imagePicker, animated: true)
-    }
-    
-    private func insertImage(_ image: UIImage) {
-        imageArray.append(image)
-        imageCountValue.onNext(imageArray.count)
-        imageCollectionView.reloadData()
     }
 }
