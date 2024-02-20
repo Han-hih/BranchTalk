@@ -17,17 +17,20 @@ class ChannelChattingViewModel: ViewModelType {
         let chatTrigger: Observable<Void>
         let contentInputValid: Observable<String>
         let imageInputValid: Observable<Int>
+        let chatImage: Observable<[Data]>
+        let sendMessage: Observable<Void>
     }
     
     struct Output {
         let chatList: PublishSubject<[ChannelChatting]>
         let chatInputValid: BehaviorRelay<Bool>
-        
+        let sendMessage: PublishSubject<PostChat>
     }
     
     func transform(input: Input) -> Output {
         let chatTrigger = PublishSubject<[ChannelChatting]>()
         let chatInputValid = BehaviorRelay<Bool>(value: false)
+        let sendMessage = PublishSubject<PostChat>()
         
         input.chatTrigger
             .flatMapLatest { _ in
@@ -36,7 +39,7 @@ class ChannelChattingViewModel: ViewModelType {
                     api: .getChannelChatting(
                         cursor_date: " ",
                         name: UserDefaults.standard.string(forKey: "channelName") ?? "",
-                        id: UserDefaults.standard.integer(forKey: "channelID")
+                        id: UserDefaults.standard.integer(forKey: "workSpaceID")
                     )
                 )
             }
@@ -58,16 +61,47 @@ class ChannelChattingViewModel: ViewModelType {
         .bind(with: self) { owner, value in
             if value.0.count > 0 || value.1 > 0 {
                 chatInputValid.accept(true)
-            } else {  
+            } else {
                 chatInputValid.accept(false)
             }
         }
         .disposed(by: disposeBag)
         
- 
+        //채팅 Post
+        input.sendMessage
+            .throttle(.seconds(1), scheduler: MainScheduler.instance)
+            .withLatestFrom(
+                Observable.combineLatest(
+                    input.contentInputValid,
+                    input.chatImage
+                )
+            )
+            .flatMapLatest { (text, images) in
+                NetworkManager.shared.requestMultipart(
+                    type: PostChat.self,
+                    api: .postChatting(
+                        name: UserDefaults.standard.string(forKey: "channelName") ?? "",
+                        id: UserDefaults.standard.integer(forKey: "workSpaceID"),
+                        ChatRequestBody(content: text, files: images)
+                    )
+                )
+            }
+            .debug()
+            .bind(with: self, onNext: { owner, result in
+                switch result {
+                case .success(let response):
+                    print(response)
+                case .failure(let error):
+                    print(error)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        
         return Output(
             chatList: chatTrigger,
-            chatInputValid: chatInputValid
+            chatInputValid: chatInputValid,
+            sendMessage: sendMessage
         )
     }
 }
