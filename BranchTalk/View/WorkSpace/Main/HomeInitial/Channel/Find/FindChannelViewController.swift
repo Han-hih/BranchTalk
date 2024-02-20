@@ -97,6 +97,8 @@ extension FindChannelViewController: UITableViewDelegate, UITableViewDataSource 
             print("이미 참여한 채널")
             let vc = ChannelChattingViewController()
             vc.channelTitle = channelList[indexPath.row].name
+            UserDefaults.standard.setValue(channelList[indexPath.row].channelID, forKey: "channelID")
+            UserDefaults.standard.setValue(channelList[indexPath.row].name, forKey: "channelName")
             navigationController?.pushViewController(vc, animated: true)
         }
     }
