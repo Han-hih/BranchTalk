@@ -55,6 +55,11 @@
 		809CF0112B4C441200F7BC68 /* CommonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809CF0102B4C441200F7BC68 /* CommonError.swift */; };
 		809CF0132B4D3CB200F7BC68 /* MultipartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809CF0122B4D3CB200F7BC68 /* MultipartModel.swift */; };
 		80A9B4FE2B81D3ED0016D1FA /* PostChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A9B4FD2B81D3ED0016D1FA /* PostChat.swift */; };
+		80A9B5032B8305740016D1FA /* ChatListTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A9B5022B8305740016D1FA /* ChatListTable.swift */; };
+		80A9B5062B8305B70016D1FA /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 80A9B5052B8305B70016D1FA /* Realm */; };
+		80A9B5082B8305B70016D1FA /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 80A9B5072B8305B70016D1FA /* RealmSwift */; };
+		80A9B50A2B832D3D0016D1FA /* ChatListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A9B5092B832D3D0016D1FA /* ChatListRepository.swift */; };
+		80A9B50C2B833C330016D1FA /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A9B50B2B833C330016D1FA /* FileManager+Extension.swift */; };
 		80BDD86B2B7C83B5003022C3 /* ChattingImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BDD86A2B7C83B5003022C3 /* ChattingImageCollectionViewCell.swift */; };
 		80C16BF72B4FD3A400414D98 /* KFModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C16BF62B4FD3A400414D98 /* KFModifier.swift */; };
 		80C16BF92B5159D700414D98 /* ViewMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C16BF82B5159D700414D98 /* ViewMove.swift */; };
@@ -67,7 +72,6 @@
 		80CC39762B4430BA009E0818 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC39752B4430BA009E0818 /* OnboardingViewController.swift */; };
 		80CC397B2B4430BD009E0818 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80CC397A2B4430BD009E0818 /* Assets.xcassets */; };
 		80CC397E2B4430BD009E0818 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80CC397C2B4430BD009E0818 /* LaunchScreen.storyboard */; };
-		80CC398B2B4437B4009E0818 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 80CC398A2B4437B4009E0818 /* RxDataSources */; };
 		80CC398E2B4437C1009E0818 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 80CC398D2B4437C1009E0818 /* SnapKit */; };
 		80CC39912B4437E2009E0818 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 80CC39902B4437E2009E0818 /* RxCocoa */; };
 		80CC39932B4437E2009E0818 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 80CC39922B4437E2009E0818 /* RxSwift */; };
@@ -139,6 +143,9 @@
 		809CF0102B4C441200F7BC68 /* CommonError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonError.swift; sourceTree = "<group>"; };
 		809CF0122B4D3CB200F7BC68 /* MultipartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartModel.swift; sourceTree = "<group>"; };
 		80A9B4FD2B81D3ED0016D1FA /* PostChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostChat.swift; sourceTree = "<group>"; };
+		80A9B5022B8305740016D1FA /* ChatListTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListTable.swift; sourceTree = "<group>"; };
+		80A9B5092B832D3D0016D1FA /* ChatListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListRepository.swift; sourceTree = "<group>"; };
+		80A9B50B2B833C330016D1FA /* FileManager+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extension.swift"; sourceTree = "<group>"; };
 		80BDD86A2B7C83B5003022C3 /* ChattingImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		80C16BF62B4FD3A400414D98 /* KFModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KFModifier.swift; sourceTree = "<group>"; };
 		80C16BF82B5159D700414D98 /* ViewMove.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMove.swift; sourceTree = "<group>"; };
@@ -172,15 +179,16 @@
 			files = (
 				80CC39992B443828009E0818 /* Kingfisher in Frameworks */,
 				80CC39A62B443E49009E0818 /* KakaoSDKUser in Frameworks */,
+				80A9B5082B8305B70016D1FA /* RealmSwift in Frameworks */,
 				80CC399F2B443C88009E0818 /* Alamofire in Frameworks */,
 				80CC39962B443818009E0818 /* IQKeyboardManagerSwift in Frameworks */,
 				80CC39912B4437E2009E0818 /* RxCocoa in Frameworks */,
-				80CC398B2B4437B4009E0818 /* RxDataSources in Frameworks */,
 				80CC39932B4437E2009E0818 /* RxSwift in Frameworks */,
 				80CC399C2B4439A6009E0818 /* Toast in Frameworks */,
 				80CC398E2B4437C1009E0818 /* SnapKit in Frameworks */,
 				80CC39A42B443E49009E0818 /* KakaoSDKCommon in Frameworks */,
 				800A05532B5265350010505A /* SideMenu in Frameworks */,
+				80A9B5062B8305B70016D1FA /* Realm in Frameworks */,
 				80CC39A22B443E49009E0818 /* KakaoSDKAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -338,6 +346,16 @@
 			path = SideMenu;
 			sourceTree = "<group>";
 		};
+		80A9B5012B82DE630016D1FA /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				80A9B5022B8305740016D1FA /* ChatListTable.swift */,
+				80A9B5092B832D3D0016D1FA /* ChatListRepository.swift */,
+				80A9B50B2B833C330016D1FA /* FileManager+Extension.swift */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
 		80C629762B61348A00CBFF97 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -379,6 +397,7 @@
 		80CC39702B4430BA009E0818 /* BranchTalk */ = {
 			isa = PBXGroup;
 			children = (
+				80A9B5012B82DE630016D1FA /* Realm */,
 				80C629762B61348A00CBFF97 /* Extensions */,
 				80802A952B468B44008F1723 /* Base */,
 				800ED5092B464AC1001A7ECC /* Model */,
@@ -483,7 +502,6 @@
 			);
 			name = BranchTalk;
 			packageProductDependencies = (
-				80CC398A2B4437B4009E0818 /* RxDataSources */,
 				80CC398D2B4437C1009E0818 /* SnapKit */,
 				80CC39902B4437E2009E0818 /* RxCocoa */,
 				80CC39922B4437E2009E0818 /* RxSwift */,
@@ -495,6 +513,8 @@
 				80CC39A32B443E49009E0818 /* KakaoSDKCommon */,
 				80CC39A52B443E49009E0818 /* KakaoSDKUser */,
 				800A05522B5265350010505A /* SideMenu */,
+				80A9B5052B8305B70016D1FA /* Realm */,
+				80A9B5072B8305B70016D1FA /* RealmSwift */,
 			);
 			productName = BranchTalk;
 			productReference = 80CC396E2B4430BA009E0818 /* BranchTalk.app */;
@@ -525,7 +545,6 @@
 			);
 			mainGroup = 80CC39652B4430BA009E0818;
 			packageReferences = (
-				80CC39892B4437B4009E0818 /* XCRemoteSwiftPackageReference "RxDataSources" */,
 				80CC398C2B4437C1009E0818 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				80CC398F2B4437E2009E0818 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				80CC39942B443818009E0818 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
@@ -534,6 +553,7 @@
 				80CC399D2B443C88009E0818 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				80CC39A02B443E49009E0818 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				800A05512B5265350010505A /* XCRemoteSwiftPackageReference "SideMenu" */,
+				80A9B5042B8305B70016D1FA /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 80CC396F2B4430BA009E0818 /* Products */;
 			projectDirPath = "";
@@ -585,6 +605,7 @@
 				803E5E0C2B6639AD0016985F /* FindChannelViewController.swift in Sources */,
 				8020C9692B599A0600783221 /* ChannelHeaderView.swift in Sources */,
 				803AD11D2B6DD7AC00E8E8D9 /* ChannelChattingViewModel.swift in Sources */,
+				80A9B50A2B832D3D0016D1FA /* ChatListRepository.swift in Sources */,
 				809CF0132B4D3CB200F7BC68 /* MultipartModel.swift in Sources */,
 				80802A972B468B4E008F1723 /* BaseViewController.swift in Sources */,
 				800B89592B7304C5003D8D38 /* ChannelMemberHeaderView.swift in Sources */,
@@ -623,7 +644,9 @@
 				808A75C02B542D7400FD075D /* SideMenuTableViewCell.swift in Sources */,
 				800ED50E2B46734B001A7ECC /* StartWorkSpaceViewController.swift in Sources */,
 				80D696DA2B55971F00C1761E /* HomeInitialViewModel.swift in Sources */,
+				80A9B50C2B833C330016D1FA /* FileManager+Extension.swift in Sources */,
 				80802AA92B471748008F1723 /* ValidationCheck.swift in Sources */,
+				80A9B5032B8305740016D1FA /* ChatListTable.swift in Sources */,
 				80CC39AE2B4447B9009E0818 /* Fonts.swift in Sources */,
 				80CC39742B4430BA009E0818 /* SceneDelegate.swift in Sources */,
 				80802AA72B471059008F1723 /* ViewModelType.swift in Sources */,
@@ -856,12 +879,12 @@
 				minimumVersion = 6.5.0;
 			};
 		};
-		80CC39892B4437B4009E0818 /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
+		80A9B5042B8305B70016D1FA /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources.git";
+			repositoryURL = "https://github.com/realm/realm-swift.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.2;
+				branch = master;
+				kind = branch;
 			};
 		};
 		80CC398C2B4437C1009E0818 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
@@ -928,10 +951,15 @@
 			package = 800A05512B5265350010505A /* XCRemoteSwiftPackageReference "SideMenu" */;
 			productName = SideMenu;
 		};
-		80CC398A2B4437B4009E0818 /* RxDataSources */ = {
+		80A9B5052B8305B70016D1FA /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 80CC39892B4437B4009E0818 /* XCRemoteSwiftPackageReference "RxDataSources" */;
-			productName = RxDataSources;
+			package = 80A9B5042B8305B70016D1FA /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		80A9B5072B8305B70016D1FA /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80A9B5042B8305B70016D1FA /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 		80CC398D2B4437C1009E0818 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
