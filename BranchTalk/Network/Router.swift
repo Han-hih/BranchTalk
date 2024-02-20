@@ -25,7 +25,7 @@ enum Router: URLRequestConvertible {
     case getAllChannel(id: Int)
     case getChannelChatting(cursor_date: String?, name: String, id: Int)
     case getOneChannel(name: String, id: Int)
-    
+    case postChatting(name: String, id: Int, ChatRequestBody)
     
     private var baseURL: URL {
         guard let url = URL(string: APIKey.baseURL) else { fatalError() }
@@ -34,7 +34,7 @@ enum Router: URLRequestConvertible {
     
     private var method: HTTPMethod {
         switch self {
-        case .kakaoLogin, .emailValidate, .register, .makeWorkSpace, .createChannel:
+        case .kakaoLogin, .emailValidate, .register, .makeWorkSpace, .createChannel, .postChatting:
             return .post
         case .refresh, .getWorkSpaceList, .getOneWorkSpaceList, .getMyProfile, .getChannelList, .getDmList, .getAllMyChannel, .getAllChannel, .getChannelChatting, .getOneChannel:
             return .get
@@ -73,6 +73,8 @@ enum Router: URLRequestConvertible {
             return "/v1/workspaces/\(id)/channels/\(name)/chats"
         case .getOneChannel(let name, id: let id):
             return "/v1/workspaces/\(id)/channels/\(name)"
+        case .postChatting(let name, let id, _):
+            return "/v1/workspaces/\(id)/channels/\(name)/chats"
         }
     }
     
@@ -81,7 +83,7 @@ enum Router: URLRequestConvertible {
         case .kakaoLogin, .emailValidate, .register:
             return ["Content-Type": "application/json",
                     "SesacKey": "\(APIKey.apiKey)"]
-        case .makeWorkSpace:
+        case .makeWorkSpace, .postChatting:
             return ["Content-Type": "multipart/form-data",
                     "Authorization": KeyChain.shared.read(key: "access")!,
                     "SesacKey": "\(APIKey.apiKey)"]
@@ -127,12 +129,13 @@ enum Router: URLRequestConvertible {
         
         print("🩵", request.headers)
         
+        
         if case .refresh = self {
             return request
         }
         
         switch self {
-        case .makeWorkSpace, .getWorkSpaceList, .getOneWorkSpaceList, .getMyProfile, .getChannelList, .getDmList, .getAllChannel, .getAllMyChannel, .getChannelChatting, .getOneChannel:
+        case .makeWorkSpace, .getWorkSpaceList, .getOneWorkSpaceList, .getMyProfile, .getChannelList, .getDmList, .getAllChannel, .getAllMyChannel, .getChannelChatting, .getOneChannel, .postChatting:
             return try URLEncoding.default.encode(request, with: parameters)
         default:
             let jsonData = try? JSONSerialization.data(withJSONObject: parameters)
@@ -154,7 +157,13 @@ extension Router {
                 "image": model.image
             ]
             return makeMultipartFormdata(params: param, with: "workSpace")
-            
+       
+        case .postChatting(_, _, let model):
+            let param: [String: Any] = [
+                "content": model.content,
+                "files": model.files
+            ]
+            return makeMultipartFormdata(params: param, with: "chatPost")
         default: return multipartFormData
         }
     }
@@ -175,7 +184,20 @@ extension Router {
             
             return multipart
             
+        case .postChatting(_, _, let chatRequest):
+            let text = chatRequest.content.data(using: .utf8) ?? Data()
+            let files = chatRequest.files
+            
+            multipart.append(text, withName: "content")
+            
+            for file in files {
+                multipart.append(file, withName: "files", fileName: "file.jpeg", mimeType: "image/jpeg")
+            }
+            
+            return multipart
+            
         default: return MultipartFormData()
         }
+        
     }
 }
