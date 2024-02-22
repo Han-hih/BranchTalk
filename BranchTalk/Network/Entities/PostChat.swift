@@ -33,4 +33,14 @@ struct PostUser: Decodable {
         case userID = "user_id"
         case email, nickname, profileImage
     }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.userID = try container.decode(Int.self, forKey: .userID)
+        self.email = try container.decode(String.self, forKey: .email)
+        self.nickname = try container.decode(String.self, forKey: .nickname)
+        
+        let path = try container.decode(String?.self, forKey: .profileImage)
+        self.profileImage = APIKey.baseURL + "/v1" + (path ?? "")
+    }
 }
