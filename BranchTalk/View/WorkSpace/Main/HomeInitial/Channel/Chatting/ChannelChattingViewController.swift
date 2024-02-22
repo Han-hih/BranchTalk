@@ -97,6 +97,8 @@ final class ChannelChattingViewController: BaseViewController {
     private var selections = [String: PHPickerResult]()
     private var selectedAssetIdentifiers = [String]()
     
+    private var chatTasks: [ChatDetailTable] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Colors.BackgroundSecondary.CutsomColor
@@ -117,7 +119,7 @@ final class ChannelChattingViewController: BaseViewController {
         let output = viewModel.transform(input: input)
         
         output.chatList.bind(with: self) { owner, result in
-            print(result)
+            owner.chatTasks = result
         }
         .disposed(by: disposeBag)
         

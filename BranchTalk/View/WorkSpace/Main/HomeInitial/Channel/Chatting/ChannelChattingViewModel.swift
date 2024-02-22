@@ -17,7 +17,7 @@ class ChannelChattingViewModel: ViewModelType {
     private let chatListRepository = ChatListRepository.shared
     
     private let realm = try! Realm()
-    private let chatList: Results<ChatDetailTable>! = nil
+    private var chatList: Results<ChatDetailTable>!
     
     private var chatImageArray = [String]()
     private var chatImageRealmList = List<String>()
@@ -34,38 +34,46 @@ class ChannelChattingViewModel: ViewModelType {
     }
     
     struct Output {
-        let chatList: BehaviorSubject<[ChannelChatting]>
+        let chatList: BehaviorSubject<[ChatDetailTable]>
         let chatInputValid: BehaviorRelay<Bool>
         let sendMessage: PublishSubject<PostChat>
     }
     
     func transform(input: Input) -> Output {
-        let chatTrigger = BehaviorSubject<[ChannelChatting]>(value: [])
+        let chatTrigger = BehaviorSubject<[ChatDetailTable]>(value: [])
         let chatInputValid = BehaviorRelay<Bool>(value: false)
         let sendMessage = PublishSubject<PostChat>()
         
         input.chatTrigger
-            .flatMapLatest { _ in
-                NetworkManager.shared.requestSingle(
-                    type: [ChannelChatting].self,
-                    api: .getChannelChatting(
-                        cursor_date: "",
-                        name: UserDefaults.standard.string(forKey: "channelName") ?? "",
-                        id: UserDefaults.standard.integer(forKey: "workSpaceID")
-                    )
-                )
-            }
-            .debug()
-            .subscribe(with: self) { owner, result in
-                switch result {
-                case .success(let response):
-                    print("채팅리스트----------", response)
-                    chatTrigger.onNext(response)
-                case .failure(let error):
-                    print(error)
-                }
+            .bind(with: self) { owner, _ in
+                owner.chatList = owner.realm.objects(ChatDetailTable.self)
+                let array: [ChatDetailTable] = owner.chatList.map { $0 }
+                chatTrigger.onNext(array)
             }
             .disposed(by: disposeBag)
+        
+//        input.chatTrigger
+//            .flatMapLatest { _ in
+//                NetworkManager.shared.requestSingle(
+//                    type: [ChannelChatting].self,
+//                    api: .getChannelChatting(
+//                        cursor_date: "",
+//                        name: UserDefaults.standard.string(forKey: "channelName") ?? "",
+//                        id: UserDefaults.standard.integer(forKey: "workSpaceID")
+//                    )
+//                )
+//            }
+//            .debug()
+//            .subscribe(with: self) { owner, result in
+//                switch result {
+//                case .success(let response):
+//                    print("채팅리스트----------", response)
+//                    chatTrigger.onNext(response)
+//                case .failure(let error):
+//                    print(error)
+//                }
+//            }
+//            .disposed(by: disposeBag)
         
         Observable.combineLatest(
             input.contentInputValid,
@@ -127,7 +135,6 @@ class ChannelChattingViewModel: ViewModelType {
                         channelName: response.channelName
                     )
                     
-                
                     chatDetail.user = chatUser
                     chatDetail.info = channelInfo
                     
