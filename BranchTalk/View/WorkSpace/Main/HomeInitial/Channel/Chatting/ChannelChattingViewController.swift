@@ -225,41 +225,21 @@ final class ChannelChattingViewController: BaseViewController {
 
 extension ChannelChattingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return chatTasks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingTableViewCell.identifier, for: indexPath) as? ChattingTableViewCell
         else { return UITableViewCell() }
         
+        let chat = chatTasks[indexPath.row]
         
-        if indexPath.row == 0 {
-            cell.nameLabel.text = "조연희"
-            cell.speechBubble.text = "인호님 빨리 포폴 쓰세요"
-        }  else if indexPath.row == 1 {
-            cell.nameLabel.text = "임승섭"
-            cell.speechBubble.text = "안녕 나는 임승섭이야"
-            cell.thirdChatImage.removeFromSuperview()
-        } else if indexPath.row == 2 {
-            cell.nameLabel.text = "김승연"
-            cell.speechBubble.text = "안녕 나는 김승연이야.\n임승섭하고는 자매사이야"
-            cell.secondSectionStackView.removeFromSuperview()
-        } else if indexPath.row == 3 {
-            cell.nameLabel.text = "윤채원"
-            cell.speechBubble.text = "담배피러 갈 사람?"
-            cell.secondSectionStackView.removeFromSuperview()
-            cell.thirdChatImage.removeFromSuperview()
-        } else if indexPath.row == 4 {
-            cell.nameLabel.text = "한성봉"
-            cell.speechBubble.text = "소개팅 시켜줘요"
-            cell.secondSectionStackView.removeFromSuperview()
-            cell.secondChatImage.removeFromSuperview()
-            cell.thirdChatImage.removeFromSuperview()
-            cell.imageStackView.addArrangedSubview(cell.firstChatImage)
-            cell.imageStackView.snp.remakeConstraints { make in
-                make.height.equalTo(160)
-            }
-        }
+        cell.configure(profile: chat.user?.userImage ?? "", name: chat.user?.userName ?? "", chat: chat.chatText ?? "", time: chat.time.toString())
+        
+
+        let images: [String] = chat.chatFiles.map { $0 }
+        
+        cell.imageLayout(images)
         
         return cell
     }

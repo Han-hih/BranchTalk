@@ -46,10 +46,10 @@ final class ChattingTableViewCell: UITableViewCell {
         return lb
     }()
     
-     let imageStackView = {
+    let imageStackView = {
         let st = UIStackView()
         st.distribution = .fill
-         st.alignment = .top
+        st.alignment = .top
         st.spacing = 2
         st.axis = .vertical
         st.layer.cornerRadius = 12
@@ -57,15 +57,15 @@ final class ChattingTableViewCell: UITableViewCell {
         return st
     }()
     
-     let firstSectionStackView = {
+    let firstSectionStackView = {
         let st = UIStackView()
-         st.distribution = .fillEqually
+        st.distribution = .fillEqually
         st.spacing = 2
         st.axis = .horizontal
         return st
     }()
     
-     let secondSectionStackView = {
+    let secondSectionStackView = {
         let st = UIStackView()
         st.distribution = .fillEqually
         st.spacing = 2
@@ -111,12 +111,12 @@ final class ChattingTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
-            setUI()
+        setUI()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-//        self.chatImageView.image = nil
+        //        self.chatImageView.image = nil
         self.nameLabel.text = nil
         self.speechBubble.text = nil
     }
@@ -154,7 +154,7 @@ final class ChattingTableViewCell: UITableViewCell {
             make.height.greaterThanOrEqualTo(50)
             make.bottom.equalTo(contentView).inset(6)
         }
-    
+        
         timeLabel.snp.makeConstraints { make in
             make.trailing.equalToSuperview()
             make.bottom.equalTo(stackView.snp.bottom)
@@ -180,10 +180,41 @@ final class ChattingTableViewCell: UITableViewCell {
     }
     
     func configure(profile: String, name: String, chat: String, time: String) {
-        
+        let url = URL(string: profile)
+        profileImage.kf.setImage(with: url)
+        nameLabel.text = name
+        speechBubble.text = chat
+        timeLabel.text = time
     }
     
-    
+    func imageLayout(_ image: [String]) {
+        if image.count == 0 {
+            imageStackView.isHidden = true
+        }
+        
+        if image.count == 1 {
+            firstSectionStackView.isHidden = true
+            secondSectionStackView.isHidden = true
+            imageStackView.addArrangedSubview(firstChatImage)
+            imageStackView.snp.remakeConstraints { make in
+                make.height.equalTo(160)
+            }
+        }
+        
+        if image.count == 2 {
+            secondSectionStackView.isHidden = true
+            thirdChatImage.isHidden = true
+        }
+        
+        if image.count == 3 {
+            secondSectionStackView.isHidden = true
+        }
+        
+        if image.count == 4 {
+            thirdChatImage.isHidden = true
+        }
+        
+    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
