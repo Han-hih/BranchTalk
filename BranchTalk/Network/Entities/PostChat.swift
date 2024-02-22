@@ -13,7 +13,7 @@ struct PostChat: Decodable {
     let chatID: Int
     let content: String?
     let createdAt: String
-    let files: [String?]
+    let files: [String]
     let user: PostUser
     
     enum CodingKeys: String, CodingKey {
