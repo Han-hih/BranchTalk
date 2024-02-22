@@ -35,6 +35,7 @@ class ChannelChattingViewModel: ViewModelType {
     
     struct Output {
         let chatList: BehaviorSubject<[ChatDetailTable]>
+        let appendChatList: BehaviorSubject<ChatDetailTable>
         let chatInputValid: BehaviorRelay<Bool>
         let sendMessage: PublishSubject<PostChat>
     }
@@ -43,6 +44,7 @@ class ChannelChattingViewModel: ViewModelType {
         let chatTrigger = BehaviorSubject<[ChatDetailTable]>(value: [])
         let chatInputValid = BehaviorRelay<Bool>(value: false)
         let sendMessage = PublishSubject<PostChat>()
+        let appendSendMessage = BehaviorSubject<ChatDetailTable>(value: ChatDetailTable())
         
         input.chatTrigger
             .bind(with: self) { owner, _ in
@@ -51,29 +53,6 @@ class ChannelChattingViewModel: ViewModelType {
                 chatTrigger.onNext(array)
             }
             .disposed(by: disposeBag)
-        
-//        input.chatTrigger
-//            .flatMapLatest { _ in
-//                NetworkManager.shared.requestSingle(
-//                    type: [ChannelChatting].self,
-//                    api: .getChannelChatting(
-//                        cursor_date: "",
-//                        name: UserDefaults.standard.string(forKey: "channelName") ?? "",
-//                        id: UserDefaults.standard.integer(forKey: "workSpaceID")
-//                    )
-//                )
-//            }
-//            .debug()
-//            .subscribe(with: self) { owner, result in
-//                switch result {
-//                case .success(let response):
-//                    print("채팅리스트----------", response)
-//                    chatTrigger.onNext(response)
-//                case .failure(let error):
-//                    print(error)
-//                }
-//            }
-//            .disposed(by: disposeBag)
         
         Observable.combineLatest(
             input.contentInputValid,
@@ -124,13 +103,13 @@ class ChannelChattingViewModel: ViewModelType {
                         )
                     )
                     
-                    var chatUser = UserInfo(
+                    let chatUser = UserInfo(
                         ownerID: response.user.userID,
                         userName: response.user.nickname,
                         userImage: response.user.profileImage ?? ""
                     )
                     
-                    var channelInfo = ChannelInfoDetail(
+                    let channelInfo = ChannelInfoDetail(
                         channelID: response.channelID,
                         channelName: response.channelName
                     )
@@ -140,9 +119,10 @@ class ChannelChattingViewModel: ViewModelType {
                     
                     //뭔가 좋은 로직은 아니지만 일단 넘어가고 업데이트
                     chatListRepository.createItem(chatDetail)
+                   
+                    appendSendMessage.onNext(chatDetail)
                     
                     
-
                 case .failure(let error):
                     print(error)
                 }
@@ -152,6 +132,7 @@ class ChannelChattingViewModel: ViewModelType {
         
         return Output(
             chatList: chatTrigger,
+            appendChatList: appendSendMessage,
             chatInputValid: chatInputValid,
             sendMessage: sendMessage
         )

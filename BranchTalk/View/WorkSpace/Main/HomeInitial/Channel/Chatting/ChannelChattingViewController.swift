@@ -83,6 +83,7 @@ final class ChannelChattingViewController: BaseViewController {
     private let textViewPlaceholder = "메시지를 입력하세요"
     
     private let chatTrigger = PublishSubject<Void>()
+    private let sendChatTrigger = PublishSubject<Void>()
     
     private let imageCountValue = BehaviorSubject(value: 0)
     
@@ -122,6 +123,14 @@ final class ChannelChattingViewController: BaseViewController {
             owner.chatTasks = result
         }
         .disposed(by: disposeBag)
+        
+        // 처음에 불러오고 추가적으로는 원래 있던 테이블뷰 배열에다가 추가만 해줌
+        output.appendChatList
+            .bind(with: self) { owner, result in
+                owner.chatTasks.append(result)
+                owner.tableView.reloadData()
+            }
+            .disposed(by: disposeBag)
         
         output.chatInputValid
             .asDriver()
