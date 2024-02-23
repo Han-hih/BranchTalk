@@ -116,10 +116,23 @@ final class ChattingTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        //        self.chatImageView.image = nil
-        self.nameLabel.text = nil
+        speechBubble.isHidden = false
+        self.firstChatImage.image = nil
+        self.secondChatImage.image = nil
+        self.thirdChatImage.image = nil
+        self.fourthChatImage.image = nil
+        self.fifthChatImage.image = nil
         self.speechBubble.text = nil
+        self.firstChatImage.isHidden = false
+        self.secondChatImage.isHidden = false
+        self.thirdChatImage.isHidden = false
+        self.fourthChatImage.isHidden = false
+        self.fifthChatImage.isHidden = false
+        self.firstSectionStackView.isHidden = false
+        self.secondSectionStackView.isHidden = false
+        self.imageStackView.isHidden = false
     }
+
     
     private func setUI() {
         [profileImage, stackView, timeLabel].forEach {
@@ -145,6 +158,10 @@ final class ChattingTableViewCell: UITableViewCell {
             make.leading.equalToSuperview()
             make.size.equalTo(34)
             make.top.equalTo(contentView).offset(6)
+        }
+        
+        speechBubble.snp.makeConstraints { make in
+            make.height.greaterThanOrEqualTo(34)
         }
         
         stackView.snp.makeConstraints { make in
@@ -180,21 +197,35 @@ final class ChattingTableViewCell: UITableViewCell {
     }
     
     func configure(profile: String, name: String, chat: String, time: String) {
-        let url = URL(string: profile)
+        let url = URL(string: APIKey.baseURL + "/v1" + profile)
         profileImage.kf.setImage(with: url)
         nameLabel.text = name
-        speechBubble.text = chat
+        if chat == "" {
+            speechBubble.isHidden = true
+        } else {
+            speechBubble.text = chat
+        }
         timeLabel.text = time
     }
     
     func imageLayout(_ image: [String]) {
+        
+        var urlArray: [String] = []
+        
+        for num in 0..<image.count {
+            urlArray.append(APIKey.baseURL + "/v1" + image[num])
+            print(urlArray[num])
+        }
+        
         if image.count == 0 {
             imageStackView.isHidden = true
         }
         
         if image.count == 1 {
-            firstSectionStackView.isHidden = true
+            firstChatImage.kf.setImage(with: URL(string: urlArray[0]), placeholder: UIImage(), options: [.cacheOriginalImage, .requestModifier(KFModifier.shared.modifier)])
             secondSectionStackView.isHidden = true
+            secondChatImage.isHidden = true
+            thirdChatImage.isHidden = true
             imageStackView.addArrangedSubview(firstChatImage)
             imageStackView.snp.remakeConstraints { make in
                 make.height.equalTo(160)
@@ -202,19 +233,37 @@ final class ChattingTableViewCell: UITableViewCell {
         }
         
         if image.count == 2 {
+            firstChatImage.kf.setImage(with: URL(string: urlArray[0]), placeholder: UIImage(), options: [.cacheOriginalImage, .requestModifier(KFModifier.shared.modifier)])
+            secondChatImage.kf.setImage(with: URL(string: urlArray[1]), placeholder: UIImage(), options: [.cacheOriginalImage, .requestModifier(KFModifier.shared.modifier)])
             secondSectionStackView.isHidden = true
             thirdChatImage.isHidden = true
         }
         
         if image.count == 3 {
+            firstChatImage.kf.setImage(with: URL(string: urlArray[0]), placeholder: UIImage(), options: [.cacheOriginalImage, .requestModifier(KFModifier.shared.modifier)])
+            secondChatImage.kf.setImage(with: URL(string: urlArray[1]), placeholder: UIImage(), options: [.cacheOriginalImage, .requestModifier(KFModifier.shared.modifier)])
+            thirdChatImage.kf.setImage(with: URL(string: urlArray[2]), placeholder: UIImage(), options: [.cacheOriginalImage, .requestModifier(KFModifier.shared.modifier)])
             secondSectionStackView.isHidden = true
         }
         
         if image.count == 4 {
+            firstChatImage.kf.setImage(with: URL(string: urlArray[0]), placeholder: UIImage(), options: [.cacheOriginalImage, .requestModifier(KFModifier.shared.modifier)])
+            secondChatImage.kf.setImage(with: URL(string: urlArray[1]), placeholder: UIImage(), options: [.cacheOriginalImage, .requestModifier(KFModifier.shared.modifier)])
+            thirdChatImage.kf.setImage(with: URL(string: urlArray[2]), placeholder: UIImage(), options: [.cacheOriginalImage, .requestModifier(KFModifier.shared.modifier)])
+            fourthChatImage.kf.setImage(with: URL(string: urlArray[3]), placeholder: UIImage(), options: [.cacheOriginalImage, .requestModifier(KFModifier.shared.modifier)])
             thirdChatImage.isHidden = true
         }
         
+        if image.count == 5 {
+            firstChatImage.kf.setImage(with: URL(string: urlArray[0]), placeholder: UIImage(), options: [.cacheOriginalImage, .requestModifier(KFModifier.shared.modifier)])
+            secondChatImage.kf.setImage(with: URL(string: urlArray[1]), placeholder: UIImage(), options: [.cacheOriginalImage, .requestModifier(KFModifier.shared.modifier)])
+            thirdChatImage.kf.setImage(with: URL(string: urlArray[2]), placeholder: UIImage(), options: [.cacheOriginalImage, .requestModifier(KFModifier.shared.modifier)])
+            fourthChatImage.kf.setImage(with: URL(string: urlArray[3]), placeholder: UIImage(), options: [.cacheOriginalImage, .requestModifier(KFModifier.shared.modifier)])
+            fifthChatImage.kf.setImage(with: URL(string: urlArray[4]), placeholder: UIImage(), options: [.cacheOriginalImage, .requestModifier(KFModifier.shared.modifier)])
+        }
+        
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

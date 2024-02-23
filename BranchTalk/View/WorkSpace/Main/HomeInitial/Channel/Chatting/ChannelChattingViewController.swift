@@ -19,6 +19,7 @@ final class ChannelChattingViewController: BaseViewController {
         view.separatorStyle = .none
         view.showsVerticalScrollIndicator = false
         view.rowHeight = UITableView.automaticDimension
+        view.keyboardDismissMode = .onDrag
         return view
     }()
     
@@ -106,6 +107,14 @@ final class ChannelChattingViewController: BaseViewController {
         chatTrigger.onNext(())
     }
     
+    
+    func scrollToBottom(){
+            DispatchQueue.main.async {
+                let indexPath = IndexPath(row: self.chatTasks.count - 1, section: 0)
+                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            }
+        }
+    
     override func bind() {
         super.bind()
         
@@ -121,6 +130,8 @@ final class ChannelChattingViewController: BaseViewController {
         
         output.chatList.bind(with: self) { owner, result in
             owner.chatTasks = result
+            owner.imageCollectionView.isHidden = true
+            owner.scrollToBottom()
         }
         .disposed(by: disposeBag)
         
@@ -129,6 +140,9 @@ final class ChannelChattingViewController: BaseViewController {
             .bind(with: self) { owner, result in
                 owner.chatTasks.append(result)
                 owner.tableView.reloadData()
+                owner.textView.text = ""
+                owner.imageCollectionView.isHidden = true
+                owner.selectedAssetIdentifiers = []
             }
             .disposed(by: disposeBag)
         
@@ -240,18 +254,21 @@ extension ChannelChattingViewController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingTableViewCell.identifier, for: indexPath) as? ChattingTableViewCell
         else { return UITableViewCell() }
-        
+
         let chat = chatTasks[indexPath.row]
         
-        cell.configure(profile: chat.user?.userImage ?? "", name: chat.user?.userName ?? "", chat: chat.chatText ?? "", time: chat.time.toString())
-        
+        cell.configure(
+            profile: chat.user?.userImage ?? "",
+            name: chat.user?.userName ?? "",
+            chat: chat.chatText ?? "",
+            time: chat.time.toString()
+        )
 
         let images: [String] = chat.chatFiles.map { $0 }
-        
         cell.imageLayout(images)
         
         return cell
-    }
+    }   
 }
 
 extension ChannelChattingViewController: UITextViewDelegate {
@@ -371,6 +388,7 @@ extension ChannelChattingViewController: PHPickerViewControllerDelegate {
                 }
                 imageData.onNext(imageDataArray)
                 imageCountValue.onNext(imageDataArray.count)
+                imageCollectionView.isHidden = false
                 imageCollectionView.reloadData()
             }
             
