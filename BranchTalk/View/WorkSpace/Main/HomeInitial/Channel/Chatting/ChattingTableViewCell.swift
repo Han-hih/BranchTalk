@@ -48,7 +48,7 @@ final class ChattingTableViewCell: UITableViewCell {
     
     let imageStackView = {
         let st = UIStackView()
-        st.distribution = .fill
+        st.distribution = .equalSpacing
         st.alignment = .top
         st.spacing = 2
         st.axis = .vertical
@@ -76,26 +76,36 @@ final class ChattingTableViewCell: UITableViewCell {
     let firstChatImage = {
         let view = UIImageView()
         view.backgroundColor = .red
+        view.layer.cornerRadius = 4
+        view.clipsToBounds = true
         return view
     }()
     let secondChatImage = {
         let view = UIImageView()
         view.backgroundColor = .black
+        view.layer.cornerRadius = 4
+        view.clipsToBounds = true
         return view
     }()
     let thirdChatImage = {
         let view = UIImageView()
         view.backgroundColor = .yellow
+        view.layer.cornerRadius = 4
+        view.clipsToBounds = true
         return view
     }()
     let fourthChatImage = {
         let view = UIImageView()
         view.backgroundColor = .blue
+        view.layer.cornerRadius = 4
+        view.clipsToBounds = true
         return view
     }()
     let fifthChatImage = {
         let view = UIImageView()
         view.backgroundColor = .brown
+        view.layer.cornerRadius = 4
+        view.clipsToBounds = true
         return view
     }()
     
@@ -117,12 +127,6 @@ final class ChattingTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         speechBubble.isHidden = false
-        self.firstChatImage.image = nil
-        self.secondChatImage.image = nil
-        self.thirdChatImage.image = nil
-        self.fourthChatImage.image = nil
-        self.fifthChatImage.image = nil
-        self.speechBubble.text = nil
         self.firstChatImage.isHidden = false
         self.secondChatImage.isHidden = false
         self.thirdChatImage.isHidden = false
@@ -131,14 +135,18 @@ final class ChattingTableViewCell: UITableViewCell {
         self.firstSectionStackView.isHidden = false
         self.secondSectionStackView.isHidden = false
         self.imageStackView.isHidden = false
+        firstSectionStackView.snp.remakeConstraints { make in
+            make.height.equalTo(80)
+            make.width.equalTo(contentView).multipliedBy(0.7)
+        }
     }
 
     
     private func setUI() {
-        [profileImage, stackView, timeLabel].forEach {
+        [profileImage, stackView, nameLabel, timeLabel].forEach {
             contentView.addSubview($0)
         }
-        [nameLabel, speechBubble, imageStackView].forEach {
+        [speechBubble, imageStackView].forEach {
             stackView.addArrangedSubview($0)
         }
         
@@ -159,6 +167,10 @@ final class ChattingTableViewCell: UITableViewCell {
             make.size.equalTo(34)
             make.top.equalTo(contentView).offset(6)
         }
+        nameLabel.snp.makeConstraints { make in
+            make.leading.equalTo(profileImage.snp.trailing).offset(6)
+            make.top.equalTo(profileImage)
+        }
         
         speechBubble.snp.makeConstraints { make in
             make.height.greaterThanOrEqualTo(34)
@@ -166,19 +178,15 @@ final class ChattingTableViewCell: UITableViewCell {
         
         stackView.snp.makeConstraints { make in
             make.leading.equalTo(profileImage.snp.trailing).offset(6)
-            make.top.equalTo(contentView).offset(6)
+            make.top.equalTo(nameLabel.snp.bottom).offset(6)
             
-            make.height.greaterThanOrEqualTo(50)
+            make.height.greaterThanOrEqualTo(34)
             make.bottom.equalTo(contentView).inset(6)
         }
         
         timeLabel.snp.makeConstraints { make in
             make.trailing.equalToSuperview()
             make.bottom.equalTo(stackView.snp.bottom)
-        }
-        
-        imageStackView.snp.makeConstraints { make in
-            make.height.lessThanOrEqualTo(160)
         }
         
         firstSectionStackView.snp.makeConstraints { make in
@@ -226,9 +234,10 @@ final class ChattingTableViewCell: UITableViewCell {
             secondSectionStackView.isHidden = true
             secondChatImage.isHidden = true
             thirdChatImage.isHidden = true
-            imageStackView.addArrangedSubview(firstChatImage)
-            imageStackView.snp.remakeConstraints { make in
+//            imageStackView.addArrangedSubview(firstSectionStackView)
+            firstSectionStackView.snp.remakeConstraints { make in
                 make.height.equalTo(160)
+                make.width.equalTo(contentView.snp.width).multipliedBy(0.7)
             }
         }
         
