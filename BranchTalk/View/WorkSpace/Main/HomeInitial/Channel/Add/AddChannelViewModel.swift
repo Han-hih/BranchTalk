@@ -43,7 +43,7 @@ class AddChannelViewModel: ViewModelType {
                 NetworkManager.shared.requestSingle(
                     type: GetChannel.self,
                     api: .createChannel(
-                        id: 22,
+                        id: UserDefaults.standard.integer(forKey: "workSpaceID"),
                         name: name,
                         desc: desc
                     )

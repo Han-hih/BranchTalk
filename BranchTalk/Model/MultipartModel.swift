@@ -12,3 +12,9 @@ struct makeWorkSpace: Codable {
     let description: String?
     let image: Data
 }
+
+struct ChatRequestBody: Codable {
+    let content: String
+    let files: [Data]
+}
+

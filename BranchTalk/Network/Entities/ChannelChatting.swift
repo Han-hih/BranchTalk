@@ -9,9 +9,9 @@ import Foundation
 
 struct ChannelChatting: Decodable {
     let channelID: Int
-    let channelName: String
+    let channelName, createdAt: String
     let chatID: Int
-    let content, createdAt: String
+    let content: String?
     let files: [String]
     let user: ChannelUser
     
@@ -27,7 +27,7 @@ struct ChannelChatting: Decodable {
         self.channelID = try container.decode(Int.self, forKey: .channelID)
         self.channelName = try container.decode(String.self, forKey: .channelName)
         self.chatID = try container.decode(Int.self, forKey: .chatID)
-        self.content = try container.decode(String.self, forKey: .content)
+        self.content = try container.decode(String?.self, forKey: .content)
         
         let serverDate = try container.decode(String.self, forKey: .createdAt)
         let formattedDate = serverDate.toChannelCreatedTime()
