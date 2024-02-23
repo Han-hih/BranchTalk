@@ -268,7 +268,7 @@ extension ChannelChattingViewController: UITableViewDelegate, UITableViewDataSou
         cell.imageLayout(images)
         
         return cell
-    }   
+    }
 }
 
 extension ChannelChattingViewController: UITextViewDelegate {

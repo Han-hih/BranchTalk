@@ -138,6 +138,7 @@ final class ChattingTableViewCell: UITableViewCell {
         firstSectionStackView.snp.remakeConstraints { make in
             make.height.equalTo(80)
             make.width.equalTo(contentView).multipliedBy(0.7)
+            make.trailing.equalTo(timeLabel.snp.leading).offset(-8)
         }
     }
 
@@ -238,6 +239,7 @@ final class ChattingTableViewCell: UITableViewCell {
             firstSectionStackView.snp.remakeConstraints { make in
                 make.height.equalTo(160)
                 make.width.equalTo(contentView.snp.width).multipliedBy(0.7)
+                make.trailing.equalTo(timeLabel.snp.leading).offset(-8)
             }
         }
         
