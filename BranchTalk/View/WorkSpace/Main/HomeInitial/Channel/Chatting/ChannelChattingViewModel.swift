@@ -23,7 +23,7 @@ class ChannelChattingViewModel: ViewModelType {
     private var chatImageRealmList = List<String>()
     private var userRealmList = UserInfo()
     private var channelRealmList = ChannelInfoDetail()
-    
+    private var lastDay: Date?
     
     struct Input {
         let chatTrigger: Observable<Void>
@@ -46,14 +46,69 @@ class ChannelChattingViewModel: ViewModelType {
         let sendMessage = PublishSubject<PostChat>()
         let appendSendMessage = BehaviorSubject<ChatDetailTable>(value: ChatDetailTable())
         
-        input.chatTrigger
-            .bind(with: self) { owner, _ in
-                owner.chatList = owner.realm.objects(ChatDetailTable.self)
-                let array: [ChatDetailTable] = owner.chatList.map { $0 }
-                chatTrigger.onNext(array)
-            }
-            .disposed(by: disposeBag)
         
+            
+            input.chatTrigger
+                .do(onNext: { [unowned self] _ in
+                chatList = realm.objects(ChatDetailTable.self)
+                let array: [ChatDetailTable] = chatList.map { $0 }
+                chatTrigger.onNext(array)
+                lastDay = array.last?.time ?? Date()
+                print("🙏", "먼저 실행되어야함")
+                })
+                .flatMapLatest { _ in
+                    NetworkManager.shared.requestSingle(
+                        type: [ChannelChatting].self,
+                        api: .getChannelChatting(
+                            cursor_date: self.lastDay?.toString(),
+                            name: UserDefaults.standard.string(forKey: "channelName") ?? "",
+                            id: UserDefaults.standard.integer(forKey: "workSpaceID")
+                        )
+                    )
+                }
+                .bind(with: self, onNext: { owner, result in
+                    switch result {
+                    case .success(let response):
+                        if response.isEmpty {
+                            print("🔥", "새로운 채팅없음", response)
+                        } else {
+                            print("👍", "새로운 채팅 있음", response)
+                            for i in 0..<response.count {
+                                let chatDetail = ChatDetailTable(
+                                    chatID: response[i].chatID,
+                                    chatText: response[i].content,
+                                    time: response[i].createdAt.toDate() ?? Date(),
+                                    chatFiles: owner.arrayToList(
+                                        response[i].files
+                                    )
+                                )
+                                
+                                let chatUser = UserInfo(
+                                    ownerID: response[i].user.userID,
+                                    userName: response[i].user.nickname,
+                                    userImage: response[i].user.profileImage 
+                                )
+                                
+                                let channelInfo = ChannelInfoDetail(
+                                    channelID: response[i].channelID,
+                                    channelName: response[i].channelName
+                                )
+                                
+                                chatDetail.user = chatUser
+                                chatDetail.info = channelInfo
+                                
+                                //뭔가 좋은 로직은 아니지만 일단 넘어가고 업데이트
+                                owner.chatListRepository.createItem(chatDetail)
+                                
+                                appendSendMessage.onNext(chatDetail)
+                            }
+                        }
+                    case .failure(let error):
+                        print(error)
+                    }
+                })
+                .disposed(by: disposeBag)
+
         Observable.combineLatest(
             input.contentInputValid,
             input.imageInputValid
@@ -86,10 +141,7 @@ class ChannelChattingViewModel: ViewModelType {
                     )
                 )
             }
-            .bind(with: self,
-                  onNext: {
-                [self] owner,
-                result in
+            .bind(with: self, onNext: { [self] owner, result in
                 switch result {
                 case .success(let response):
                     print(response)
@@ -171,4 +223,24 @@ class ChannelChattingViewModel: ViewModelType {
 //            print(Realm.Configuration.defaultConfiguration.fileURL!)
 //        }
 //    }
+    
+    private func latestChatting() {
+        print("💪", "나중에 실행되어야함", lastDay)
+        NetworkManager.shared.request(type: [ChannelChatting].self,
+                                      api: .getChannelChatting(cursor_date: lastDay?.toString(),
+                                                               name: UserDefaults.standard.string(forKey: "channelName") ?? "",
+                                                               id: UserDefaults.standard.integer(forKey: "workSpaceID"))) { result in
+            switch result {
+            case .success(let response):
+                print("🔥", response)
+                if response.isEmpty {
+                    print("새로 온 채팅이 없음")
+                } else {
+                    
+                }
+            case .failure(let error):
+                print("💀", error)
+            }
+        }
+    }
 }
