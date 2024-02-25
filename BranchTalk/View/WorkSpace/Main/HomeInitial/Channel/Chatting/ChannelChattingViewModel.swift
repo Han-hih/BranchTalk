@@ -50,11 +50,14 @@ class ChannelChattingViewModel: ViewModelType {
             
             input.chatTrigger
                 .do(onNext: { [unowned self] _ in
-                chatList = realm.objects(ChatDetailTable.self)
-                let array: [ChatDetailTable] = chatList.map { $0 }
-                chatTrigger.onNext(array)
-                lastDay = array.last?.time ?? Date()
-                print("🙏", "먼저 실행되어야함")
+                    if realm.isEmpty { lastDay = "".toDate() }
+                    else {
+                        chatList = realm.objects(ChatDetailTable.self)
+                        let array: [ChatDetailTable] = chatList.map { $0 }
+                        chatTrigger.onNext(array)
+                        lastDay = array.last?.time ?? Date()
+                        print("🙏", "먼저 실행되어야함")
+                    }
                 })
                 .flatMapLatest { _ in
                     NetworkManager.shared.requestSingle(
@@ -133,7 +136,7 @@ class ChannelChattingViewModel: ViewModelType {
             )
             .flatMapLatest { (text, images) in
                 NetworkManager.shared.requestMultipart(
-                    type: PostChat.self,
+                    type: ChannelChatting.self,
                     api: .postChatting(
                         name: UserDefaults.standard.string(forKey: "channelName") ?? "",
                         id: UserDefaults.standard.integer(forKey: "workSpaceID"),
