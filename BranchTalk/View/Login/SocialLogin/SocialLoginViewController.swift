@@ -66,7 +66,9 @@ final class SocialLoginViewController: BaseViewController {
     }
     
     @objc func emailButtonTapped() {
-        print("이메일로 계속하기")
+        let vc = EmailLoginViewController()
+        let nav = UINavigationController(rootViewController: vc)
+        present(nav, animated: true)
     }
     
     override func setUI() {
