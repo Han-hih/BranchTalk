@@ -76,31 +76,29 @@ class ChannelChattingViewModel: ViewModelType {
                             print("🔥", "새로운 채팅없음", response)
                         } else {
                             print("👍", "새로운 채팅 있음", response)
-                            for i in 0..<response.count {
+                            for newChat in response {
                                 let chatDetail = ChatDetailTable(
-                                    chatID: response[i].chatID,
-                                    chatText: response[i].content,
-                                    time: response[i].createdAt.toDate() ?? Date(),
-                                    chatFiles: owner.arrayToList(
-                                        response[i].files
-                                    )
+                                    chatID: newChat.chatID,
+                                    chatText: newChat.content,
+                                    time: newChat.createdAt.toDate() ?? Date(),
+                                    chatFiles: owner.arrayToList(newChat.files)
                                 )
                                 
                                 let chatUser = UserInfo(
-                                    ownerID: response[i].user.userID,
-                                    userName: response[i].user.nickname,
-                                    userImage: response[i].user.profileImage 
+                                    ownerID: newChat.user.userID,
+                                    userName: newChat.user.nickname,
+                                    userImage: newChat.user.profileImage
                                 )
                                 
                                 let channelInfo = ChannelInfoDetail(
-                                    channelID: response[i].channelID,
-                                    channelName: response[i].channelName
+                                    channelID: newChat.channelID,
+                                    channelName: newChat.channelName
                                 )
                                 
                                 chatDetail.user = chatUser
                                 chatDetail.info = channelInfo
                                 
-                                //뭔가 좋은 로직은 아니지만 일단 넘어가고 업데이트
+                                owner.chatImageRealmList.removeAll()
                                 owner.chatListRepository.createItem(chatDetail)
                                 
                                 appendSendMessage.onNext(chatDetail)

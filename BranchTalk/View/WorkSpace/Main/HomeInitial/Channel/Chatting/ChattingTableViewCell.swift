@@ -222,7 +222,7 @@ final class ChattingTableViewCell: UITableViewCell {
         var urlArray: [String] = []
         
         for num in 0..<image.count {
-            urlArray.append(APIKey.baseURL + "/v1" + image[num])
+            urlArray.append(image[num])
         }
         
         if image.count == 0 {
