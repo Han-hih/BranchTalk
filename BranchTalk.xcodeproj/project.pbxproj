@@ -87,6 +87,8 @@
 		80CC39AE2B4447B9009E0818 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC39AD2B4447B9009E0818 /* Fonts.swift */; };
 		80CC39B02B44584C009E0818 /* SF-Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 80CC39AF2B44584C009E0818 /* SF-Pro.ttf */; };
 		80D696DA2B55971F00C1761E /* HomeInitialViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D696D92B55971F00C1761E /* HomeInitialViewModel.swift */; };
+		80F57E172B8B16CC000C3530 /* EmailLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F57E162B8B16CC000C3530 /* EmailLoginViewController.swift */; };
+		80F57E192B8B1EBB000C3530 /* EmailLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F57E182B8B1EBB000C3530 /* EmailLoginViewModel.swift */; };
 		80F80CC62B5D5C760077654A /* ChannelFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F80CC52B5D5C760077654A /* ChannelFooterView.swift */; };
 		80F80CC92B5E4EF90077654A /* DmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F80CC82B5E4EF90077654A /* DmTableViewCell.swift */; };
 		80F80CCB2B5E4F060077654A /* DmHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F80CCA2B5E4F060077654A /* DmHeaderView.swift */; };
@@ -165,6 +167,8 @@
 		80CC39AD2B4447B9009E0818 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		80CC39AF2B44584C009E0818 /* SF-Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro.ttf"; sourceTree = "<group>"; };
 		80D696D92B55971F00C1761E /* HomeInitialViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInitialViewModel.swift; sourceTree = "<group>"; };
+		80F57E162B8B16CC000C3530 /* EmailLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginViewController.swift; sourceTree = "<group>"; };
+		80F57E182B8B1EBB000C3530 /* EmailLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginViewModel.swift; sourceTree = "<group>"; };
 		80F80CC52B5D5C760077654A /* ChannelFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelFooterView.swift; sourceTree = "<group>"; };
 		80F80CC82B5E4EF90077654A /* DmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DmTableViewCell.swift; sourceTree = "<group>"; };
 		80F80CCA2B5E4F060077654A /* DmHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DmHeaderView.swift; sourceTree = "<group>"; };
@@ -419,9 +423,9 @@
 		80CC39852B44356D009E0818 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				80F57E152B8B15DC000C3530 /* Login */,
 				800ED50C2B467292001A7ECC /* WorkSpace */,
 				8047E8482B4543810018254B /* Register */,
-				8047E8452B4532340018254B /* SocialLogin */,
 				802DB5112B45178F004A5C47 /* Onboarding */,
 			);
 			path = View;
@@ -462,6 +466,32 @@
 				80C16BF82B5159D700414D98 /* ViewMove.swift */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		80F57E132B8B15BD000C3530 /* EmailLogin */ = {
+			isa = PBXGroup;
+			children = (
+				80F57E162B8B16CC000C3530 /* EmailLoginViewController.swift */,
+				80F57E182B8B1EBB000C3530 /* EmailLoginViewModel.swift */,
+			);
+			path = EmailLogin;
+			sourceTree = "<group>";
+		};
+		80F57E142B8B15D2000C3530 /* AppleLogin */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AppleLogin;
+			sourceTree = "<group>";
+		};
+		80F57E152B8B15DC000C3530 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				8047E8452B4532340018254B /* SocialLogin */,
+				80F57E132B8B15BD000C3530 /* EmailLogin */,
+				80F57E142B8B15D2000C3530 /* AppleLogin */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		80F80CC72B5E4EE60077654A /* Dm */ = {
@@ -597,6 +627,7 @@
 				80F80CC62B5D5C760077654A /* ChannelFooterView.swift in Sources */,
 				80F80CCB2B5E4F060077654A /* DmHeaderView.swift in Sources */,
 				80FFA2692B55712C00ED6995 /* ChannelTableViewCell.swift in Sources */,
+				80F57E172B8B16CC000C3530 /* EmailLoginViewController.swift in Sources */,
 				80CC39AA2B4440C8009E0818 /* CustomColor.swift in Sources */,
 				809CF0112B4C441200F7BC68 /* CommonError.swift in Sources */,
 				802B14372B6E28550051B9AD /* ChannelSettingViewController.swift in Sources */,
@@ -622,6 +653,7 @@
 				800A05552B5265AD0010505A /* HomeSideMenuNavigation.swift in Sources */,
 				803E5E122B6A56320016985F /* CustomAlertViewController.swift in Sources */,
 				80802AA52B471013008F1723 /* RegisterViewModel.swift in Sources */,
+				80F57E192B8B1EBB000C3530 /* EmailLoginViewModel.swift in Sources */,
 				803E5E0E2B66426C0016985F /* FindChannelListTableViewCell.swift in Sources */,
 				80C6297D2B61374B00CBFF97 /* MyInfo.swift in Sources */,
 				802B143D2B6F5A510051B9AD /* ChannelInfoCollectionViewCell.swift in Sources */,
