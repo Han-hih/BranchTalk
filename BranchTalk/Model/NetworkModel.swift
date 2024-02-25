@@ -9,8 +9,8 @@ import Foundation
 
 struct LoginResult: Decodable {
     let userID: Int
-    let email, nickname, vendor, createdAt: String
-    let profileImage, phone: String?
+    let email, nickname, createdAt: String
+    let profileImage, vendor, phone: String?
     let token: Tokens
     
     enum CodingKeys: String, CodingKey {
