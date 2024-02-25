@@ -89,6 +89,7 @@
 		80D696DA2B55971F00C1761E /* HomeInitialViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D696D92B55971F00C1761E /* HomeInitialViewModel.swift */; };
 		80F57E172B8B16CC000C3530 /* EmailLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F57E162B8B16CC000C3530 /* EmailLoginViewController.swift */; };
 		80F57E192B8B1EBB000C3530 /* EmailLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F57E182B8B1EBB000C3530 /* EmailLoginViewModel.swift */; };
+		80F57E1C2B8B6FF8000C3530 /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = 80F57E1B2B8B6FF8000C3530 /* SocketIO */; };
 		80F80CC62B5D5C760077654A /* ChannelFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F80CC52B5D5C760077654A /* ChannelFooterView.swift */; };
 		80F80CC92B5E4EF90077654A /* DmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F80CC82B5E4EF90077654A /* DmTableViewCell.swift */; };
 		80F80CCB2B5E4F060077654A /* DmHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F80CCA2B5E4F060077654A /* DmHeaderView.swift */; };
@@ -190,6 +191,7 @@
 				80CC39932B4437E2009E0818 /* RxSwift in Frameworks */,
 				80CC399C2B4439A6009E0818 /* Toast in Frameworks */,
 				80CC398E2B4437C1009E0818 /* SnapKit in Frameworks */,
+				80F57E1C2B8B6FF8000C3530 /* SocketIO in Frameworks */,
 				80CC39A42B443E49009E0818 /* KakaoSDKCommon in Frameworks */,
 				800A05532B5265350010505A /* SideMenu in Frameworks */,
 				80A9B5062B8305B70016D1FA /* Realm in Frameworks */,
@@ -545,6 +547,7 @@
 				800A05522B5265350010505A /* SideMenu */,
 				80A9B5052B8305B70016D1FA /* Realm */,
 				80A9B5072B8305B70016D1FA /* RealmSwift */,
+				80F57E1B2B8B6FF8000C3530 /* SocketIO */,
 			);
 			productName = BranchTalk;
 			productReference = 80CC396E2B4430BA009E0818 /* BranchTalk.app */;
@@ -584,6 +587,7 @@
 				80CC39A02B443E49009E0818 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				800A05512B5265350010505A /* XCRemoteSwiftPackageReference "SideMenu" */,
 				80A9B5042B8305B70016D1FA /* XCRemoteSwiftPackageReference "realm-swift" */,
+				80F57E1A2B8B6FF8000C3530 /* XCRemoteSwiftPackageReference "socket.io-client-swift" */,
 			);
 			productRefGroup = 80CC396F2B4430BA009E0818 /* Products */;
 			projectDirPath = "";
@@ -975,6 +979,14 @@
 				minimumVersion = 2.20.0;
 			};
 		};
+		80F57E1A2B8B6FF8000C3530 /* XCRemoteSwiftPackageReference "socket.io-client-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/socketio/socket.io-client-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1042,6 +1054,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 80CC39A02B443E49009E0818 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDKUser;
+		};
+		80F57E1B2B8B6FF8000C3530 /* SocketIO */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80F57E1A2B8B6FF8000C3530 /* XCRemoteSwiftPackageReference "socket.io-client-swift" */;
+			productName = SocketIO;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

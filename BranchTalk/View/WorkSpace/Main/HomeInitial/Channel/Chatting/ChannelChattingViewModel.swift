@@ -159,7 +159,7 @@ class ChannelChattingViewModel: ViewModelType {
                     let chatUser = UserInfo(
                         ownerID: response.user.userID,
                         userName: response.user.nickname,
-                        userImage: response.user.profileImage ?? ""
+                        userImage: response.user.profileImage
                     )
                     
                     let channelInfo = ChannelInfoDetail(
@@ -199,49 +199,7 @@ class ChannelChattingViewModel: ViewModelType {
         return chatImageRealmList
     }
     
-//    private func checkUserID(_ id: Int) -> Bool {
-//        if realm.objects(UserInfo.self).contains(where: { userInfo in
-//            userInfo.ownerID != id
-//        }) {
-//            return true
-//        } else { return false }
-//    }
-//    
-//    private func checkChannelID(_ id: Int) -> Bool {
-//        if realm.objects(ChannelInfoDetail.self).contains(where: { channelInfoDetail in
-//            channelInfoDetail.channelID != id
-//        }) {
-//            return true
-//        } else {
-//            return false
-//        }
-//    }
-    
-//    private func realmWrite(_ object: Object) {
-//        try! realm.write {
-//            realm.add(object)
-//            print("렘에 저장됨")
-//            print(Realm.Configuration.defaultConfiguration.fileURL!)
-//        }
-//    }
-    
-    private func latestChatting() {
-        print("💪", "나중에 실행되어야함", lastDay)
-        NetworkManager.shared.request(type: [ChannelChatting].self,
-                                      api: .getChannelChatting(cursor_date: lastDay?.toString(),
-                                                               name: UserDefaults.standard.string(forKey: "channelName") ?? "",
-                                                               id: UserDefaults.standard.integer(forKey: "workSpaceID"))) { result in
-            switch result {
-            case .success(let response):
-                print("🔥", response)
-                if response.isEmpty {
-                    print("새로 온 채팅이 없음")
-                } else {
-                    
-                }
-            case .failure(let error):
-                print("💀", error)
-            }
-        }
+    private func connectSocket() {
+        
     }
 }
