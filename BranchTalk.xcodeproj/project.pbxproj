@@ -90,6 +90,7 @@
 		80F57E172B8B16CC000C3530 /* EmailLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F57E162B8B16CC000C3530 /* EmailLoginViewController.swift */; };
 		80F57E192B8B1EBB000C3530 /* EmailLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F57E182B8B1EBB000C3530 /* EmailLoginViewModel.swift */; };
 		80F57E1C2B8B6FF8000C3530 /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = 80F57E1B2B8B6FF8000C3530 /* SocketIO */; };
+		80F57E1F2B8B75E2000C3530 /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F57E1E2B8B75E2000C3530 /* SocketIOManager.swift */; };
 		80F80CC62B5D5C760077654A /* ChannelFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F80CC52B5D5C760077654A /* ChannelFooterView.swift */; };
 		80F80CC92B5E4EF90077654A /* DmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F80CC82B5E4EF90077654A /* DmTableViewCell.swift */; };
 		80F80CCB2B5E4F060077654A /* DmHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F80CCA2B5E4F060077654A /* DmHeaderView.swift */; };
@@ -170,6 +171,7 @@
 		80D696D92B55971F00C1761E /* HomeInitialViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInitialViewModel.swift; sourceTree = "<group>"; };
 		80F57E162B8B16CC000C3530 /* EmailLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginViewController.swift; sourceTree = "<group>"; };
 		80F57E182B8B1EBB000C3530 /* EmailLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginViewModel.swift; sourceTree = "<group>"; };
+		80F57E1E2B8B75E2000C3530 /* SocketIOManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 		80F80CC52B5D5C760077654A /* ChannelFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelFooterView.swift; sourceTree = "<group>"; };
 		80F80CC82B5E4EF90077654A /* DmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DmTableViewCell.swift; sourceTree = "<group>"; };
 		80F80CCA2B5E4F060077654A /* DmHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DmHeaderView.swift; sourceTree = "<group>"; };
@@ -436,6 +438,7 @@
 		80CC39862B443575009E0818 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				80F57E1D2B8B75AA000C3530 /* SocketNetwork */,
 				80C629792B6134F700CBFF97 /* Entities */,
 				80CC39A72B443FE0009E0818 /* APIKey.swift */,
 				800ED5052B45CD89001A7ECC /* NetworkManager.swift */,
@@ -494,6 +497,14 @@
 				80F57E142B8B15D2000C3530 /* AppleLogin */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		80F57E1D2B8B75AA000C3530 /* SocketNetwork */ = {
+			isa = PBXGroup;
+			children = (
+				80F57E1E2B8B75E2000C3530 /* SocketIOManager.swift */,
+			);
+			path = SocketNetwork;
 			sourceTree = "<group>";
 		};
 		80F80CC72B5E4EE60077654A /* Dm */ = {
@@ -620,6 +631,7 @@
 				800ED5102B468041001A7ECC /* CustomLabel.swift in Sources */,
 				80F80CCD2B5E4F120077654A /* DmFooterView.swift in Sources */,
 				80802AA02B46E09E008F1723 /* HomeEmptyViewController.swift in Sources */,
+				80F57E1F2B8B75E2000C3530 /* SocketIOManager.swift in Sources */,
 				803E5E102B66912C0016985F /* FindChannelViewModel.swift in Sources */,
 				80BDD86B2B7C83B5003022C3 /* ChattingImageCollectionViewCell.swift in Sources */,
 				80CC39762B4430BA009E0818 /* OnboardingViewController.swift in Sources */,
