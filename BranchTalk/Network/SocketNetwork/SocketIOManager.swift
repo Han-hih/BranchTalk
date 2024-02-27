@@ -7,6 +7,7 @@
 
 import Foundation
 import SocketIO
+import RxSwift
 
 class SocketIOManager: NSObject {
     
@@ -16,6 +17,9 @@ class SocketIOManager: NSObject {
     var socket: SocketIOClient!
     
     var isOpen = false
+    
+    let message = PublishSubject<ChannelChatting>()
+    
     //소켓 초기화
     override init() {
         super.init()
@@ -34,7 +38,7 @@ class SocketIOManager: NSObject {
         socket.connect()
         socket.on(clientEvent: .connect) { data, ack in
             print("SOCKET IS CONNECTED", data, ack)
-            
+            self.receiveChatting(dataArray: data)
         }
         
         
@@ -42,7 +46,7 @@ class SocketIOManager: NSObject {
     }
     
     //dataArray를 받는다.
-    func receiveChatting(dataArray: [Any], completion: @escaping (ChannelChatting) -> Void) {
+    func receiveChatting(dataArray: [Any]) {
         socket.on("channel") { dataArray, ack in
             print("CHANNEL RECEIVED", dataArray, ack)
             if let data = dataArray[0] as? [String: Any] {
@@ -51,8 +55,8 @@ class SocketIOManager: NSObject {
                     let chatData = try JSONDecoder().decode(ChannelChatting.self, from: data)
                     
                     print("🔥", chatData)
-                    completion(chatData)
-                    
+                    self.message.onNext(chatData)
+                   
                 } catch {
                     print("디코딩에러")
                 }
