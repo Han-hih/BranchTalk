@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AuthenticationServices
 
 final class SocialLoginViewController: BaseViewController {
     
@@ -51,7 +52,14 @@ final class SocialLoginViewController: BaseViewController {
     }
     
     @objc func appleButtonTapped() {
-        print("애플로그인탭")
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+                let request = appleIDProvider.createRequest()
+                request.requestedScopes = [.email, .fullName]
+                
+                let controller = ASAuthorizationController(authorizationRequests: [request])
+                controller.delegate = self
+                controller.presentationContextProvider = self
+                controller.performRequests()
     }
     
     @objc func kakaoButtonTapped() {
@@ -113,5 +121,95 @@ extension SocialLoginViewController {
         let nav = UINavigationController(rootViewController: vc)
         
         present(nav, animated: true)
+    }
+}
+
+extension SocialLoginViewController: ASAuthorizationControllerDelegate {
+    
+    //애플로 로그인 실패한 경우
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        
+        print("Login Failed \(error.localizedDescription)")
+        
+    }
+    
+    //애플로 로그인 성공한 경우
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+            switch authorization.credential {
+            case let appleIDCredential as ASAuthorizationAppleIDCredential:
+                print(appleIDCredential)
+                let userIdential = appleIDCredential.user
+                let fullName = appleIDCredential.fullName
+                let email = appleIDCredential.email
+                guard let token = appleIDCredential.identityToken,
+                      let tokenToString = String(data: token, encoding: .utf8) else { print("Token Error")
+                    return
+                }
+                
+                //UserDefaults
+                print(userIdential)
+                print(fullName ?? "No fullName")
+                print(email ?? "No Email")
+                print(tokenToString)
+                UserDefaults.standard.setValue(userIdential, forKey: "User")
+                UserDefaults.standard.setValue(email, forKey: "nickname")
+                
+                //이메일, 토큰, 이름 -> UserDefaults & API로 서버에 POST
+                //서버에 Request 후 Response를 받게 되면, 성공시 화면 전환
+                
+                NetworkManager.shared.request(
+                    type: LoginResult.self,
+                    api: .appleLogin(
+                        idToken: UserDefaults.standard.string(forKey: "User") ?? "",
+                        nickname: UserDefaults.standard.string(forKey: "nickname") ?? "",
+                        deviceToken: ""
+                    )) { result in
+                        switch result {
+                        case .success(let response):
+                            KeyChain.shared.keyChainSetting(
+                                id: response.userID,
+                                access: response.token.accessToken,
+                                refresh: response.token.refreshToken
+                            )
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
+         
+                DispatchQueue.main.async {
+                    self.getWorkSpaceList()
+                }
+                
+            case let passwordCredential as ASPasswordCredential:
+                
+                let username = passwordCredential.user
+                let password = passwordCredential.password
+
+                print(username, password)
+                
+            default: break
+            }
+        }
+
+    func getWorkSpaceList() {
+        NetworkManager.shared.request(type: [WorkSpaceList].self, api: Router.getWorkSpaceList) { result in
+            switch result {
+            case .success(let response):
+                print(response.count)
+                if response.count > 0 {
+                    ViewMove.shared.goHomeInitialView()
+                } else {
+                    ViewMove.shared.goStartWorkSpaceView()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+}
+
+extension SocialLoginViewController: ASAuthorizationControllerPresentationContextProviding {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
     }
 }

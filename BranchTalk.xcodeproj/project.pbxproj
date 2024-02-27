@@ -91,6 +91,7 @@
 		80F57E192B8B1EBB000C3530 /* EmailLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F57E182B8B1EBB000C3530 /* EmailLoginViewModel.swift */; };
 		80F57E1C2B8B6FF8000C3530 /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = 80F57E1B2B8B6FF8000C3530 /* SocketIO */; };
 		80F57E1F2B8B75E2000C3530 /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F57E1E2B8B75E2000C3530 /* SocketIOManager.swift */; };
+		80F57E262B8E2F0B000C3530 /* AuthentificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F57E252B8E2F0B000C3530 /* AuthentificationManager.swift */; };
 		80F80CC62B5D5C760077654A /* ChannelFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F80CC52B5D5C760077654A /* ChannelFooterView.swift */; };
 		80F80CC92B5E4EF90077654A /* DmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F80CC82B5E4EF90077654A /* DmTableViewCell.swift */; };
 		80F80CCB2B5E4F060077654A /* DmHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F80CCA2B5E4F060077654A /* DmHeaderView.swift */; };
@@ -172,6 +173,8 @@
 		80F57E162B8B16CC000C3530 /* EmailLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginViewController.swift; sourceTree = "<group>"; };
 		80F57E182B8B1EBB000C3530 /* EmailLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginViewModel.swift; sourceTree = "<group>"; };
 		80F57E1E2B8B75E2000C3530 /* SocketIOManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
+		80F57E252B8E2F0B000C3530 /* AuthentificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthentificationManager.swift; sourceTree = "<group>"; };
+		80F57E272B8E34A0000C3530 /* BranchTalk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BranchTalk.entitlements; sourceTree = "<group>"; };
 		80F80CC52B5D5C760077654A /* ChannelFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelFooterView.swift; sourceTree = "<group>"; };
 		80F80CC82B5E4EF90077654A /* DmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DmTableViewCell.swift; sourceTree = "<group>"; };
 		80F80CCA2B5E4F060077654A /* DmHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DmHeaderView.swift; sourceTree = "<group>"; };
@@ -405,6 +408,7 @@
 		80CC39702B4430BA009E0818 /* BranchTalk */ = {
 			isa = PBXGroup;
 			children = (
+				80F57E272B8E34A0000C3530 /* BranchTalk.entitlements */,
 				80A9B5012B82DE630016D1FA /* Realm */,
 				80C629762B61348A00CBFF97 /* Extensions */,
 				80802A952B468B44008F1723 /* Base */,
@@ -485,6 +489,7 @@
 		80F57E142B8B15D2000C3530 /* AppleLogin */ = {
 			isa = PBXGroup;
 			children = (
+				80F57E252B8E2F0B000C3530 /* AuthentificationManager.swift */,
 			);
 			path = AppleLogin;
 			sourceTree = "<group>";
@@ -639,6 +644,7 @@
 				80C6297B2B61350900CBFF97 /* WorkSpaceList.swift in Sources */,
 				80F80CC92B5E4EF90077654A /* DmTableViewCell.swift in Sources */,
 				800A05572B5268F40010505A /* SideMenuViewController.swift in Sources */,
+				80F57E262B8E2F0B000C3530 /* AuthentificationManager.swift in Sources */,
 				802B14412B6F7E730051B9AD /* ChannelSettingViewModel.swift in Sources */,
 				80F80CC62B5D5C760077654A /* ChannelFooterView.swift in Sources */,
 				80F80CCB2B5E4F060077654A /* DmHeaderView.swift in Sources */,
@@ -845,6 +851,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BranchTalk/BranchTalk.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PUJ68C53FY;
@@ -854,6 +861,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -861,6 +869,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Han.BranchTalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -873,6 +884,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BranchTalk/BranchTalk.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PUJ68C53FY;
@@ -882,6 +894,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -889,6 +902,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Han.BranchTalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
