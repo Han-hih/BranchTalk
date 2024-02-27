@@ -11,6 +11,7 @@ import Alamofire
 enum Router: URLRequestConvertible {
     
     case kakaoLogin(access: String, refresh: String)
+    case appleLogin(idToken: String, nickname: String, deviceToken: String?)
     case emailLogin(email: String, pw: String, deviceToken: String?)
     case emailValidate(email: String)
     case register(email: String, password: String, nickname: String, phone: String?, deviceToken: String?)
@@ -35,7 +36,7 @@ enum Router: URLRequestConvertible {
     
     private var method: HTTPMethod {
         switch self {
-        case .kakaoLogin, .emailLogin, .emailValidate, .register, .makeWorkSpace, .createChannel, .postChatting:
+        case .kakaoLogin, .appleLogin, .emailLogin, .emailValidate, .register, .makeWorkSpace, .createChannel, .postChatting:
             return .post
         case .refresh, .getWorkSpaceList, .getOneWorkSpaceList, .getMyProfile, .getChannelList, .getDmList, .getAllMyChannel, .getAllChannel, .getChannelChatting, .getOneChannel:
             return .get
@@ -46,6 +47,8 @@ enum Router: URLRequestConvertible {
         switch self {
         case .kakaoLogin:
             return "/v1/users/login/kakao"
+        case .appleLogin:
+            return "/v1/users/login/apple"
         case .emailLogin:
             return "/v2/users/login"
         case .emailValidate:
@@ -83,7 +86,7 @@ enum Router: URLRequestConvertible {
     
     private var header: HTTPHeaders {
         switch self {
-        case .kakaoLogin, .emailLogin, .emailValidate, .register:
+        case .kakaoLogin, .appleLogin, .emailLogin, .emailValidate, .register:
             return ["Content-Type": "application/json",
                     "SesacKey": "\(APIKey.apiKey)"]
         case .makeWorkSpace, .postChatting:
@@ -107,6 +110,10 @@ enum Router: URLRequestConvertible {
         case .kakaoLogin(let access, let refresh):
             return ["oauthToken": access,
                     "deviceToken": refresh]
+        case .appleLogin(let id, let name, let token):
+            return ["idToken": id,
+                    "nickname": name,
+                    "deviceToken": token]
         case .emailLogin(let email, let pw, let token):
             return ["email": email,
                     "password": pw,
