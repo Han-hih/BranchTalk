@@ -222,8 +222,7 @@ final class ChattingTableViewCell: UITableViewCell {
         var urlArray: [String] = []
         
         for num in 0..<image.count {
-            urlArray.append(APIKey.baseURL + "/v1" + image[num])
-            print(urlArray[num])
+            urlArray.append(image[num])
         }
         
         if image.count == 0 {
@@ -235,7 +234,6 @@ final class ChattingTableViewCell: UITableViewCell {
             secondSectionStackView.isHidden = true
             secondChatImage.isHidden = true
             thirdChatImage.isHidden = true
-//            imageStackView.addArrangedSubview(firstSectionStackView)
             firstSectionStackView.snp.remakeConstraints { make in
                 make.height.equalTo(160)
                 make.width.equalTo(contentView.snp.width).multipliedBy(0.7)

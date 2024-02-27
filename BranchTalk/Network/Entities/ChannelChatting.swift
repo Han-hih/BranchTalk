@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct ChannelChatting: Decodable {
+struct ChannelChatting: Codable {
     let channelID: Int
     let channelName, createdAt: String
     let chatID: Int
-    let content: String?
+    let content: String
     let files: [String]
     let user: ChannelUser
     
@@ -27,11 +27,8 @@ struct ChannelChatting: Decodable {
         self.channelID = try container.decode(Int.self, forKey: .channelID)
         self.channelName = try container.decode(String.self, forKey: .channelName)
         self.chatID = try container.decode(Int.self, forKey: .chatID)
-        self.content = try container.decode(String?.self, forKey: .content)
-        
-        let serverDate = try container.decode(String.self, forKey: .createdAt)
-        let formattedDate = serverDate.toChannelCreatedTime()
-        self.createdAt = formattedDate ?? ""
+        self.content = try container.decode(String.self, forKey: .content)
+        self.createdAt = try container.decode(String.self, forKey: .createdAt)
         
         let paths = try container.decode([String].self, forKey: .files)
         self.files = paths.map { APIKey.baseURL + "/v1" + $0 }
@@ -40,7 +37,7 @@ struct ChannelChatting: Decodable {
     
 }
 
-struct ChannelUser: Decodable {
+struct ChannelUser: Codable {
     let userID: Int
     let email, nickname, profileImage: String
     
