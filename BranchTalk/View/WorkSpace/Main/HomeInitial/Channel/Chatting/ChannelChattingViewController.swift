@@ -107,6 +107,11 @@ final class ChannelChattingViewController: BaseViewController {
         chatTrigger.onNext(())
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        SocketIOManager.shared.disconnectSocket()
+    }
+    
     
     func scrollToBottom(){
             DispatchQueue.main.async {
@@ -136,13 +141,25 @@ final class ChannelChattingViewController: BaseViewController {
         .disposed(by: disposeBag)
         
         // 처음에 불러오고 추가적으로는 원래 있던 테이블뷰 배열에다가 추가만 해줌
+        output.sendMessage
+            .bind(with: self) { owner, value in
+                owner.chatTasks.append(value[0])
+                owner.tableView.reloadData()
+                owner.textView.text = ""
+                owner.imageCollectionView.isHidden = true
+                owner.selectedAssetIdentifiers = []
+                SocketIOManager.shared.connectSocket(channelID: UserDefaults.standard.integer(forKey: "channelID"))
+                owner.scrollToBottom()
+            }
+            .disposed(by: disposeBag)
+        
         output.appendChatList
             .bind(with: self) { owner, result in
                 owner.chatTasks.append(result)
                 owner.tableView.reloadData()
                 owner.textView.text = ""
                 owner.imageCollectionView.isHidden = true
-                owner.selectedAssetIdentifiers = []
+               
             }
             .disposed(by: disposeBag)
         
@@ -157,6 +174,13 @@ final class ChannelChattingViewController: BaseViewController {
             })
         .disposed(by: disposeBag)
         
+        
+        output.sendMessage
+            .bind(with: self) { owner, value in
+                owner.chatTasks.append(value[0])
+                owner.tableView.reloadData()
+            }
+            .disposed(by: disposeBag)
     }
     
     override func setUI() {
