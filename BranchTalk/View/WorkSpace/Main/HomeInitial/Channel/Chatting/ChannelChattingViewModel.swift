@@ -42,7 +42,6 @@ class ChannelChattingViewModel: ViewModelType {
         let appendChatList: BehaviorSubject<ChatDetailTable>
         let chatInputValid: BehaviorRelay<Bool>
         let sendMessage: PublishSubject<[ChatDetailTable]>
-        let receiveChat: BehaviorSubject<[ChatDetailTable]>
     }
     
     func transform(input: Input) -> Output {
@@ -223,8 +222,7 @@ class ChannelChattingViewModel: ViewModelType {
             chatList: chatTrigger,
             appendChatList: appendSendMessage,
             chatInputValid: chatInputValid,
-            sendMessage: sendMessage,
-            receiveChat: <#BehaviorSubject<[ChatDetailTable]>#>
+            sendMessage: sendMessage
         )
     }
     

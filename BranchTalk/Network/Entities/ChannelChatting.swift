@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ChannelChatting: Decodable {
+struct ChannelChatting: Codable {
     let channelID: Int
     let channelName, createdAt: String
     let chatID: Int
@@ -37,7 +37,7 @@ struct ChannelChatting: Decodable {
     
 }
 
-struct ChannelUser: Decodable {
+struct ChannelUser: Codable {
     let userID: Int
     let email, nickname, profileImage: String
     
