@@ -92,6 +92,9 @@
 		80F57E1C2B8B6FF8000C3530 /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = 80F57E1B2B8B6FF8000C3530 /* SocketIO */; };
 		80F57E1F2B8B75E2000C3530 /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F57E1E2B8B75E2000C3530 /* SocketIOManager.swift */; };
 		80F57E262B8E2F0B000C3530 /* AuthentificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F57E252B8E2F0B000C3530 /* AuthentificationManager.swift */; };
+		80F57E2A2B8E4A94000C3530 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F57E292B8E4A94000C3530 /* ProfileViewController.swift */; };
+		80F57E2C2B8E4A9F000C3530 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F57E2B2B8E4A9F000C3530 /* ProfileView.swift */; };
+		80F57E2E2B8E4C02000C3530 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F57E2D2B8E4C02000C3530 /* BaseView.swift */; };
 		80F80CC62B5D5C760077654A /* ChannelFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F80CC52B5D5C760077654A /* ChannelFooterView.swift */; };
 		80F80CC92B5E4EF90077654A /* DmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F80CC82B5E4EF90077654A /* DmTableViewCell.swift */; };
 		80F80CCB2B5E4F060077654A /* DmHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F80CCA2B5E4F060077654A /* DmHeaderView.swift */; };
@@ -175,6 +178,9 @@
 		80F57E1E2B8B75E2000C3530 /* SocketIOManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 		80F57E252B8E2F0B000C3530 /* AuthentificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthentificationManager.swift; sourceTree = "<group>"; };
 		80F57E272B8E34A0000C3530 /* BranchTalk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BranchTalk.entitlements; sourceTree = "<group>"; };
+		80F57E292B8E4A94000C3530 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		80F57E2B2B8E4A9F000C3530 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		80F57E2D2B8E4C02000C3530 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		80F80CC52B5D5C760077654A /* ChannelFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelFooterView.swift; sourceTree = "<group>"; };
 		80F80CC82B5E4EF90077654A /* DmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DmTableViewCell.swift; sourceTree = "<group>"; };
 		80F80CCA2B5E4F060077654A /* DmHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DmHeaderView.swift; sourceTree = "<group>"; };
@@ -333,6 +339,7 @@
 			isa = PBXGroup;
 			children = (
 				80802A962B468B4E008F1723 /* BaseViewController.swift */,
+				80F57E2D2B8E4C02000C3530 /* BaseView.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -512,6 +519,15 @@
 			path = SocketNetwork;
 			sourceTree = "<group>";
 		};
+		80F57E282B8E4A85000C3530 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				80F57E292B8E4A94000C3530 /* ProfileViewController.swift */,
+				80F57E2B2B8E4A9F000C3530 /* ProfileView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		80F80CC72B5E4EE60077654A /* Dm */ = {
 			isa = PBXGroup;
 			children = (
@@ -525,6 +541,7 @@
 		80FFA2672B55710400ED6995 /* HomeInitial */ = {
 			isa = PBXGroup;
 			children = (
+				80F57E282B8E4A85000C3530 /* Profile */,
 				807E3A9E2B4FAC4100587A33 /* HomeInitialViewController.swift */,
 				80D696D92B55971F00C1761E /* HomeInitialViewModel.swift */,
 				80F80CC72B5E4EE60077654A /* Dm */,
@@ -639,6 +656,7 @@
 				80F57E1F2B8B75E2000C3530 /* SocketIOManager.swift in Sources */,
 				803E5E102B66912C0016985F /* FindChannelViewModel.swift in Sources */,
 				80BDD86B2B7C83B5003022C3 /* ChattingImageCollectionViewCell.swift in Sources */,
+				80F57E2C2B8E4A9F000C3530 /* ProfileView.swift in Sources */,
 				80CC39762B4430BA009E0818 /* OnboardingViewController.swift in Sources */,
 				80C6297F2B6138D000CBFF97 /* GetDmList.swift in Sources */,
 				80C6297B2B61350900CBFF97 /* WorkSpaceList.swift in Sources */,
@@ -666,6 +684,8 @@
 				80C16BF92B5159D700414D98 /* ViewMove.swift in Sources */,
 				802B143B2B6F4FD60051B9AD /* ChannelInfo.swift in Sources */,
 				802837CB2B4BDE32004CB167 /* CreateWorkSpaceViewModel.swift in Sources */,
+				80F57E2E2B8E4C02000C3530 /* BaseView.swift in Sources */,
+				80F57E2A2B8E4A94000C3530 /* ProfileViewController.swift in Sources */,
 				80CC39722B4430BA009E0818 /* AppDelegate.swift in Sources */,
 				803AD1192B6B36BB00E8E8D9 /* ChannelChattingViewController.swift in Sources */,
 				80C629782B61349C00CBFF97 /* toDateAndString.swift in Sources */,
