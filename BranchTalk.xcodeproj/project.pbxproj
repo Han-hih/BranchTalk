@@ -21,6 +21,7 @@
 		800ED50E2B46734B001A7ECC /* StartWorkSpaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800ED50D2B46734B001A7ECC /* StartWorkSpaceViewController.swift */; };
 		800ED5102B468041001A7ECC /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800ED50F2B468041001A7ECC /* CustomLabel.swift */; };
 		801069D42B7B760500866E85 /* ChattingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801069D32B7B760500866E85 /* ChattingTableViewCell.swift */; };
+		801190BB2B904AC300ECC940 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 801190BA2B904AC300ECC940 /* GoogleService-Info.plist */; };
 		8020C9692B599A0600783221 /* ChannelHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8020C9682B599A0600783221 /* ChannelHeaderView.swift */; };
 		802837C92B4BDE20004CB167 /* CreateWorkSpaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802837C82B4BDE20004CB167 /* CreateWorkSpaceViewController.swift */; };
 		802837CB2B4BDE32004CB167 /* CreateWorkSpaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802837CA2B4BDE32004CB167 /* CreateWorkSpaceViewModel.swift */; };
@@ -50,10 +51,14 @@
 		80802AA52B471013008F1723 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802AA42B471013008F1723 /* RegisterViewModel.swift */; };
 		80802AA72B471059008F1723 /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802AA62B471059008F1723 /* ViewModelType.swift */; };
 		80802AA92B471748008F1723 /* ValidationCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802AA82B471748008F1723 /* ValidationCheck.swift */; };
+		8088EEE52B8F7BF700AE8FFD /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 8088EEE42B8F7BF700AE8FFD /* FirebaseMessaging */; };
 		808A75C02B542D7400FD075D /* SideMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808A75BF2B542D7400FD075D /* SideMenuTableViewCell.swift */; };
 		808A75C22B5437E400FD075D /* ReusableViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808A75C12B5437E400FD075D /* ReusableViewProtocol.swift */; };
 		809CF0112B4C441200F7BC68 /* CommonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809CF0102B4C441200F7BC68 /* CommonError.swift */; };
 		809CF0132B4D3CB200F7BC68 /* MultipartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809CF0122B4D3CB200F7BC68 /* MultipartModel.swift */; };
+		80A87C642B8F1C530013690F /* mock.json in Resources */ = {isa = PBXBuildFile; fileRef = 80A87C632B8F1C530013690F /* mock.json */; };
+		80A87C682B8F22F80013690F /* mockTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 80A87C672B8F22F80013690F /* mockTest.json */; };
+		80A87C6C2B8F3CC40013690F /* DmFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A87C6B2B8F3CC40013690F /* DmFooterView.swift */; };
 		80A9B4FE2B81D3ED0016D1FA /* PostChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A9B4FD2B81D3ED0016D1FA /* PostChat.swift */; };
 		80A9B5032B8305740016D1FA /* ChatListTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A9B5022B8305740016D1FA /* ChatListTable.swift */; };
 		80A9B5062B8305B70016D1FA /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 80A9B5052B8305B70016D1FA /* Realm */; };
@@ -92,13 +97,10 @@
 		80F57E1C2B8B6FF8000C3530 /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = 80F57E1B2B8B6FF8000C3530 /* SocketIO */; };
 		80F57E1F2B8B75E2000C3530 /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F57E1E2B8B75E2000C3530 /* SocketIOManager.swift */; };
 		80F57E262B8E2F0B000C3530 /* AuthentificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F57E252B8E2F0B000C3530 /* AuthentificationManager.swift */; };
-		80F57E2A2B8E4A94000C3530 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F57E292B8E4A94000C3530 /* ProfileViewController.swift */; };
-		80F57E2C2B8E4A9F000C3530 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F57E2B2B8E4A9F000C3530 /* ProfileView.swift */; };
 		80F57E2E2B8E4C02000C3530 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F57E2D2B8E4C02000C3530 /* BaseView.swift */; };
 		80F80CC62B5D5C760077654A /* ChannelFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F80CC52B5D5C760077654A /* ChannelFooterView.swift */; };
 		80F80CC92B5E4EF90077654A /* DmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F80CC82B5E4EF90077654A /* DmTableViewCell.swift */; };
 		80F80CCB2B5E4F060077654A /* DmHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F80CCA2B5E4F060077654A /* DmHeaderView.swift */; };
-		80F80CCD2B5E4F120077654A /* DmFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F80CCC2B5E4F120077654A /* DmFooterView.swift */; };
 		80FFA2692B55712C00ED6995 /* ChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FFA2682B55712C00ED6995 /* ChannelTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -117,6 +119,7 @@
 		800ED50D2B46734B001A7ECC /* StartWorkSpaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartWorkSpaceViewController.swift; sourceTree = "<group>"; };
 		800ED50F2B468041001A7ECC /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		801069D32B7B760500866E85 /* ChattingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingTableViewCell.swift; sourceTree = "<group>"; };
+		801190BA2B904AC300ECC940 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8020C9682B599A0600783221 /* ChannelHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelHeaderView.swift; sourceTree = "<group>"; };
 		802837C82B4BDE20004CB167 /* CreateWorkSpaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkSpaceViewController.swift; sourceTree = "<group>"; };
 		802837CA2B4BDE32004CB167 /* CreateWorkSpaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkSpaceViewModel.swift; sourceTree = "<group>"; };
@@ -146,10 +149,14 @@
 		80802AA42B471013008F1723 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		80802AA62B471059008F1723 /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 		80802AA82B471748008F1723 /* ValidationCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationCheck.swift; sourceTree = "<group>"; };
+		8088EEDC2B8F784C00AE8FFD /* BranchTalkRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BranchTalkRelease.entitlements; sourceTree = "<group>"; };
 		808A75BF2B542D7400FD075D /* SideMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewCell.swift; sourceTree = "<group>"; };
 		808A75C12B5437E400FD075D /* ReusableViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableViewProtocol.swift; sourceTree = "<group>"; };
 		809CF0102B4C441200F7BC68 /* CommonError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonError.swift; sourceTree = "<group>"; };
 		809CF0122B4D3CB200F7BC68 /* MultipartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartModel.swift; sourceTree = "<group>"; };
+		80A87C632B8F1C530013690F /* mock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mock.json; sourceTree = "<group>"; };
+		80A87C672B8F22F80013690F /* mockTest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mockTest.json; sourceTree = "<group>"; };
+		80A87C6B2B8F3CC40013690F /* DmFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DmFooterView.swift; path = ../Channel/DmFooterView.swift; sourceTree = "<group>"; };
 		80A9B4FD2B81D3ED0016D1FA /* PostChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostChat.swift; sourceTree = "<group>"; };
 		80A9B5022B8305740016D1FA /* ChatListTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListTable.swift; sourceTree = "<group>"; };
 		80A9B5092B832D3D0016D1FA /* ChatListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListRepository.swift; sourceTree = "<group>"; };
@@ -178,13 +185,10 @@
 		80F57E1E2B8B75E2000C3530 /* SocketIOManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 		80F57E252B8E2F0B000C3530 /* AuthentificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthentificationManager.swift; sourceTree = "<group>"; };
 		80F57E272B8E34A0000C3530 /* BranchTalk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BranchTalk.entitlements; sourceTree = "<group>"; };
-		80F57E292B8E4A94000C3530 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		80F57E2B2B8E4A9F000C3530 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		80F57E2D2B8E4C02000C3530 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		80F80CC52B5D5C760077654A /* ChannelFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelFooterView.swift; sourceTree = "<group>"; };
 		80F80CC82B5E4EF90077654A /* DmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DmTableViewCell.swift; sourceTree = "<group>"; };
 		80F80CCA2B5E4F060077654A /* DmHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DmHeaderView.swift; sourceTree = "<group>"; };
-		80F80CCC2B5E4F120077654A /* DmFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DmFooterView.swift; sourceTree = "<group>"; };
 		80FFA2682B55712C00ED6995 /* ChannelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -202,6 +206,7 @@
 				80CC39932B4437E2009E0818 /* RxSwift in Frameworks */,
 				80CC399C2B4439A6009E0818 /* Toast in Frameworks */,
 				80CC398E2B4437C1009E0818 /* SnapKit in Frameworks */,
+				8088EEE52B8F7BF700AE8FFD /* FirebaseMessaging in Frameworks */,
 				80F57E1C2B8B6FF8000C3530 /* SocketIO in Frameworks */,
 				80CC39A42B443E49009E0818 /* KakaoSDKCommon in Frameworks */,
 				800A05532B5265350010505A /* SideMenu in Frameworks */,
@@ -415,6 +420,8 @@
 		80CC39702B4430BA009E0818 /* BranchTalk */ = {
 			isa = PBXGroup;
 			children = (
+				801190BA2B904AC300ECC940 /* GoogleService-Info.plist */,
+				8088EEDC2B8F784C00AE8FFD /* BranchTalkRelease.entitlements */,
 				80F57E272B8E34A0000C3530 /* BranchTalk.entitlements */,
 				80A9B5012B82DE630016D1FA /* Realm */,
 				80C629762B61348A00CBFF97 /* Extensions */,
@@ -431,6 +438,8 @@
 				80CC397C2B4430BD009E0818 /* LaunchScreen.storyboard */,
 				80CC397F2B4430BD009E0818 /* Info.plist */,
 				800ED5022B45C67D001A7ECC /* Config.xcconfig */,
+				80A87C632B8F1C530013690F /* mock.json */,
+				80A87C672B8F22F80013690F /* mockTest.json */,
 			);
 			path = BranchTalk;
 			sourceTree = "<group>";
@@ -519,21 +528,12 @@
 			path = SocketNetwork;
 			sourceTree = "<group>";
 		};
-		80F57E282B8E4A85000C3530 /* Profile */ = {
-			isa = PBXGroup;
-			children = (
-				80F57E292B8E4A94000C3530 /* ProfileViewController.swift */,
-				80F57E2B2B8E4A9F000C3530 /* ProfileView.swift */,
-			);
-			path = Profile;
-			sourceTree = "<group>";
-		};
 		80F80CC72B5E4EE60077654A /* Dm */ = {
 			isa = PBXGroup;
 			children = (
 				80F80CC82B5E4EF90077654A /* DmTableViewCell.swift */,
 				80F80CCA2B5E4F060077654A /* DmHeaderView.swift */,
-				80F80CCC2B5E4F120077654A /* DmFooterView.swift */,
+				80A87C6B2B8F3CC40013690F /* DmFooterView.swift */,
 			);
 			path = Dm;
 			sourceTree = "<group>";
@@ -541,7 +541,6 @@
 		80FFA2672B55710400ED6995 /* HomeInitial */ = {
 			isa = PBXGroup;
 			children = (
-				80F57E282B8E4A85000C3530 /* Profile */,
 				807E3A9E2B4FAC4100587A33 /* HomeInitialViewController.swift */,
 				80D696D92B55971F00C1761E /* HomeInitialViewModel.swift */,
 				80F80CC72B5E4EE60077654A /* Dm */,
@@ -581,6 +580,7 @@
 				80A9B5052B8305B70016D1FA /* Realm */,
 				80A9B5072B8305B70016D1FA /* RealmSwift */,
 				80F57E1B2B8B6FF8000C3530 /* SocketIO */,
+				8088EEE42B8F7BF700AE8FFD /* FirebaseMessaging */,
 			);
 			productName = BranchTalk;
 			productReference = 80CC396E2B4430BA009E0818 /* BranchTalk.app */;
@@ -621,6 +621,7 @@
 				800A05512B5265350010505A /* XCRemoteSwiftPackageReference "SideMenu" */,
 				80A9B5042B8305B70016D1FA /* XCRemoteSwiftPackageReference "realm-swift" */,
 				80F57E1A2B8B6FF8000C3530 /* XCRemoteSwiftPackageReference "socket.io-client-swift" */,
+				8088EEDF2B8F7BF600AE8FFD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 80CC396F2B4430BA009E0818 /* Products */;
 			projectDirPath = "";
@@ -636,9 +637,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80A87C682B8F22F80013690F /* mockTest.json in Resources */,
 				80CC397E2B4430BD009E0818 /* LaunchScreen.storyboard in Resources */,
+				801190BB2B904AC300ECC940 /* GoogleService-Info.plist in Resources */,
 				80CC39B02B44584C009E0818 /* SF-Pro.ttf in Resources */,
 				80CC397B2B4430BD009E0818 /* Assets.xcassets in Resources */,
+				80A87C642B8F1C530013690F /* mock.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -651,12 +655,10 @@
 			files = (
 				8047E84A2B4544020018254B /* RegisterViewController.swift in Sources */,
 				800ED5102B468041001A7ECC /* CustomLabel.swift in Sources */,
-				80F80CCD2B5E4F120077654A /* DmFooterView.swift in Sources */,
 				80802AA02B46E09E008F1723 /* HomeEmptyViewController.swift in Sources */,
 				80F57E1F2B8B75E2000C3530 /* SocketIOManager.swift in Sources */,
 				803E5E102B66912C0016985F /* FindChannelViewModel.swift in Sources */,
 				80BDD86B2B7C83B5003022C3 /* ChattingImageCollectionViewCell.swift in Sources */,
-				80F57E2C2B8E4A9F000C3530 /* ProfileView.swift in Sources */,
 				80CC39762B4430BA009E0818 /* OnboardingViewController.swift in Sources */,
 				80C6297F2B6138D000CBFF97 /* GetDmList.swift in Sources */,
 				80C6297B2B61350900CBFF97 /* WorkSpaceList.swift in Sources */,
@@ -685,7 +687,6 @@
 				802B143B2B6F4FD60051B9AD /* ChannelInfo.swift in Sources */,
 				802837CB2B4BDE32004CB167 /* CreateWorkSpaceViewModel.swift in Sources */,
 				80F57E2E2B8E4C02000C3530 /* BaseView.swift in Sources */,
-				80F57E2A2B8E4A94000C3530 /* ProfileViewController.swift in Sources */,
 				80CC39722B4430BA009E0818 /* AppDelegate.swift in Sources */,
 				803AD1192B6B36BB00E8E8D9 /* ChannelChattingViewController.swift in Sources */,
 				80C629782B61349C00CBFF97 /* toDateAndString.swift in Sources */,
@@ -701,6 +702,7 @@
 				802B143D2B6F5A510051B9AD /* ChannelInfoCollectionViewCell.swift in Sources */,
 				803AD11B2B6D088100E8E8D9 /* ChannelChatting.swift in Sources */,
 				8007410C2B4EE07500CCB95C /* Interceptor.swift in Sources */,
+				80A87C6C2B8F3CC40013690F /* DmFooterView.swift in Sources */,
 				801069D42B7B760500866E85 /* ChattingTableViewCell.swift in Sources */,
 				8047E84E2B456B940018254B /* CustomRegisterTextField.swift in Sources */,
 				8007B0D32B6272D900885AF8 /* AddChannelViewController.swift in Sources */,
@@ -872,9 +874,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = BranchTalk/BranchTalk.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = PUJ68C53FY;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = VYC9A4SEQS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BranchTalk/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -887,8 +891,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Han.BranchTalk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sesac.SeSACTalkSLP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = SeSACTalkSLP;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -904,10 +910,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = BranchTalk/BranchTalk.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = BranchTalk/BranchTalkRelease.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = PUJ68C53FY;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = VYC9A4SEQS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BranchTalk/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -920,8 +928,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Han.BranchTalk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sesac.SeSACTalkSLP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = SeSACTalkSLP;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -961,6 +971,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 6.5.0;
+			};
+		};
+		8088EEDF2B8F7BF600AE8FFD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.21.0;
 			};
 		};
 		80A9B5042B8305B70016D1FA /* XCRemoteSwiftPackageReference "realm-swift" */ = {
@@ -1042,6 +1060,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 800A05512B5265350010505A /* XCRemoteSwiftPackageReference "SideMenu" */;
 			productName = SideMenu;
+		};
+		8088EEE42B8F7BF700AE8FFD /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8088EEDF2B8F7BF600AE8FFD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
 		80A9B5052B8305B70016D1FA /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
