@@ -56,7 +56,6 @@
 		808A75C22B5437E400FD075D /* ReusableViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808A75C12B5437E400FD075D /* ReusableViewProtocol.swift */; };
 		809CF0112B4C441200F7BC68 /* CommonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809CF0102B4C441200F7BC68 /* CommonError.swift */; };
 		809CF0132B4D3CB200F7BC68 /* MultipartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809CF0122B4D3CB200F7BC68 /* MultipartModel.swift */; };
-		80A87C642B8F1C530013690F /* mock.json in Resources */ = {isa = PBXBuildFile; fileRef = 80A87C632B8F1C530013690F /* mock.json */; };
 		80A87C682B8F22F80013690F /* mockTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 80A87C672B8F22F80013690F /* mockTest.json */; };
 		80A87C6C2B8F3CC40013690F /* DmFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A87C6B2B8F3CC40013690F /* DmFooterView.swift */; };
 		80A9B4FE2B81D3ED0016D1FA /* PostChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A9B4FD2B81D3ED0016D1FA /* PostChat.swift */; };
@@ -154,7 +153,6 @@
 		808A75C12B5437E400FD075D /* ReusableViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableViewProtocol.swift; sourceTree = "<group>"; };
 		809CF0102B4C441200F7BC68 /* CommonError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonError.swift; sourceTree = "<group>"; };
 		809CF0122B4D3CB200F7BC68 /* MultipartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartModel.swift; sourceTree = "<group>"; };
-		80A87C632B8F1C530013690F /* mock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mock.json; sourceTree = "<group>"; };
 		80A87C672B8F22F80013690F /* mockTest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mockTest.json; sourceTree = "<group>"; };
 		80A87C6B2B8F3CC40013690F /* DmFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DmFooterView.swift; path = ../Channel/DmFooterView.swift; sourceTree = "<group>"; };
 		80A9B4FD2B81D3ED0016D1FA /* PostChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostChat.swift; sourceTree = "<group>"; };
@@ -438,7 +436,6 @@
 				80CC397C2B4430BD009E0818 /* LaunchScreen.storyboard */,
 				80CC397F2B4430BD009E0818 /* Info.plist */,
 				800ED5022B45C67D001A7ECC /* Config.xcconfig */,
-				80A87C632B8F1C530013690F /* mock.json */,
 				80A87C672B8F22F80013690F /* mockTest.json */,
 			);
 			path = BranchTalk;
@@ -642,7 +639,6 @@
 				801190BB2B904AC300ECC940 /* GoogleService-Info.plist in Resources */,
 				80CC39B02B44584C009E0818 /* SF-Pro.ttf in Resources */,
 				80CC397B2B4430BD009E0818 /* Assets.xcassets in Resources */,
-				80A87C642B8F1C530013690F /* mock.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -874,11 +870,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = BranchTalk/BranchTalk.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = VYC9A4SEQS;
+				DEVELOPMENT_TEAM = PUJ68C53FY;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BranchTalk/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -891,10 +886,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sesac.SeSACTalkSLP;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Han.BranchTalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = SeSACTalkSLP;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -911,11 +905,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = BranchTalk/BranchTalkRelease.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = VYC9A4SEQS;
+				DEVELOPMENT_TEAM = PUJ68C53FY;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BranchTalk/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -928,10 +921,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sesac.SeSACTalkSLP;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Han.BranchTalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = SeSACTalkSLP;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
