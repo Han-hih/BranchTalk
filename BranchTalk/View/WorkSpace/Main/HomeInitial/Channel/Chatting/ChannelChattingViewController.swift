@@ -42,7 +42,7 @@ final class ChannelChattingViewController: BaseViewController {
         let tv = UITextView()
         tv.text = textViewPlaceholder
         tv.backgroundColor = Colors.BackgroundPrimary.CutsomColor
-        tv.textColor = Colors.TextSecondary.CutsomColor
+        tv.textColor = Colors.TextPrimary.CutsomColor
         tv.font = Font.body()
         tv.delegate = self
         tv.textContainerInset = .zero
@@ -145,9 +145,9 @@ final class ChannelChattingViewController: BaseViewController {
             .bind(with: self) { owner, value in
                 owner.chatTasks.append(value[0])
                 owner.tableView.reloadData()
-                owner.textView.text = ""
                 owner.imageCollectionView.isHidden = true
                 owner.selectedAssetIdentifiers = []
+                owner.selections = [String: PHPickerResult]()
                 SocketIOManager.shared.connectSocket(channelID: UserDefaults.standard.integer(forKey: "channelID"))
                 owner.scrollToBottom()
             }
@@ -155,9 +155,12 @@ final class ChannelChattingViewController: BaseViewController {
         
         output.appendChatList
             .bind(with: self) { owner, result in
-                owner.chatTasks.append(result)
                 owner.tableView.reloadData()
+                owner.scrollToBottom()
                 owner.textView.text = ""
+                owner.imageArray.removeAll()
+                owner.selectedAssetIdentifiers = []
+                owner.selections = [String: PHPickerResult]()
                 owner.imageCollectionView.isHidden = true
                
             }
@@ -175,10 +178,14 @@ final class ChannelChattingViewController: BaseViewController {
         .disposed(by: disposeBag)
         
         
-        output.sendMessage
+        
+        output.receiveMessage
             .bind(with: self) { owner, value in
-                owner.chatTasks.append(value[0])
+                print("💪", value)
+                owner.chatTasks.append(value)
                 owner.tableView.reloadData()
+//                owner.selectedAssetIdentifiers = []
+//                owner.imageCollectionView.isHidden = true
             }
             .disposed(by: disposeBag)
     }
@@ -337,7 +344,17 @@ extension ChannelChattingViewController: UICollectionViewDelegate, UICollectionV
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = imageCollectionView.dequeueReusableCell(withReuseIdentifier: ChattingImageCollectionViewCell.identifier, for: indexPath) as? ChattingImageCollectionViewCell else { return UICollectionViewCell() }
         cell.imageView.image = imageArray[indexPath.row]
+        cell.deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
+        
         return cell
+    }
+    
+    @objc func deleteButtonTapped(_ sender: UIButton) {
+        guard let cell = sender.superview?.superview as? ChattingImageCollectionViewCell else { return }
+        guard let indexPath = imageCollectionView.indexPath(for: cell) else { return }
+        imageArray.remove(at: sender.tag)
+        print(imageArray)
+        self.imageCollectionView.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -412,6 +429,9 @@ extension ChannelChattingViewController: PHPickerViewControllerDelegate {
                 }
                 imageData.onNext(imageDataArray)
                 imageCountValue.onNext(imageDataArray.count)
+                if textView.textColor == Colors.TextSecondary.CutsomColor {
+                    textView.text = ""
+                }
                 imageCollectionView.isHidden = false
                 imageCollectionView.reloadData()
             }

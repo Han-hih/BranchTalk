@@ -206,8 +206,8 @@ final class ChattingTableViewCell: UITableViewCell {
     }
     
     func configure(profile: String, name: String, chat: String, time: String) {
-        let url = URL(string: APIKey.baseURL + "/v1" + profile)
-        profileImage.kf.setImage(with: url)
+        let url = URL(string: profile)
+        profileImage.kf.setImage(with: url, options: [.requestModifier(KFModifier.shared.modifier)])
         nameLabel.text = name
         if chat == "" {
             speechBubble.isHidden = true
