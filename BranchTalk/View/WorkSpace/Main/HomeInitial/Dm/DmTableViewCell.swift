@@ -13,7 +13,7 @@ class DmTableViewCell: UITableViewCell {
     let profileImage = {
         let view = UIImageView()
         view.clipsToBounds = true
-        view.layer.cornerRadius = 4
+        view.layer.cornerRadius = 6
         return view
     }()
     

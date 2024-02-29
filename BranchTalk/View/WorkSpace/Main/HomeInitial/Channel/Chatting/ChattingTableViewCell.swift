@@ -21,7 +21,7 @@ final class ChattingTableViewCell: UITableViewCell {
     private let stackView = {
         let st = UIStackView()
         st.alignment = .leading
-        st.distribution = .fillProportionally
+        st.distribution = .fill
         st.spacing = 5
         st.axis = .vertical
         return st
@@ -180,19 +180,18 @@ final class ChattingTableViewCell: UITableViewCell {
         stackView.snp.makeConstraints { make in
             make.leading.equalTo(profileImage.snp.trailing).offset(6)
             make.top.equalTo(nameLabel.snp.bottom).offset(6)
-            
             make.height.greaterThanOrEqualTo(34)
             make.bottom.equalTo(contentView).inset(6)
         }
         
         timeLabel.snp.makeConstraints { make in
-            make.trailing.equalToSuperview()
+            make.leading.equalTo(stackView.snp.trailing).offset(4)
             make.bottom.equalTo(stackView.snp.bottom)
         }
         
         firstSectionStackView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
-            make.width.equalTo(contentView.snp.width).multipliedBy(0.7)
+            make.width.lessThanOrEqualTo(contentView.snp.width).multipliedBy(0.7)
             make.trailing.equalTo(timeLabel.snp.leading).offset(-8)
             make.height.equalTo(80)
         }
@@ -206,15 +205,23 @@ final class ChattingTableViewCell: UITableViewCell {
     }
     
     func configure(profile: String, name: String, chat: String, time: String) {
-        let url = URL(string: APIKey.baseURL + "/v1" + profile)
-        profileImage.kf.setImage(with: url)
+        let url = URL(string: profile)
+        profileImage.kf.setImage(with: url, options: [.requestModifier(KFModifier.shared.modifier)])
         nameLabel.text = name
         if chat == "" {
             speechBubble.isHidden = true
         } else {
             speechBubble.text = chat
         }
-        timeLabel.text = time
+        let currentDate = Date()
+        guard let chatTime = time.toDate() else { return }
+        
+       if Calendar.current.isDate(chatTime, inSameDayAs: currentDate) {
+           timeLabel.text = time.toChannelCreatedTime()
+       } else {
+           timeLabel.text = time.backChattingString()
+       }
+        
     }
     
     func imageLayout(_ image: [String]) {

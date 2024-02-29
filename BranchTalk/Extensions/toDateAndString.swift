@@ -29,4 +29,13 @@ extension String {
         dateFormatter.dateFormat = "hh:mm a"
         return dateFormatter.string(from: date)
     }
+    
+    func backChattingString() -> String? {
+        guard let date = self.toDate() else { return nil }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd\nhh:mm a"
+        return dateFormatter.string(from: date)
+        
+    }
 }

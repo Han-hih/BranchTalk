@@ -42,6 +42,7 @@ class ChannelChattingViewModel: ViewModelType {
         let appendChatList: BehaviorSubject<ChatDetailTable>
         let chatInputValid: BehaviorRelay<Bool>
         let sendMessage: PublishSubject<[ChatDetailTable]>
+        let receiveMessage: BehaviorSubject<ChatDetailTable>
     }
     
     func transform(input: Input) -> Output {
@@ -54,7 +55,7 @@ class ChannelChattingViewModel: ViewModelType {
         //소켓에서 채팅 받아오기
         socketManager.message
             .bind(with: self) { owner, value in
-                print("실행 되나")
+                print("~~~~~~~~~~~~~~~~~~~~~~~~~~~", value)
                 let chatDetail = ChatDetailTable(
                     chatID: value.chatID,
                     chatText: value.content,
@@ -78,6 +79,7 @@ class ChannelChattingViewModel: ViewModelType {
                 chatDetail.user = chatUser
                 chatDetail.info = channelInfo
                 
+                owner.chatImageRealmList.removeAll()
                 owner.chatListRepository.createItem(chatDetail)
                 receiveMessage.onNext(chatDetail)
             }
@@ -110,6 +112,7 @@ class ChannelChattingViewModel: ViewModelType {
                 case .success(let response):
                     if response.isEmpty {
                         print("🔥", "새로운 채팅없음", response)
+                        owner.socketManager.connectSocket(channelID: UserDefaults.standard.integer(forKey: "channelID"))
                     } else {
                         print("👍", "새로운 채팅 있음", response)
                         for newChat in response {
@@ -138,6 +141,7 @@ class ChannelChattingViewModel: ViewModelType {
                             owner.chatListRepository.createItem(chatDetail)
                             
                             appendSendMessage.onNext(chatDetail)
+                            owner.socketManager.connectSocket(channelID: UserDefaults.standard.integer(forKey: "channelID"))
                         }
                     }
                 case .failure(let error):
@@ -206,10 +210,11 @@ class ChannelChattingViewModel: ViewModelType {
                     chatDetail.info = channelInfo
                     
                     //뭔가 좋은 로직은 아니지만 일단 넘어가고 업데이트
+                    chatImageRealmList.removeAll()
                     chatListRepository.createItem(chatDetail)
                     
                     appendSendMessage.onNext(chatDetail)
-                    
+                    print(chatImageRealmList)
                     
                 case .failure(let error):
                     print(error)
@@ -222,7 +227,8 @@ class ChannelChattingViewModel: ViewModelType {
             chatList: chatTrigger,
             appendChatList: appendSendMessage,
             chatInputValid: chatInputValid,
-            sendMessage: sendMessage
+            sendMessage: sendMessage,
+            receiveMessage: receiveMessage
         )
     }
     

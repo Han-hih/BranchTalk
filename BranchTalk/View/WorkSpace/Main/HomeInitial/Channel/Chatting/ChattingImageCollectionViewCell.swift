@@ -16,7 +16,7 @@ final class ChattingImageCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
-   private let deleteButton = {
+    let deleteButton = {
         let bt = UIButton()
         bt.setImage(UIImage(named: "deleteButton"), for: .normal)
         return bt

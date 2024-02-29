@@ -21,11 +21,15 @@ class SocialLoginViewModel {
                 }
                 else {
                     guard let access = oauthToken?.accessToken else { return }
-                    guard let refresh = oauthToken?.refreshToken else { return }
+                    
                     
                     NetworkManager.shared.request(
                         type: LoginResult.self,
-                        api: Router.kakaoLogin(access: access, refresh: refresh)) { result in
+                        api: Router.kakaoLogin(
+                            access: access,
+                            deviceToken: UserDefaults.standard.string(forKey: "FireBaseToken") ?? ""
+                        )
+                    ) { result in
                             switch result {
                             case .success(let response):
                                 KeyChain.shared.keyChainSetting(
@@ -47,11 +51,15 @@ class SocialLoginViewModel {
                 }
                 else {
                     guard let access = oauthToken?.accessToken else { return }
-                    guard let refresh = oauthToken?.refreshToken else { return }
+
                     
                     NetworkManager.shared.request(
                         type: LoginResult.self,
-                        api: Router.kakaoLogin(access: access, refresh: refresh)) { result in
+                        api: Router.kakaoLogin(
+                            access: access,
+                            deviceToken: UserDefaults.standard.string(forKey: "FireBaseToken") ?? ""
+                        )
+                    ) { result in
                             switch result {
                             case .success(let response):
                                 print("🤩", response)

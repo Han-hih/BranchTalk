@@ -12,7 +12,7 @@ import RxCocoa
 import Kingfisher
 
 // 레이아웃
-enum Section: Hashable {
+enum Section: Hashable, CaseIterable {
     case channel
     case dm
 }
@@ -37,7 +37,9 @@ final class HomeInitialViewController: BaseViewController, NetworkDelegate {
         view.register(ChannelTableViewCell.self, forCellReuseIdentifier: ChannelTableViewCell.identifier)
         view.register(ChannelHeaderView.self, forHeaderFooterViewReuseIdentifier: ChannelHeaderView.identifier)
         view.register(ChannelFooterView.self, forHeaderFooterViewReuseIdentifier: ChannelFooterView.identifier)
+        view.register(DmHeaderView.self, forHeaderFooterViewReuseIdentifier: DmHeaderView.identifier)
         view.register(DmTableViewCell.self, forCellReuseIdentifier: DmTableViewCell.identifier)
+        view.register(DmFooterView.self, forHeaderFooterViewReuseIdentifier: DmFooterView.identifier)
         view.delegate = self
         view.rowHeight = 41
         view.sectionHeaderHeight = 56
@@ -76,17 +78,27 @@ final class HomeInitialViewController: BaseViewController, NetworkDelegate {
     private var isExpandable: Bool = true
     private var arrowToggle:Bool = true
     
+    private var dmExpandable: Bool = true
+    private var dmArrowToggle: Bool = true
+    
     private let viewModel = HomeInitialViewModel()
     
     private let channelTrigger = PublishSubject<Void>()
     private let dmTrigger = PublishSubject<Void>()
     
     private var channelList = [GetChannel]()
+    private var dmList: [GetDmList] = []
     
     private let workSpaceID = UserDefaultsValue.shared.workSpaceID
     
+    var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = Colors.BackgroundSecondary.CutsomColor
         getOneWorkSpaceList(id: workSpaceID)
         getProfile()
         swipeRecognizer()
@@ -95,6 +107,28 @@ final class HomeInitialViewController: BaseViewController, NetworkDelegate {
         setDataSource()
     }
     
+    func load() -> Data? {
+        
+        // 1. 불러올 파일 이름
+        let fileNm: String = "mockTest"
+        // 2. 불러올 파일의 확장자명
+        let extensionType = "json"
+        
+        // 3. 파일 위치
+        guard let fileLocation = Bundle.main.url(forResource: fileNm, withExtension: extensionType) else { return nil }
+        
+        
+        do {
+            // 4. 해당 위치의 파일을 Data로 초기화하기
+            let data = try Data(contentsOf: fileLocation)
+            print(data)
+          
+            return data
+        } catch {
+            // 5. 잘못된 위치나 불가능한 파일 처리 (오늘은 따로 안하기)
+            return nil
+        }
+    }
     override func bind() {
         super.bind()
         let input = HomeInitialViewModel.Input(channelTrigger: channelTrigger.asObservable(), dmTrigger: dmTrigger.asObservable())
@@ -102,41 +136,56 @@ final class HomeInitialViewController: BaseViewController, NetworkDelegate {
         let output = viewModel.transform(input: input)
         
         output.channelList.bind(with: self) { owner, list in
-            var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
             
             let items = list.map { Item.channelList($0) }
-            snapshot.appendSections([.channel])
-            snapshot.appendItems(items.reversed(), toSection: .channel)
+            //            owner.snapshot.appendSections(Section.allCases)
+            owner.snapshot.appendItems(items.reversed(), toSection: .channel)
             
             owner.channelList = list.reversed()
-            owner.dataSource?.apply(snapshot)
+            //            owner.dataSource?.apply(owner.snapshot)
         }
         .disposed(by: disposeBag)
         
         output.dmList.bind(with: self) { owner, list in
-            var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
-            let items = list.map { Item.dmList($0) }
-            snapshot.appendSections([.dm])
-            snapshot.appendItems(items, toSection: .dm)
             
-            self.dataSource?.apply(snapshot)
+            let items = list.map { Item.dmList($0) }
+            //            owner.snapshot.appendSections(Section.allCases)
+            owner.snapshot.appendItems(items.reversed(), toSection: .dm)
+            owner.dmList = list.reversed()
+            //
+            //            self.dataSource?.apply(owner.snapshot)
         }
         .disposed(by: disposeBag)
     }
     
     private func setDataSource() {
-        dataSource = UITableViewDiffableDataSource<Section, Item>(tableView: tableView, cellProvider: { tableView, indexPath, item in
+        dataSource = UITableViewDiffableDataSource<Section, Item>(tableView: tableView, cellProvider: { [weak self] tableView, indexPath, item in
             switch item {
             case .channelList(let list):
                 let cell = tableView.dequeueReusableCell(withIdentifier: ChannelTableViewCell.identifier, for: indexPath) as? ChannelTableViewCell
                 cell?.configure(channelName: list.name)
-                return cell
+                return cell ?? UITableViewCell()
             case .dmList(let list):
                 let cell = tableView.dequeueReusableCell(withIdentifier: DmTableViewCell.identifier, for: indexPath) as? DmTableViewCell
                 cell?.configure(imageURL: list.user.profileImage, name: list.user.nickname)
-                return cell
+                
+                return cell ?? UITableViewCell()
             }
         })
+        
+        snapshot.appendSections(Section.allCases)
+        
+        if let jsonData = load() {
+            if let jsonDatas = try? JSONDecoder().decode([GetDmList].self, from: jsonData) {
+                print(jsonDatas)
+                let itemList = jsonDatas.map { Item.dmList($0) }
+                snapshot.appendItems(itemList, toSection: .dm)
+            }
+        }
+        
+        
+       
+        dataSource?.apply(snapshot)
         
     }
     
@@ -212,8 +261,8 @@ final class HomeInitialViewController: BaseViewController, NetworkDelegate {
         view.addSubview(tableView)
         
         tableView.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
-            make.height.greaterThanOrEqualTo(250)
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+            
         }
     }
     
@@ -239,24 +288,48 @@ final class HomeInitialViewController: BaseViewController, NetworkDelegate {
         if isExpandable {
             isExpandable = false
             arrowToggle = false
-            var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
-            snapshot.appendSections([.channel])
+            
+            snapshot.deleteItems(snapshot.itemIdentifiers(inSection: .channel))
+            
+            //            snapshot.deleteSections([.channel])
+            //            snapshot.appendSections([.channel])
+                        tableView.footerView(forSection: 0)?.isHidden = true
             
             dataSource?.apply(snapshot)
-            tableView.footerView(forSection: 0)?.isHidden = true
+            
+            
         } else {
             isExpandable = true
             arrowToggle = true
-            var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
-            snapshot.appendSections([.channel])
             
             let items = channelList.map { Item.channelList($0) }
             snapshot.appendItems(items, toSection: .channel)
             
             dataSource?.apply(snapshot)
-            tableView.footerView(forSection: 0)?.isHidden = false
+                        tableView.footerView(forSection: 0)?.isHidden = false
         }
         
+    }
+    
+    private func dmHeaderTapped() {
+        if dmExpandable {
+            dmExpandable = false
+            dmArrowToggle = false
+            
+            
+            
+            dataSource?.apply(snapshot)
+            tableView.footerView(forSection: 0)?.isHidden = true
+        } else {
+            dmExpandable = true
+            dmArrowToggle = true
+            
+            
+            let items = dmList.map { Item.dmList($0) }
+            snapshot.appendItems(items, toSection: .dm)
+            
+            dataSource?.apply(snapshot)
+        }
     }
     
     private func footerTapped() {
@@ -292,9 +365,22 @@ extension HomeInitialViewController: UITableViewDelegate{
                     tableView.reloadData()
                     owner.headerTapped()
                 }.disposed(by: disposeBag)
-           return header
-        } else { return UIView() }
-        
+            return header
+        } else if section == 1 {
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: DmHeaderView.identifier) as? DmHeaderView
+            header?.arrowButton.setImage(UIImage(named: arrowToggle ? "right" : "down"), for: .normal)
+            header?.setNeedsLayout()
+            header?.layoutIfNeeded()
+            let tapGesture = UITapGestureRecognizer()
+            header?.addGestureRecognizer(tapGesture)
+            tapGesture.rx.event
+                .asDriver()
+                .drive(with: self) { owner, _ in
+                    tableView.reloadData()
+                    owner.dmHeaderTapped()
+                }.disposed(by: disposeBag)
+            return header
+        } else { return UIView()}
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -308,6 +394,11 @@ extension HomeInitialViewController: UITableViewDelegate{
                     owner.footerTapped()
                 }.disposed(by: disposeBag)
             return footer
-        } else { return UIView() }
+        } else if section == 1 {
+//            let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: DmFooterView.identifier) as? DmFooterView
+//            return footer
+            return UIView()
+        }
+        else { return UIView() }
     }
 }
