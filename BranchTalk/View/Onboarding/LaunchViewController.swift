@@ -7,6 +7,8 @@
 
 import UIKit
 
+import Alamofire
+
 final class LaunchViewController: BaseViewController {
     
     private let label = {
@@ -24,6 +26,18 @@ final class LaunchViewController: BaseViewController {
         super.viewDidLoad()
         setUI()
         checkToken()
+        
+        AF.request(Router.deviceToken(token: UserDefaults.standard.string(forKey: "FireBaseToken")!)).response { response in
+            switch response.result {
+            case .success:
+                print("success")
+                
+                
+            case .failure(let error):
+                print("failure", error)
+                
+            }
+        }
     }
     
     private func checkToken() {
