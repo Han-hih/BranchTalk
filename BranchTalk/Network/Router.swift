@@ -10,7 +10,8 @@ import Alamofire
 
 enum Router: URLRequestConvertible {
     
-    case kakaoLogin(access: String, refresh: String)
+    case deviceToken(token: String)
+    case kakaoLogin(access: String, deviceToken: String?)
     case appleLogin(idToken: String, nickname: String, deviceToken: String?)
     case emailLogin(email: String, pw: String, deviceToken: String?)
     case emailValidate(email: String)
@@ -21,6 +22,7 @@ enum Router: URLRequestConvertible {
     case getOneWorkSpaceList(id: Int)
     case getMyProfile
     case getChannelList(id: Int)
+    case unreadChatting(id: Int, name: String, after: String?)
     case getDmList(id: Int)
     case createChannel(id: Int, name: String, desc: String)
     case getAllMyChannel(id: Int)
@@ -36,15 +38,17 @@ enum Router: URLRequestConvertible {
     
     private var method: HTTPMethod {
         switch self {
-        case .kakaoLogin, .appleLogin, .emailLogin, .emailValidate, .register, .makeWorkSpace, .createChannel, .postChatting:
+        case .deviceToken, .kakaoLogin, .appleLogin, .emailLogin, .emailValidate, .register, .makeWorkSpace, .createChannel, .postChatting:
             return .post
-        case .refresh, .getWorkSpaceList, .getOneWorkSpaceList, .getMyProfile, .getChannelList, .getDmList, .getAllMyChannel, .getAllChannel, .getChannelChatting, .getOneChannel:
+        case .refresh, .getWorkSpaceList, .getOneWorkSpaceList, .getMyProfile, .getChannelList, .unreadChatting, .getDmList, .getAllMyChannel, .getAllChannel, .getChannelChatting, .getOneChannel:
             return .get
         }
     }
     
     private var path: String {
         switch self {
+        case .deviceToken:
+            return "v1/users/deviceToken"
         case .kakaoLogin:
             return "/v1/users/login/kakao"
         case .appleLogin:
@@ -67,6 +71,8 @@ enum Router: URLRequestConvertible {
             return "v1/users/my"
         case .getChannelList(let id):
             return "v1/workspaces/\(id)/channels"
+        case .unreadChatting(let id, let name, _):
+            return "v1/workspaces/\(id)/channels/\(name)/unreads"
         case .getDmList(let id):
             return "v1/workspaces/\(id)/dms"
         case .createChannel(let id, _, _):
@@ -86,7 +92,7 @@ enum Router: URLRequestConvertible {
     
     private var header: HTTPHeaders {
         switch self {
-        case .kakaoLogin, .appleLogin, .emailLogin, .emailValidate, .register:
+        case .deviceToken, .kakaoLogin, .appleLogin, .emailLogin, .emailValidate, .register:
             return ["Content-Type": "application/json",
                     "SesacKey": "\(APIKey.apiKey)"]
         case .makeWorkSpace, .postChatting:
@@ -98,7 +104,7 @@ enum Router: URLRequestConvertible {
                     "RefreshToken": KeyChain.shared.read(key: "refresh") ?? "",
                     "Authorization": KeyChain.shared.read(key: "access") ?? "",
                     "SesacKey": "\(APIKey.apiKey)"]
-        case .getWorkSpaceList, .getOneWorkSpaceList, .getMyProfile, .getChannelList, .getDmList, .createChannel, .getAllChannel, .getAllMyChannel, .getChannelChatting, .getOneChannel:
+        case .getWorkSpaceList, .getOneWorkSpaceList, .getMyProfile, .getChannelList, .unreadChatting, .getDmList, .createChannel, .getAllChannel, .getAllMyChannel, .getChannelChatting, .getOneChannel:
             return ["Content-Type": "application/json",
                     "Authorization": KeyChain.shared.read(key: "access")!,
                     "SesacKey": "\(APIKey.apiKey)"]
@@ -107,13 +113,17 @@ enum Router: URLRequestConvertible {
     
     private var parameters: Parameters? {
         switch self {
-        case .kakaoLogin(let access, let refresh):
+        case .deviceToken(let token):
+            return ["deviceToken": token]
+            
+            
+        case .kakaoLogin(let access, let device):
             return ["oauthToken": access,
-                    "deviceToken": refresh]
+                    "deviceToken": device ?? ""]
         case .appleLogin(let id, let name, let token):
             return ["idToken": id,
                     "nickname": name,
-                    "deviceToken": token]
+                    "deviceToken": token ?? ""]
         case .emailLogin(let email, let pw, let token):
             return ["email": email,
                     "password": pw,
