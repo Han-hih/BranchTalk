@@ -48,12 +48,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneWillEnterForeground(_ scene: UIScene) {
         print("다시 돌아옴")
-        SocketIOManager.shared.connectSocket(channelID: UserDefaults.standard.integer(forKey: "channelID"))
+//        SocketIOManager.shared.connectSocket(channelID: UserDefaults.standard.integer(forKey: "channelID"))
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
         print("백그라운드로 들어감")
-        SocketIOManager.shared.disconnectSocket()
+//        SocketIOManager.shared.disconnectSocket()
     }
 
 
