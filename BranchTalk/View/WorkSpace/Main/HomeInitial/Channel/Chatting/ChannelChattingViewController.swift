@@ -294,9 +294,19 @@ extension ChannelChattingViewController: UITableViewDelegate, UITableViewDataSou
             chat: chat.chatText ?? "",
             time: chat.time.toString()
         )
-
+      
         let images: [String] = chat.chatFiles.map { $0 }
-        cell.imageLayout(images)
+        if images.count == 0 {
+            cell.firstSectionStackView.isHidden = true
+            cell.secondSectionStackView.isHidden = true
+            cell.imageStackView.isHidden = true
+        } else {
+            cell.firstSectionStackView.isHidden = false
+            cell.secondSectionStackView.isHidden = false
+            cell.imageStackView.isHidden = false
+            cell.imageLayout(images)
+            
+        }
         
         return cell
     }
