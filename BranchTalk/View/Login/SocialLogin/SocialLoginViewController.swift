@@ -162,7 +162,7 @@ extension SocialLoginViewController: ASAuthorizationControllerDelegate {
                     api: .appleLogin(
                         idToken: UserDefaults.standard.string(forKey: "User") ?? "",
                         nickname: UserDefaults.standard.string(forKey: "nickname") ?? "",
-                        deviceToken: ""
+                        deviceToken: UserDefaults.standard.string(forKey: "FireBaseToken") ?? ""
                     )) { result in
                         switch result {
                         case .success(let response):

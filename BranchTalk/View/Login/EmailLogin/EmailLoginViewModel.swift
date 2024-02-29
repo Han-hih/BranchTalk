@@ -19,7 +19,7 @@ class EmailLoginViewModel: ViewModelType {
             api: .emailLogin(
                 email: email,
                 pw: pw,
-                deviceToken: ""
+                deviceToken: UserDefaults.standard.string(forKey: "FireBaseToken") ?? ""
             )) { result in
                 switch result {
                 case .success(let response):
