@@ -55,4 +55,14 @@ struct GetChannel: Decodable, Hashable {
     }
 }
 
-
+struct billingResult: Decodable {
+    let billingID, amount, sesacCoin: Int
+    let success: Bool
+    let merchantuID, createdAt: String
+    
+    enum CodingKeys: String, CodingKey {
+        case billingID = "billing_id"
+        case merchantuID = "merchant_uid"
+        case amount, sesacCoin, success, createdAt
+    }
+}

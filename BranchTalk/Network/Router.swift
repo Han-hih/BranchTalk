@@ -30,6 +30,7 @@ enum Router: URLRequestConvertible {
     case getChannelChatting(cursor_date: String?, name: String, id: Int)
     case getOneChannel(name: String, id: Int)
     case postChatting(name: String, id: Int, ChatRequestBody)
+    case coinValidation(imp: String, mer: String)
     
     private var baseURL: URL {
         guard let url = URL(string: APIKey.baseURL) else { fatalError() }
@@ -38,7 +39,7 @@ enum Router: URLRequestConvertible {
     
     private var method: HTTPMethod {
         switch self {
-        case .deviceToken, .kakaoLogin, .appleLogin, .emailLogin, .emailValidate, .register, .makeWorkSpace, .createChannel, .postChatting:
+        case .deviceToken, .kakaoLogin, .appleLogin, .emailLogin, .emailValidate, .register, .makeWorkSpace, .createChannel, .postChatting, .coinValidation:
             return .post
         case .refresh, .getWorkSpaceList, .getOneWorkSpaceList, .getMyProfile, .getChannelList, .unreadChatting, .getDmList, .getAllMyChannel, .getAllChannel, .getChannelChatting, .getOneChannel:
             return .get
@@ -87,12 +88,14 @@ enum Router: URLRequestConvertible {
             return "/v1/workspaces/\(id)/channels/\(name)"
         case .postChatting(let name, let id, _):
             return "/v1/workspaces/\(id)/channels/\(name)/chats"
+        case .coinValidation:
+            return "/v1/store/pay/validation"
         }
     }
     
     private var header: HTTPHeaders {
         switch self {
-        case .deviceToken, .kakaoLogin, .appleLogin, .emailLogin, .emailValidate, .register:
+        case .deviceToken, .kakaoLogin, .appleLogin, .emailLogin, .emailValidate, .register, .coinValidation:
             return ["Content-Type": "application/json",
                     "SesacKey": "\(APIKey.apiKey)"]
         case .makeWorkSpace, .postChatting:
@@ -115,8 +118,6 @@ enum Router: URLRequestConvertible {
         switch self {
         case .deviceToken(let token):
             return ["deviceToken": token]
-            
-            
         case .kakaoLogin(let access, let device):
             return ["oauthToken": access,
                     "deviceToken": device ?? ""]
@@ -139,6 +140,9 @@ enum Router: URLRequestConvertible {
             return ["cursor_date": cursor,
                     "name": name,
                     "workspace_id": id]
+        case .coinValidation(let imp, let mer):
+            return ["imp_uid": imp,
+                    "merchant_uid": mer]
         default:
             return nil
         }
