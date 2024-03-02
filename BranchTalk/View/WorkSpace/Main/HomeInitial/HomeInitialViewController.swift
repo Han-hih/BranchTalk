@@ -135,7 +135,7 @@ final class HomeInitialViewController: BaseViewController, NetworkDelegate {
     }
     
     private func setDataSource() {
-        dataSource = UITableViewDiffableDataSource<Section, Item>(tableView: tableView, cellProvider: { [weak self] tableView, indexPath, item in
+        dataSource = UITableViewDiffableDataSource<Section, Item>(tableView: tableView, cellProvider: { tableView, indexPath, item in
             switch item {
             case .channelList(let list):
                 let cell = tableView.dequeueReusableCell(withIdentifier: ChannelTableViewCell.identifier, for: indexPath) as? ChannelTableViewCell
