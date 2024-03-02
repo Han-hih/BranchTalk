@@ -10,6 +10,7 @@ import KakaoSDKCommon
 import KakaoSDKAuth
 import Firebase
 import FirebaseMessaging
+import iamport_ios
 
 
 import Alamofire
@@ -43,6 +44,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIViewController.swizzleMethod()
         
+        return true
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        Iamport.shared.receivedURL(url)
         return true
     }
     
