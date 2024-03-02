@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8001C3A02B91D44500624681 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8001C39F2B91D44500624681 /* ProfileViewController.swift */; };
+		8001C3A22B91D45800624681 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8001C3A12B91D45800624681 /* ProfileTableViewCell.swift */; };
+		8001C3A62B91D6A200624681 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8001C3A52B91D6A200624681 /* ProfileView.swift */; };
 		8007410C2B4EE07500CCB95C /* Interceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8007410B2B4EE07500CCB95C /* Interceptor.swift */; };
 		8007B0D32B6272D900885AF8 /* AddChannelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8007B0D22B6272D900885AF8 /* AddChannelViewController.swift */; };
 		8007B0D52B62748100885AF8 /* AddChannelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8007B0D42B62748100885AF8 /* AddChannelViewModel.swift */; };
@@ -42,6 +45,10 @@
 		8047E84A2B4544020018254B /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8047E8492B4544020018254B /* RegisterViewController.swift */; };
 		8047E84E2B456B940018254B /* CustomRegisterTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8047E84D2B456B940018254B /* CustomRegisterTextField.swift */; };
 		804D63BB2B65307B0038C9F9 /* UIimageResize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804D63BA2B65307B0038C9F9 /* UIimageResize.swift */; };
+		804F36922B91E78800A763E9 /* CoinShopViewConroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804F36912B91E78800A763E9 /* CoinShopViewConroller.swift */; };
+		804F36942B91E84A00A763E9 /* CoinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804F36932B91E84A00A763E9 /* CoinTableViewCell.swift */; };
+		804F36972B91EF9700A763E9 /* iamport-ios in Frameworks */ = {isa = PBXBuildFile; productRef = 804F36962B91EF9700A763E9 /* iamport-ios */; };
+		804F36992B91FAC500A763E9 /* CoinShopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804F36982B91FAC500A763E9 /* CoinShopViewModel.swift */; };
 		807E3A9D2B4F17C500587A33 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807E3A9C2B4F17C500587A33 /* LaunchViewController.swift */; };
 		807E3A9F2B4FAC4100587A33 /* HomeInitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807E3A9E2B4FAC4100587A33 /* HomeInitialViewController.swift */; };
 		80802A972B468B4E008F1723 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802A962B468B4E008F1723 /* BaseViewController.swift */; };
@@ -103,6 +110,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8001C39F2B91D44500624681 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		8001C3A12B91D45800624681 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
+		8001C3A52B91D6A200624681 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		8007410B2B4EE07500CCB95C /* Interceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interceptor.swift; sourceTree = "<group>"; };
 		8007B0D22B6272D900885AF8 /* AddChannelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChannelViewController.swift; sourceTree = "<group>"; };
 		8007B0D42B62748100885AF8 /* AddChannelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChannelViewModel.swift; sourceTree = "<group>"; };
@@ -138,6 +148,9 @@
 		8047E8492B4544020018254B /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		8047E84D2B456B940018254B /* CustomRegisterTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRegisterTextField.swift; sourceTree = "<group>"; };
 		804D63BA2B65307B0038C9F9 /* UIimageResize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIimageResize.swift; sourceTree = "<group>"; };
+		804F36912B91E78800A763E9 /* CoinShopViewConroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinShopViewConroller.swift; sourceTree = "<group>"; };
+		804F36932B91E84A00A763E9 /* CoinTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinTableViewCell.swift; sourceTree = "<group>"; };
+		804F36982B91FAC500A763E9 /* CoinShopViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinShopViewModel.swift; sourceTree = "<group>"; };
 		807E3A9C2B4F17C500587A33 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		807E3A9E2B4FAC4100587A33 /* HomeInitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInitialViewController.swift; sourceTree = "<group>"; };
 		80802A962B468B4E008F1723 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -208,12 +221,24 @@
 				800A05532B5265350010505A /* SideMenu in Frameworks */,
 				80A9B5062B8305B70016D1FA /* Realm in Frameworks */,
 				80CC39A22B443E49009E0818 /* KakaoSDKAuth in Frameworks */,
+				804F36972B91EF9700A763E9 /* iamport-ios in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8001C39E2B91D42A00624681 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				804F36902B91E76100A763E9 /* Coin */,
+				8001C39F2B91D44500624681 /* ProfileViewController.swift */,
+				8001C3A12B91D45800624681 /* ProfileTableViewCell.swift */,
+				8001C3A52B91D6A200624681 /* ProfileView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		800ED5092B464AC1001A7ECC /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -334,6 +359,16 @@
 				80802AA42B471013008F1723 /* RegisterViewModel.swift */,
 			);
 			path = Register;
+			sourceTree = "<group>";
+		};
+		804F36902B91E76100A763E9 /* Coin */ = {
+			isa = PBXGroup;
+			children = (
+				804F36912B91E78800A763E9 /* CoinShopViewConroller.swift */,
+				804F36982B91FAC500A763E9 /* CoinShopViewModel.swift */,
+				804F36932B91E84A00A763E9 /* CoinTableViewCell.swift */,
+			);
+			path = Coin;
 			sourceTree = "<group>";
 		};
 		80802A952B468B44008F1723 /* Base */ = {
@@ -535,8 +570,9 @@
 		80FFA2672B55710400ED6995 /* HomeInitial */ = {
 			isa = PBXGroup;
 			children = (
-				807E3A9E2B4FAC4100587A33 /* HomeInitialViewController.swift */,
 				80D696D92B55971F00C1761E /* HomeInitialViewModel.swift */,
+				807E3A9E2B4FAC4100587A33 /* HomeInitialViewController.swift */,
+				8001C39E2B91D42A00624681 /* Profile */,
 				80F80CC72B5E4EE60077654A /* Dm */,
 				8020C9672B5999E200783221 /* Channel */,
 			);
@@ -575,6 +611,7 @@
 				80A9B5072B8305B70016D1FA /* RealmSwift */,
 				80F57E1B2B8B6FF8000C3530 /* SocketIO */,
 				8088EEE42B8F7BF700AE8FFD /* FirebaseMessaging */,
+				804F36962B91EF9700A763E9 /* iamport-ios */,
 			);
 			productName = BranchTalk;
 			productReference = 80CC396E2B4430BA009E0818 /* BranchTalk.app */;
@@ -616,6 +653,7 @@
 				80A9B5042B8305B70016D1FA /* XCRemoteSwiftPackageReference "realm-swift" */,
 				80F57E1A2B8B6FF8000C3530 /* XCRemoteSwiftPackageReference "socket.io-client-swift" */,
 				8088EEDF2B8F7BF600AE8FFD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				804F36952B91EF9600A763E9 /* XCRemoteSwiftPackageReference "iamport-ios" */,
 			);
 			productRefGroup = 80CC396F2B4430BA009E0818 /* Products */;
 			projectDirPath = "";
@@ -659,6 +697,7 @@
 				80F57E262B8E2F0B000C3530 /* AuthentificationManager.swift in Sources */,
 				802B14412B6F7E730051B9AD /* ChannelSettingViewModel.swift in Sources */,
 				80F80CC62B5D5C760077654A /* ChannelFooterView.swift in Sources */,
+				804F36942B91E84A00A763E9 /* CoinTableViewCell.swift in Sources */,
 				80F80CCB2B5E4F060077654A /* DmHeaderView.swift in Sources */,
 				80FFA2692B55712C00ED6995 /* ChannelTableViewCell.swift in Sources */,
 				80F57E172B8B16CC000C3530 /* EmailLoginViewController.swift in Sources */,
@@ -679,17 +718,21 @@
 				802B143B2B6F4FD60051B9AD /* ChannelInfo.swift in Sources */,
 				802837CB2B4BDE32004CB167 /* CreateWorkSpaceViewModel.swift in Sources */,
 				80F57E2E2B8E4C02000C3530 /* BaseView.swift in Sources */,
+				804F36922B91E78800A763E9 /* CoinShopViewConroller.swift in Sources */,
 				80CC39722B4430BA009E0818 /* AppDelegate.swift in Sources */,
 				803AD1192B6B36BB00E8E8D9 /* ChannelChattingViewController.swift in Sources */,
 				80C629782B61349C00CBFF97 /* toDateAndString.swift in Sources */,
 				80CC39A82B443FE0009E0818 /* APIKey.swift in Sources */,
 				802837C92B4BDE20004CB167 /* CreateWorkSpaceViewController.swift in Sources */,
 				80802A9D2B46CDAC008F1723 /* KeyChain.swift in Sources */,
+				8001C3A62B91D6A200624681 /* ProfileView.swift in Sources */,
 				800A05552B5265AD0010505A /* HomeSideMenuNavigation.swift in Sources */,
+				804F36992B91FAC500A763E9 /* CoinShopViewModel.swift in Sources */,
 				803E5E122B6A56320016985F /* CustomAlertViewController.swift in Sources */,
 				80802AA52B471013008F1723 /* RegisterViewModel.swift in Sources */,
 				80F57E192B8B1EBB000C3530 /* EmailLoginViewModel.swift in Sources */,
 				803E5E0E2B66426C0016985F /* FindChannelListTableViewCell.swift in Sources */,
+				8001C3A22B91D45800624681 /* ProfileTableViewCell.swift in Sources */,
 				80C6297D2B61374B00CBFF97 /* MyInfo.swift in Sources */,
 				802B143D2B6F5A510051B9AD /* ChannelInfoCollectionViewCell.swift in Sources */,
 				803AD11B2B6D088100E8E8D9 /* ChannelChatting.swift in Sources */,
@@ -717,6 +760,7 @@
 				80A9B5032B8305740016D1FA /* ChatListTable.swift in Sources */,
 				80CC39AE2B4447B9009E0818 /* Fonts.swift in Sources */,
 				80CC39742B4430BA009E0818 /* SceneDelegate.swift in Sources */,
+				8001C3A02B91D44500624681 /* ProfileViewController.swift in Sources */,
 				80802AA72B471059008F1723 /* ViewModelType.swift in Sources */,
 				807E3A9F2B4FAC4100587A33 /* HomeInitialViewController.swift in Sources */,
 			);
@@ -961,6 +1005,14 @@
 				minimumVersion = 6.5.0;
 			};
 		};
+		804F36952B91EF9600A763E9 /* XCRemoteSwiftPackageReference "iamport-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/iamport/iamport-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.1;
+			};
+		};
 		8088EEDF2B8F7BF600AE8FFD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -1048,6 +1100,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 800A05512B5265350010505A /* XCRemoteSwiftPackageReference "SideMenu" */;
 			productName = SideMenu;
+		};
+		804F36962B91EF9700A763E9 /* iamport-ios */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 804F36952B91EF9600A763E9 /* XCRemoteSwiftPackageReference "iamport-ios" */;
+			productName = "iamport-ios";
 		};
 		8088EEE42B8F7BF700AE8FFD /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;

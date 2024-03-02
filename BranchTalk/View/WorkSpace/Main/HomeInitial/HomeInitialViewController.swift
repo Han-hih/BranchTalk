@@ -90,11 +90,9 @@ final class HomeInitialViewController: BaseViewController, NetworkDelegate {
     private var dmList: [GetDmList] = []
     
     private let workSpaceID = UserDefaultsValue.shared.workSpaceID
+    let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
     
     var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
-    
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,29 +104,7 @@ final class HomeInitialViewController: BaseViewController, NetworkDelegate {
         dmTrigger.onNext(())
         setDataSource()
     }
-    
-    func load() -> Data? {
-        
-        // 1. 불러올 파일 이름
-        let fileNm: String = "mockTest"
-        // 2. 불러올 파일의 확장자명
-        let extensionType = "json"
-        
-        // 3. 파일 위치
-        guard let fileLocation = Bundle.main.url(forResource: fileNm, withExtension: extensionType) else { return nil }
-        
-        
-        do {
-            // 4. 해당 위치의 파일을 Data로 초기화하기
-            let data = try Data(contentsOf: fileLocation)
-            print(data)
-          
-            return data
-        } catch {
-            // 5. 잘못된 위치나 불가능한 파일 처리 (오늘은 따로 안하기)
-            return nil
-        }
-    }
+
     override func bind() {
         super.bind()
         let input = HomeInitialViewModel.Input(channelTrigger: channelTrigger.asObservable(), dmTrigger: dmTrigger.asObservable())
@@ -159,7 +135,7 @@ final class HomeInitialViewController: BaseViewController, NetworkDelegate {
     }
     
     private func setDataSource() {
-        dataSource = UITableViewDiffableDataSource<Section, Item>(tableView: tableView, cellProvider: { [weak self] tableView, indexPath, item in
+        dataSource = UITableViewDiffableDataSource<Section, Item>(tableView: tableView, cellProvider: { tableView, indexPath, item in
             switch item {
             case .channelList(let list):
                 let cell = tableView.dequeueReusableCell(withIdentifier: ChannelTableViewCell.identifier, for: indexPath) as? ChannelTableViewCell
@@ -174,16 +150,6 @@ final class HomeInitialViewController: BaseViewController, NetworkDelegate {
         })
         
         snapshot.appendSections(Section.allCases)
-        
-        if let jsonData = load() {
-            if let jsonDatas = try? JSONDecoder().decode([GetDmList].self, from: jsonData) {
-                print(jsonDatas)
-                let itemList = jsonDatas.map { Item.dmList($0) }
-                snapshot.appendItems(itemList, toSection: .dm)
-            }
-        }
-        
-        
        
         dataSource?.apply(snapshot)
         
@@ -273,14 +239,17 @@ final class HomeInitialViewController: BaseViewController, NetworkDelegate {
     @objc func spaceImageTapped() {
         
         let vc = SideMenuViewController()
+        
         vc.delegate = self
         
         let menu = HomeSideMenuNavigation(rootViewController: vc)
+        menu.presentationStyle.backgroundColor = UIColor.black.withAlphaComponent(1)
         present(menu, animated: true)
         
     }
     @objc func profileImageTapped() {
-        
+        let vc = ProfileViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func headerTapped() {
@@ -401,4 +370,23 @@ extension HomeInitialViewController: UITableViewDelegate{
         }
         else { return UIView() }
     }
+}
+
+extension HomeInitialViewController: SideMenuNavigationControllerDelegate {
+    
+    func sideMenuWillAppear(menu: SideMenuNavigationController, animated: Bool) {
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(blurEffectView)
+        self.tabBarController?.tabBar.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+        self.tabBarController?.tabBar.isHidden = true
+        
+    }
+    
+    func sideMenuWillDisappear(menu: SideMenuNavigationController, animated: Bool) {
+        self.tabBarController?.tabBar.backgroundColor = .white
+        blurEffectView.removeFromSuperview()
+        self.tabBarController?.tabBar.isHidden = false
+    }
+
 }

@@ -292,7 +292,7 @@ extension ChannelChattingViewController: UITableViewDelegate, UITableViewDataSou
             profile: chat.user?.userImage ?? "",
             name: chat.user?.userName ?? "",
             chat: chat.chatText ?? "",
-            time: chat.time.toString()
+            time: chat.time
         )
       
         let images: [String] = chat.chatFiles.map { $0 }
