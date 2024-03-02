@@ -114,6 +114,7 @@ final class ChattingTableViewCell: UITableViewCell {
         let lb = CustomCaptionLabel()
         lb.font = Font.caption2()
         lb.textColor = Colors.TextSecondary.CutsomColor
+        lb.numberOfLines = 0
         lb.text = "03:12 오전"
         return lb
     }()
@@ -204,7 +205,7 @@ final class ChattingTableViewCell: UITableViewCell {
         }
     }
     
-    func configure(profile: String, name: String, chat: String, time: String) {
+    func configure(profile: String, name: String, chat: String, time: Date) {
         let url = URL(string: profile)
         profileImage.kf.setImage(with: url, options: [.requestModifier(KFModifier.shared.modifier)])
         nameLabel.text = name
@@ -213,15 +214,24 @@ final class ChattingTableViewCell: UITableViewCell {
         } else {
             speechBubble.text = chat
         }
+        
+        let chatTime = time
         let currentDate = Date()
-        guard let chatTime = time.toDate() else { return }
         
        if Calendar.current.isDate(chatTime, inSameDayAs: currentDate) {
-           timeLabel.text = time.toChannelCreatedTime()
+           timeLabel.text = dateString(from: time, format: "hh:mm a")
        } else {
-           timeLabel.text = time.backChattingString()
+           timeLabel.text = dateString(from: time, format: "MM/dd\nhh:mm a")
        }
         
+    }
+    
+    func dateString(from date: Date, format: String) -> String {
+        let dateFormatter = DateFormatter()
+ 
+        dateFormatter.dateFormat = format
+        
+        return dateFormatter.string(from: date)
     }
     
     func imageLayout(_ image: [String]) {
