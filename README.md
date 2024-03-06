@@ -13,21 +13,20 @@
 <img src="https://github.com/Han-hih/BranchTalk/assets/109748526/d8d1d0e3-33c9-452b-92f8-eac4572b8311" width="200" height="400">
 <img src="https://github.com/Han-hih/BranchTalk/assets/109748526/94ee427a-e4a9-4a5e-8522-6e19bd9305b0" width="200" heigth="400">
 
+- 애플 로그인 / 카카오 로그인을 사용할 수 있습니다.
+- 회원가입시 입력값에 대한 유효성 검증과 정규식을 활용한 회원가입 로직을 만들었습니다.
+
 워크스페이스, 채널
 
 <img src="https://github.com/Han-hih/BranchTalk/assets/109748526/e88516e5-1e12-405c-a3e0-78dfd2d0e071" width="200" height="400">
 <img src="https://github.com/Han-hih/BranchTalk/assets/109748526/4f2fe399-a220-485a-90c3-37698b0d3c84" width="200" height="400">
 <img src="https://github.com/Han-hih/BranchTalk/assets/109748526/bb903b43-9a2d-439a-a1c8-03b1d2a9806a" width="200" height="400">
 
-
 채팅, 알림기능 
-
 
 <img src="https://github.com/Han-hih/BranchTalk/assets/109748526/886aaeed-0a19-41a5-9139-a03a92b5a6b3" width="200" height="400">
 <img src="https://github.com/Han-hih/BranchTalk/assets/109748526/faf866d5-3cd2-4ccc-982e-218b25566622" width="200" height="400">
 <img src="https://github.com/Han-hih/BranchTalk/assets/109748526/950f5e54-277e-4a37-8761-727f0b1aac53" width="200" height="400">
-
-
 
 프로필, 인앱결제 
 
@@ -47,7 +46,7 @@
 - 회원가입 / 소셜 로그인
 - 워크스페이스 / 채널 생성 및 조회
 - 실시간 채팅 / 채팅 알림 
-- 인앱 결제 
+- PG결제를 통해 코인 충전
 
 ## 기술 스택
 - UIKit, PhotosUI,
@@ -64,11 +63,11 @@
 - repository pattern을 이용한 Realm 사용, 데이터베이스 모듈화
 - SocketIO 기반 양방향 통신을 통해 **실시간 채팅** 기능
 - Firebase Cloud Messaging을 이용해 Push Notification 수신
-- Iamport를 활용한 IAP(인앱 결제)구현
+- PG(Payment Gateway)를 활용한 **외부결제** 및 코인 충전 
 
 
 ## 트러블 슈팅
-### 1. 불필요한 네트워크 통신을 방지하기 위해 realm에서 마지막 날짜를 가져온 후 cursorDate를 업데이트 시켜줘야 했습니다.
+### 1. 불필요한 네트워크 통신을 방지하기 위해 Realm에서 마지막 날짜를 가져온 후 cursorDate를 업데이트 시켜줘야 했습니다.
 #### 해결방법: RxSwift의 **do(onNext:)** 메서드를 이용해서 realm에서 먼저 데이터를 받아온 뒤 cursorDate를 업데이트 해주고 flatMapLatest를 사용해 네트워크 통신을 해서 마지막 날짜 이후로만 채팅을 받아오도록 설정해서 불필요한 네트워크 콜을 방지했습니다.
 ```swift
 input.chatTrigger
@@ -105,4 +104,6 @@ input.chatTrigger
                 })
                 .disposed(by: disposeBag)
 ```
-       
+
+### 2. 백그라운드에 진입했을 때 소켓이 해제가 안 되어서 불필요한 네트워크 통신이 발생했습니다.
+#### 해결방법: sceneDelegate의 sceneDidEnterBackground와 sceneWillEnterForeground메서드를 이용해 백그라운드에 진입했을 때, 다시 돌아왔을 때에 대응을 해줬습니다.
